@@ -32,7 +32,7 @@ public class MainApp extends Application {
             loader.setController(new FXMLMainAppController());
             Pane root = loader.load();
             //-- 2) Create and set the scene to the stage.
-            Scene scene = new Scene(root, 500, 300);
+            Scene scene = new Scene(root, 500, 500);
             primaryStage.setScene(scene);
             primaryStage.sizeToScene();
             // We just need to bring the main window to front.

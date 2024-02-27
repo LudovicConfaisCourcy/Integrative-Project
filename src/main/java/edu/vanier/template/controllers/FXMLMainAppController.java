@@ -25,7 +25,7 @@ public class FXMLMainAppController {
     }
 
     private void handleClickMe() {
-        System.out.println("Click me llllllcalled.");
+        System.out.println("Click me!");
         logger.info("Click me button has been pressed...");        
     }
 }
