@@ -26,16 +26,15 @@ public class MainApp extends Application {
     public void start(Stage primaryStage) {
         try {
             logger.info("Bootstrapping the application...");
-            //-- 1) Load the scene graph from the specified FXML file and 
-            // associate it with its FXML controller.
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/MainApp_layout.fxml"));
+            
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/IntroScene.fxml"));
             loader.setController(new FXMLMainAppController());
             Pane root = loader.load();
-            //-- 2) Create and set the scene to the stage.
-            Scene scene = new Scene(root, 500, 500);
+        
+            Scene scene = new Scene(root,600, 400);
             primaryStage.setScene(scene);
             primaryStage.sizeToScene();
-            // We just need to bring the main window to front.
+        
             primaryStage.setAlwaysOnTop(true);            
             primaryStage.show();
             primaryStage.setAlwaysOnTop(false);
