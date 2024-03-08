@@ -26,17 +26,14 @@ public class MainApp extends Application {
     public void start(Stage primaryStage) {
         try {
             logger.info("Bootstrapping the application...");
-            //-- 1) Load the scene graph from the specified FXML file and 
-            // associate it with its FXML controller.
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/MainApp_layout.fxml"));
-            loader.setController(new FXMLMainAppController());
-            Pane root = loader.load();
-            //-- 2) Create and set the scene to the stage.
+            Pane root = loadFXML("/fxml/MainApp_layout.fxml", new FXMLMainAppController()).load();
+
+            
             Scene scene = new Scene(root, 500, 300);
             primaryStage.setScene(scene);
             primaryStage.sizeToScene();
             // We just need to bring the main window to front.
-            primaryStage.setAlwaysOnTop(true);            
+            primaryStage.setAlwaysOnTop(true);
             primaryStage.show();
             primaryStage.setAlwaysOnTop(false);
         } catch (IOException ex) {
@@ -47,5 +44,12 @@ public class MainApp extends Application {
     public static void main(String[] args) {
         System.out.println("Hello");
         launch(args);
+    }
+
+    //Loads the fxml
+    public FXMLLoader loadFXML(String fxml, Object controller) {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
+        loader.setController(controller);
+        return loader;
     }
 }
