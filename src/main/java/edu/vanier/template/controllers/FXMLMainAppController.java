@@ -12,7 +12,10 @@ import org.slf4j.LoggerFactory;
 /**
  * Controller class of the MainApp's UI.
  *
- * @author frostybee
+ * @authors
+ *  Ludovic Confais Courcy
+ *  Anton Lisunov
+ *  Shyam Patel
  */
 public class FXMLMainAppController {
 
@@ -27,10 +30,8 @@ public class FXMLMainAppController {
     Button btnQuit;
     @FXML
     Label welcomeLabel;
-    @FXML
-    Label welcomeLabel1;
- 
-    @FXML
+  
+     @FXML
     public void initialize() {
         logger.info("Initializing MainAppController...");
         btnPlay.setOnAction((event) -> {
@@ -42,34 +43,50 @@ public class FXMLMainAppController {
         btnCredits.setOnAction((event) -> {
             handleClickMeCredits();      
         });
-        
+        btnQuit.setOnAction((event) -> {
+            handleClickMeQuit();      
+        });    
     }
-    @FXML
+    
+     @FXML
     private void handleClickMePlay() {
-        logger.info("Clicked Play Button");    
-         VBox mainVbox = new VBox();
+        logger.info("Clicked Play Button");
+        
+        VBox mainVbox = new VBox();
         Scene secondScene = new Scene(mainVbox);
         Stage secondStage = new Stage();
         secondStage.setScene(secondScene);
         secondStage.setTitle("Play");
         secondStage.show();
     }
+    
+     @FXML
     private void handleClickMeSettings() {
-        logger.info("Clicked Play Button");    
-         VBox mainVbox = new VBox();
+        logger.info("Clicked Settings Button");    
+        
+        VBox mainVbox = new VBox();
         Scene secondScene = new Scene(mainVbox);
         Stage secondStage = new Stage();
         secondStage.setScene(secondScene);
         secondStage.setTitle("Settings");
         secondStage.show();
     }
+    
+     @FXML
     private void handleClickMeCredits() {
-        logger.info("Clicked Play Button");    
-         VBox mainVbox = new VBox();
+        logger.info("Clicked Credits Button");    
+        
+        VBox mainVbox = new VBox();
         Scene secondScene = new Scene(mainVbox);
         Stage secondStage = new Stage();
         secondStage.setScene(secondScene);
         secondStage.setTitle("Credits");
         secondStage.show();
+    }
+    
+     @FXML
+    private void handleClickMeQuit() {
+        logger.info("Clicked Quit Button"); 
+
     }
 }
