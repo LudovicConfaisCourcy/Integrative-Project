@@ -1,10 +1,14 @@
 package edu.vanier.template.controllers;
 
+import java.io.IOException;
+import java.util.logging.Level;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,40 +38,69 @@ public class FXMLMainAppController {
     public void initialize() {
         logger.info("Initializing MainAppController...");
         btnPlay.setOnAction((event) -> {
-            handleClickMePlay();      
+            try {      
+                handleClickMePlay();
+            } catch (IOException ex) {
+                
+            }
         });
         btnSettings.setOnAction((event) -> {
-            handleClickMeSettings();      
+            try {      
+                handleClickMeSettings();
+            } catch (IOException ex) {
+                logger.error(ex.getMessage(), ex);
+            }
         });
         btnCredits.setOnAction((event) -> {
-            handleClickMeCredits();      
+            try {      
+                handleClickMeCredits();
+            } catch (IOException ex) {
+                logger.error(ex.getMessage(), ex);
+            }
         });
-        
+        btnCredits.setOnAction((event) -> {
+            
+        });
     }
     @FXML
-    private void handleClickMePlay() {
+    private void handleClickMePlay() throws IOException {
         logger.info("Clicked Play Button");    
-         VBox mainVbox = new VBox();
-        Scene secondScene = new Scene(mainVbox);
+        
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/TetrisScene.fxml"));
+        loader.setController(new FXMLPlayController());
+        Pane root = loader.load();
+        
+        Scene secondScene = new Scene(root,600, 600);
         Stage secondStage = new Stage();
+        
         secondStage.setScene(secondScene);
         secondStage.setTitle("Play");
         secondStage.show();
     }
-    private void handleClickMeSettings() {
-        logger.info("Clicked Play Button");    
-         VBox mainVbox = new VBox();
-        Scene secondScene = new Scene(mainVbox);
+    private void handleClickMeSettings() throws IOException {
+        logger.info("Clicked Setting Button");   
+        
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/SettingsScene.fxml"));
+        loader.setController(new FXMLSettingsController());
+        Pane root = loader.load();
+        
+        Scene secondScene = new Scene(root,400, 400);
         Stage secondStage = new Stage();
+        
         secondStage.setScene(secondScene);
         secondStage.setTitle("Settings");
         secondStage.show();
     }
-    private void handleClickMeCredits() {
-        logger.info("Clicked Play Button");    
-         VBox mainVbox = new VBox();
-        Scene secondScene = new Scene(mainVbox);
+    private void handleClickMeCredits() throws IOException {
+        logger.info("Clicked Credit Button");    
+        
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/CreditScene.fxml"));
+        loader.setController(new FXMLCreditsController());
+        Pane root = loader.load();
+        
+        Scene secondScene = new Scene(root,400, 400);
         Stage secondStage = new Stage();
+        
         secondStage.setScene(secondScene);
         secondStage.setTitle("Credits");
         secondStage.show();
