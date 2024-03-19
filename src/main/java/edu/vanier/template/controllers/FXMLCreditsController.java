@@ -1,6 +1,7 @@
 
 package edu.vanier.template.controllers;
 
+<<<<<<< HEAD
 import java.io.IOException;
 import java.util.logging.Level;
 import javafx.fxml.FXML;
@@ -15,4 +16,9 @@ import javafx.scene.control.Button;
  */
 public class FXMLCreditsController {
 
+=======
+
+public class FXMLCreditsController {
+    
+>>>>>>> Shyam
 }
