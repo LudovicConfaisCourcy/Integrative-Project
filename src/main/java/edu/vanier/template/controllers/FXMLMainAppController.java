@@ -113,6 +113,7 @@ public class FXMLMainAppController {
     
     @FXML
     private void handleClickMeQuit() {
+        System.out.println("hello");
         logger.info("Clicked Quit Button"); 
 
     }
