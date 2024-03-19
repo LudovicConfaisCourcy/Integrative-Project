@@ -26,13 +26,10 @@ public class MainApp extends Application {
     public void start(Stage primaryStage) {
         try {
             logger.info("Bootstrapping the application...");
-            Pane root = loadFXML("/fxml/MainApp_layout.fxml", new FXMLMainAppController()).load();
-
-            
-            Scene scene = new Scene(root, 500, 300);
+            Pane root = loadFXML("/fxml/IntroScene.fxml", new FXMLMainAppController()).load();
+            Scene scene = new Scene(root);
             primaryStage.setScene(scene);
             primaryStage.sizeToScene();
-            // We just need to bring the main window to front.
             primaryStage.setAlwaysOnTop(true);
             primaryStage.show();
             primaryStage.setAlwaysOnTop(false);

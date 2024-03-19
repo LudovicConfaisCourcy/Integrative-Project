@@ -66,18 +66,10 @@ public class FXMLMainAppController {
 
     @FXML
     private void handleClickMePlay() throws IOException {
-        logger.info("Clicked Play Button");
-        
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/TetrisScene.fxml"));
-        loader.setController(new FXMLPlayController());
-        Pane root = loader.load();
-        
-        Scene secondScene = new Scene(root);
-        Stage secondStage = new Stage();
-        
-        secondStage.setScene(secondScene);
-        secondStage.setTitle("Play");
-        secondStage.show();
+        Stage currentStage = (Stage) btnPlay.getScene().getWindow();
+        Pane root = loadFXML("/fxml/TetrisScene.fxml", new FXMLPlayController()).load();
+        Scene scene = new Scene(root);
+        currentStage.setScene(scene);
     }
  
     @FXML
@@ -116,5 +108,10 @@ public class FXMLMainAppController {
         System.out.println("hello");
         logger.info("Clicked Quit Button"); 
 
+    }
+     public FXMLLoader loadFXML(String fxml, Object controller) {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
+        loader.setController(controller);
+        return loader;
     }
 }
