@@ -1,6 +1,7 @@
 package edu.vanier.template.controllers;
 
 import java.io.IOException;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -25,13 +26,13 @@ public class FXMLMainAppController {
     Button btnCredits;
     @FXML
     Button btnQuit;
+
     @FXML
-    
     public void initialize() {
     }
 
     @FXML
-    void switchScenes(ActionEvent event) throws IOException {
+    public void switchScenes(ActionEvent event) throws IOException {
         Object clickButton = event.getSource();
         if (clickButton == btnPlay) {
             logger.info("Clicked Play Button");
@@ -41,12 +42,12 @@ public class FXMLMainAppController {
             switchScene("/fxml/SettingsScene.fxml", new FXMLSettingsController());
         } else if (clickButton == btnCredits) {
             logger.info("Clicked Credit Button");
-        switchScene("/fxml/CreditScene.fxml", new FXMLCreditsController());
+            switchScene("/fxml/CreditScene.fxml", new FXMLCreditsController());
         } else if (clickButton == btnQuit) {
             logger.info("Clicked Quit Button");
-
             Stage currentStage = (Stage) btnPlay.getScene().getWindow();
             currentStage.close();
+            Platform.exit();
 
         }
     }
@@ -67,5 +68,10 @@ public class FXMLMainAppController {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
         loader.setController(controller);
         return loader;
+    }
+
+    public void backToMenu() throws IOException {
+        logger.info("Returning back");
+        switchScene("/fxml/IntroScene.fxml", new FXMLMainAppController());
     }
 }
