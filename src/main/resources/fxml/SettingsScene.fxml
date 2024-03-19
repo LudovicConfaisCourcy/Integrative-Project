@@ -73,5 +73,29 @@
             <Line endX="100.0" />
          </children>
       </Group>
+      <Group fx:id="GroupTBlock" layoutX="109.0" layoutY="115.0">
+         <children>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f50000" height="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f50000" height="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" x="-50.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f50000" height="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" y="50.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f50000" height="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" x="50.0" />
+         </children>
+      </Group>
+      <Group fx:id="GroupSBlock" layoutX="125.0" layoutY="183.0">
+         <children>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#237201" height="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#237201" height="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" x="50.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#237201" height="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" x="-50.0" y="50.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#237201" height="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" y="50.0" />
+         </children>
+      </Group>
+      <Group fx:id="GroupZBlock" layoutX="100.0" layoutY="251.0">
+         <children>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6b4003" height="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6b4003" height="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" x="50.0" y="50.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6b4003" height="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" y="50.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6b4003" height="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" x="-50.0" />
+         </children>
+      </Group>
    </children>
 </AnchorPane>
