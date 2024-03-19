@@ -59,7 +59,11 @@ public class FXMLMainAppController {
             }
         });
         btnQuit.setOnAction((event) -> {
-            
+            try {      
+                handleClickMeQuit();
+            } catch (IOException ex) {
+                logger.error(ex.getMessage(), ex);
+            }
         });
     }
 
@@ -111,8 +115,8 @@ public class FXMLMainAppController {
     }
     
     @FXML
-    private void handleClickMeQuit() {
+    private void handleClickMeQuit() throws IOException {
         logger.info("Clicked Quit Button"); 
-
+        
     }
 }
