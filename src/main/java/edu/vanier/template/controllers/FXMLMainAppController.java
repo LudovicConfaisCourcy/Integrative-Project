@@ -118,5 +118,7 @@ public class FXMLMainAppController {
     private void handleClickMeQuit() throws IOException {
         logger.info("Clicked Quit Button"); 
         
+        Stage primaryStage = (Stage) btnQuit.getScene().getWindow();
+        primaryStage.close();
     }
 }
