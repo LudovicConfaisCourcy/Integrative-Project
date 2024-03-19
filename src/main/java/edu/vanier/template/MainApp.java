@@ -10,14 +10,7 @@ import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/**
- * This is a JavaFX project template to be used for creating GUI applications.
- * The JavaFX GUI framework (version: 20.0.2) is linked to this project in the
- * build.gradle file.
- * @link: https://openjfx.io/javadoc/20/
- * @see: /Build Scripts/build.gradle
- * @author Sleiman Rabah.
- */
+
 public class MainApp extends Application {
 
     private final static Logger logger = LoggerFactory.getLogger(MainApp.class);
