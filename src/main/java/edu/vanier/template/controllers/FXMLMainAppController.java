@@ -9,15 +9,11 @@ import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * @authors
- *  Ludovic Confais Courcy
- *  Anton Lisunov
- *  Shyam Patel
+ * @authors Ludovic Confais Courcy Anton Lisunov Shyam Patel
  */
 public class FXMLMainAppController {
 
@@ -32,93 +28,85 @@ public class FXMLMainAppController {
     Button btnQuit;
     @FXML
     Label welcomeLabel;
-  
+
     @FXML
     public void initialize() {
         logger.info("Initializing MainAppController...");
-        
+
         btnPlay.setOnAction((event) -> {
-            try {      
+            try {
                 handleClickMePlay();
             } catch (IOException ex) {
-                 logger.error(ex.getMessage(), ex);
+                logger.error(ex.getMessage(), ex);
             }
         });
         btnSettings.setOnAction((event) -> {
-            try {      
+            try {
                 handleClickMeSettings();
             } catch (IOException ex) {
                 logger.error(ex.getMessage(), ex);
             }
         });
         btnCredits.setOnAction((event) -> {
-            try {      
+            try {
                 handleClickMeCredits();
             } catch (IOException ex) {
                 logger.error(ex.getMessage(), ex);
             }
         });
         btnQuit.setOnAction((event) -> {
-            try {      
-                handleClickMeQuit();
-            } catch (IOException ex) {
-                logger.error(ex.getMessage(), ex);
-            }
+
+            handleClickMeQuit();
+
         });
     }
 
     @FXML
     private void handleClickMePlay() throws IOException {
+
         logger.info("Clicked Play Button");
-        
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/TetrisScene.fxml"));
-        loader.setController(new FXMLPlayController());
-        Pane root = loader.load();
-        
-        Scene secondScene = new Scene(root,400, 400);
-        Stage secondStage = new Stage();
-        
-        secondStage.setScene(secondScene);
-        secondStage.setTitle("Play");
-        secondStage.show();
+        switchScenes("/fxml/TetrisScene.fxml", new FXMLPlayController());
     }
-    
+
     @FXML
     private void handleClickMeSettings() throws IOException {
-        logger.info("Clicked Settings Button");    
-        
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/SettingsScene.fxml"));
-        loader.setController(new FXMLSettingsController());
-        Pane root = loader.load();
-        
-        Scene secondScene = new Scene(root);
-        Stage secondStage = new Stage();
-        
-        secondStage.setScene(secondScene);
-        secondStage.setTitle("Settings");
-        secondStage.show();
+
+        logger.info("Clicked Settng Button");
+        switchScenes("/fxml/SettingsScene.fxml", new FXMLSettingsController());
     }
+
     @FXML
     private void handleClickMeCredits() throws IOException {
-        logger.info("Clicked Credit Button");    
-        
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/CreditScene.fxml"));
-        loader.setController(new FXMLCreditsController());
-        Pane root = loader.load();
-        
-        Scene secondScene = new Scene(root);
-        Stage secondStage = new Stage();
-        
-        secondStage.setScene(secondScene);
-        secondStage.setTitle("Credit");
-        secondStage.show();
+        logger.info("Clicked Credit Button");
+        switchScenes("/fxml/CreditScene.fxml", new FXMLCreditsController());
+
     }
-    
+
     @FXML
-    private void handleClickMeQuit() throws IOException {
-        logger.info("Clicked Quit Button"); 
-        
-        Stage primaryStage = (Stage) btnQuit.getScene().getWindow();
-        primaryStage.close();
+    private void handleClickMeQuit() {
+
+        logger.info("Clicked Quit Button");
+
+        Stage currentStage = (Stage) btnPlay.getScene().getWindow();
+        currentStage.close();
+
+    }
+
+    public void switchScenes(String fxml, Object controller) throws IOException {
+
+        logger.info("Stage is changed");
+
+        Stage currentStage = (Stage) btnPlay.getScene().getWindow();
+        Pane root = loadFXML(fxml, controller).load();
+        Scene scene = new Scene(root);
+        currentStage.setScene(scene);
+
+    }
+
+    public FXMLLoader loadFXML(String fxml, Object controller) {
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
+        loader.setController(controller);
+        return loader;
     }
 }
