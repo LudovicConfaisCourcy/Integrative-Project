@@ -82,7 +82,7 @@ public class FXMLMainAppController {
         secondStage.setTitle("Play");
         secondStage.show();
     }
- 
+    
     @FXML
     private void handleClickMeSettings() throws IOException {
         logger.info("Clicked Settings Button");    
