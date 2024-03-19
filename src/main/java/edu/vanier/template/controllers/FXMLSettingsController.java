@@ -1,7 +1,7 @@
 
 package edu.vanier.template.controllers;
 
-<<<<<<< HEAD
+
 import java.io.IOException;
 import java.util.logging.Level;
 import javafx.fxml.FXML;
@@ -14,10 +14,8 @@ import javafx.scene.control.Button;
  *  Anton Lisunov
  *  Shyam Patel
  */
-public class FXMLSettingsController {
 
-=======
 public class FXMLSettingsController {
     
->>>>>>> Shyam
+
 }

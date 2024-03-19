@@ -1,4 +1,3 @@
-
 package edu.vanier.template.controllers;
 
 import java.io.IOException;
@@ -60,15 +59,11 @@ public class FXMLMainAppController {
             }
         });
         btnQuit.setOnAction((event) -> {
-<<<<<<< HEAD
-            
-=======
             try {      
                 handleClickMeQuit();
             } catch (IOException ex) {
                 logger.error(ex.getMessage(), ex);
             }
->>>>>>> Shyam
         });
     }
 
@@ -80,11 +75,7 @@ public class FXMLMainAppController {
         loader.setController(new FXMLPlayController());
         Pane root = loader.load();
         
-<<<<<<< HEAD
-        Scene secondScene = new Scene(root);
-=======
         Scene secondScene = new Scene(root,400, 400);
->>>>>>> Shyam
         Stage secondStage = new Stage();
         
         secondStage.setScene(secondScene);
@@ -100,11 +91,7 @@ public class FXMLMainAppController {
         loader.setController(new FXMLSettingsController());
         Pane root = loader.load();
         
-<<<<<<< HEAD
         Scene secondScene = new Scene(root);
-=======
-        Scene secondScene = new Scene(root,400, 400);
->>>>>>> Shyam
         Stage secondStage = new Stage();
         
         secondStage.setScene(secondScene);
@@ -119,11 +106,7 @@ public class FXMLMainAppController {
         loader.setController(new FXMLCreditsController());
         Pane root = loader.load();
         
-<<<<<<< HEAD
         Scene secondScene = new Scene(root);
-=======
-        Scene secondScene = new Scene(root,400, 400);
->>>>>>> Shyam
         Stage secondStage = new Stage();
         
         secondStage.setScene(secondScene);
@@ -132,12 +115,7 @@ public class FXMLMainAppController {
     }
     
     @FXML
-<<<<<<< HEAD
-    private void handleClickMeQuit() {
-        System.out.println("hello");
-=======
     private void handleClickMeQuit() throws IOException {
->>>>>>> Shyam
         logger.info("Clicked Quit Button"); 
         
         Stage primaryStage = (Stage) btnQuit.getScene().getWindow();
