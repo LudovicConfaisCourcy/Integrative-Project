@@ -10,7 +10,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
    <center>
       <Pane fx:id="pnBoard" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: lightgray;" BorderPane.alignment="CENTER" />
@@ -18,12 +17,12 @@
    <top>
       <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
         <items>
-          <Button fx:id="btnStart" mnemonicParsing="false" text="Start" />
-            <Button fx:id="btnStop" mnemonicParsing="false" text="Stop" />
-            <Button fx:id="btnRestart" mnemonicParsing="false" text="Restart" />
-            <Button fx:id="btnGraphics" mnemonicParsing="false" text="Graphics" />
-            <Button fx:id="btnMenu" mnemonicParsing="false" text="Menu" />
-            <Button fx:id="btnHelp" mnemonicParsing="false" text="Help" />
+          <Button fx:id="btnPlay" mnemonicParsing="false" onAction="#handleBtnPlay" text="Play" />
+            <Button fx:id="btnStop" mnemonicParsing="false" onAction="#handleBtnStop" text="Stop" />
+            <Button fx:id="btnRestart" mnemonicParsing="false" onAction="#handleBtnRestart" text="Restart" />
+            <Button fx:id="btnGraphics" mnemonicParsing="false" onAction="#handleBtnGraphics" text="Graphics" />
+            <Button fx:id="btnMenu" mnemonicParsing="false" onAction="#handleBtnMenu" text="Menu" />
+            <Button fx:id="btnHelp" mnemonicParsing="false" onAction="#handleBtnHelp" text="Help" />
         </items>
       </ToolBar>
    </top>
