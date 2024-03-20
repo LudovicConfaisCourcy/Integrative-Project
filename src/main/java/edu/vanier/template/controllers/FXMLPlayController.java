@@ -90,7 +90,7 @@ public class FXMLPlayController {
         helpStage.setTitle("Help");
         helpStage.show();
     } catch (IOException ex) {
-        logger.error("Error loading help window: " + ex.getMessage());
+        logger.error(ex.getMessage());
     }
     }
 }
