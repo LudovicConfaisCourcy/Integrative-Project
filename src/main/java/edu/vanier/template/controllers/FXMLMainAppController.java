@@ -1,5 +1,6 @@
 package edu.vanier.template.controllers;
 
+import edu.vanier.template.MainApp;
 import java.io.IOException;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -8,11 +9,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
-import javafx.scene.layout.Pane;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/**
+/*
  * @authors Ludovic Confais Courcy Anton Lisunov Shyam Patel
  */
 public class FXMLMainAppController {
@@ -53,25 +53,10 @@ public class FXMLMainAppController {
     }
 
     public void switchScene(String fxml, Object controller) throws IOException {
-
         logger.info("Stage is changed");
-
         Stage currentStage = (Stage) btnPlay.getScene().getWindow();
-        Pane root = loadFXML(fxml, controller).load();
-        Scene scene = new Scene(root);
-        currentStage.setScene(scene);
-
-    }
-
-    public FXMLLoader loadFXML(String fxml, Object controller) {
-
-        FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
-        loader.setController(controller);
-        return loader;
-    }
-
-    public void backToMenu() throws IOException {
-        logger.info("Returning back");
-        switchScene("/fxml/IntroScene.fxml", new FXMLMainAppController());
+        MainApp mainApp = new MainApp();
+        FXMLLoader loader = mainApp.loadFXML(fxml, controller);
+        currentStage.setScene(new Scene(loader.load()));
     }
 }
