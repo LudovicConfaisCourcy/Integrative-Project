@@ -10,6 +10,7 @@ import javafx.scene.layout.Pane;
 public class Physics {
 
     private final Pane simulationPane;
+    private AnimationTimer gravityTimer;
     public double gravity = 0.98;
 
     public Physics(Pane simulationPane) {
@@ -18,13 +19,14 @@ public class Physics {
     }
 
     private void start() {
-        new AnimationTimer() {
+        gravityTimer = new AnimationTimer() {
             @Override
             public void handle(long now) {
                 applyGravity();
             }
 
-        }.start();
+        };
+        gravityTimer.start();
     }
 
     private void applyGravity() {
@@ -34,6 +36,16 @@ public class Physics {
             }
         }
 
+    }
+
+    public void stopGravity() {
+        if (gravityTimer != null) {
+            gravityTimer.stop();
+        }
+    }
+
+    public void removeAllBlocks() {
+        simulationPane.getChildren().removeIf(node -> node instanceof TetrisBlock);
     }
 
 }
