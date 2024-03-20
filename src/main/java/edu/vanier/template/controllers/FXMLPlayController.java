@@ -1,6 +1,8 @@
 package edu.vanier.template.controllers;
 
 import edu.vanier.template.MainApp;
+import edu.vanier.template.physicalLaws.Physics;
+import edu.vanier.template.tetrisPieces.TetrisBlock;
 import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,9 +14,10 @@ import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/*
- * @authors Anton Lisunov
+/**
+ * @author Anton Lisunov
  */
+
 public class FXMLPlayController {
 
     private final static Logger logger = LoggerFactory.getLogger(FXMLMainAppController.class);
@@ -32,6 +35,8 @@ public class FXMLPlayController {
     Label lbScore;
     @FXML
     Pane pnNext;
+    @FXML
+    Pane pnBoard;
 
     @FXML
     public void initialize() {
@@ -40,7 +45,10 @@ public class FXMLPlayController {
     @FXML
     private void handleBtnPlay() {
         logger.info("Start button clicked");
-        // Implement the functionality to start or resume the game
+        TetrisBlock block = new TetrisBlock((int) pnBoard.getWidth()/2-15,0);
+        pnBoard.getChildren().add(block);
+        
+        Physics physics = new Physics(pnBoard);
     }
 
     @FXML
@@ -72,14 +80,7 @@ public class FXMLPlayController {
         currentStage.setScene(scene);
 
     }
-
-    public FXMLLoader loadFXML(String fxml, Object controller) {
-
-        FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
-        loader.setController(controller);
-        return loader;
-    }
-
+    
     @FXML
     private void handleBtnHelp() {
         logger.info("Help button clicked");
