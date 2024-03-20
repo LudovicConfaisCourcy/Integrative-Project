@@ -1,12 +1,16 @@
 package edu.vanier.template.controllers;
 
 import edu.vanier.template.MainApp;
+import edu.vanier.template.graphs.Graph1;
 import edu.vanier.template.physicalLaws.Physics;
 import edu.vanier.template.tetrisPieces.TetrisBlock;
 import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
@@ -68,13 +72,15 @@ public class FXMLPlayController {
     @FXML
     private void handleBtnGraphics() {
         logger.info("Graphs button clicked");
-        // Implement the functionality to restart the game
+        Graph1 testGraph = new Graph1();
+
+       
     }
 
     @FXML
     private void handleBtnMenu() throws IOException {
         logger.info("Menu button clicked");
-        
+
         physics.removeAllBlocks();
 
         Stage currentStage = (Stage) btnPlay.getScene().getWindow();
