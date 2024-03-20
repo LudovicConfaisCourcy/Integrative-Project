@@ -17,10 +17,11 @@ import org.slf4j.LoggerFactory;
 /**
  * @author Anton Lisunov
  */
-
 public class FXMLPlayController {
 
     private final static Logger logger = LoggerFactory.getLogger(FXMLMainAppController.class);
+    Physics physics;
+
     @FXML
     Button btnPlay;
     @FXML
@@ -40,20 +41,21 @@ public class FXMLPlayController {
 
     @FXML
     public void initialize() {
+        physics = new Physics(pnBoard);
     }
 
     @FXML
     private void handleBtnPlay() {
         logger.info("Start button clicked");
-        TetrisBlock block = new TetrisBlock((int) pnBoard.getWidth()/2-15,0);
+        TetrisBlock block = new TetrisBlock((int) pnBoard.getWidth() / 2 - 15, 0);
         pnBoard.getChildren().add(block);
-        
-        Physics physics = new Physics(pnBoard);
+
     }
 
     @FXML
     private void handleBtnStop() {
         logger.info("Stop button clicked");
+        physics.stopGravity();
         // Implement the functionality to stop the game
     }
 
@@ -72,6 +74,8 @@ public class FXMLPlayController {
     @FXML
     private void handleBtnMenu() throws IOException {
         logger.info("Menu button clicked");
+        
+        physics.removeAllBlocks();
 
         Stage currentStage = (Stage) btnPlay.getScene().getWindow();
         MainApp mainApp = new MainApp();
@@ -80,18 +84,18 @@ public class FXMLPlayController {
         currentStage.setScene(scene);
 
     }
-    
+
     @FXML
     private void handleBtnHelp() {
         logger.info("Help button clicked");
         try {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/HelpScene.fxml"));
-        Stage helpStage = new Stage();
-        helpStage.setScene(new Scene(loader.load()));
-        helpStage.setTitle("Help");
-        helpStage.show();
-    } catch (IOException ex) {
-        logger.error(ex.getMessage());
-    }
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/HelpScene.fxml"));
+            Stage helpStage = new Stage();
+            helpStage.setScene(new Scene(loader.load()));
+            helpStage.setTitle("Help");
+            helpStage.show();
+        } catch (IOException ex) {
+            logger.error(ex.getMessage());
+        }
     }
 }
