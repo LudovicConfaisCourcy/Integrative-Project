@@ -39,11 +39,11 @@ private double dragStartX, dragStartY;
 @FXML
   public void MoveBlock1(){
      
-           double Y = GroupSquareBlock.getTranslateY();
-            double X = GroupSquareBlock.getTranslateX();
+       /* double Y = GroupSquareBlock.getTranslateY();
+        double X = GroupSquareBlock.getTranslateX();
             GroupSquareBlock.setTranslateX(X);
             GroupSquareBlock.setTranslateY(Y);
-            //SettingsAnchorPane.getChildren().add(GroupSquareBlock);     
+            SettingsAnchorPane.getChildren().add(GroupSquareBlock);     */
  } 
  /* @FXML
   public void MoveBlock3(Rectangle group) throws IOException {
