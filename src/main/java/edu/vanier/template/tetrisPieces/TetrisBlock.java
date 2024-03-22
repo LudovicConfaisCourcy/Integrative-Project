@@ -1,6 +1,6 @@
 package edu.vanier.template.tetrisPieces;
 
-import static javafx.scene.paint.Color.RED;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 /**
@@ -10,13 +10,35 @@ import javafx.scene.shape.Rectangle;
 public class TetrisBlock extends Rectangle{
     
     private static final int BLOCK_SIZE = 30;
+
+    // Speed
+    private double speedX;
+    private double speedY;
+
     
-    public TetrisBlock(int x, int y){
-        super(BLOCK_SIZE,BLOCK_SIZE);
+    public TetrisBlock(int x, int y, Color color){
+       super(BLOCK_SIZE, BLOCK_SIZE);
         setTranslateX(x);
         setTranslateY(y);
-        setFill(RED);
+        setFill(color);
     }
     
+
+    // Getters and setters for speed
+    public double getSpeedX() {
+        return speedX;
+    }
+
+    public void setSpeedX(double speedX) {
+        this.speedX = speedX;
+    }
+
+    public double getSpeedY() {
+        return speedY;
+    }
+
+    public void setSpeedY(double speedY) {
+        this.speedY = speedY;
+    }
     
 }

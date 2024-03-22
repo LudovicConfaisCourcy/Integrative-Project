@@ -14,6 +14,7 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -50,9 +51,12 @@ public class FXMLPlayController {
 
     @FXML
     private void handleBtnPlay() {
+        
         logger.info("Start button clicked");
-        TetrisBlock block = new TetrisBlock((int) pnBoard.getWidth() / 2 - 15, 0);
+       
+        TetrisBlock block = new TetrisBlock((int) pnBoard.getWidth() / 2 - 15, 0,Color.RED );
         pnBoard.getChildren().add(block);
+        
 
     }
 
