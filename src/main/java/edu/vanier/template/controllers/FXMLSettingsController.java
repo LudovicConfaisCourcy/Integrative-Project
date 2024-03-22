@@ -9,6 +9,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.shape.Rectangle;
 
 /**
  * @authors
@@ -17,28 +19,42 @@ import javafx.scene.Scene;
  *  Shyam Patel
  */
 
-public class FXMLSettingsController extends FXMLMainAppController{
+public class FXMLSettingsController{
 @FXML 
 Group GroupSquareBlock;
 @FXML 
 Group GroupLineBlock;
+@FXML
+Rectangle Square;
+@FXML
+AnchorPane SettingsAnchorPane;
 
 @FXML 
 private double dragStartX, dragStartY;
-    public void main(String[] args) throws IOException {
+   /* public void main(String[] args) throws IOException {
      MoveBlock1(GroupSquareBlock);
      MoveBlock2(GroupLineBlock);
-    }
+     MoveBlock3(Square);
+    }*/
 @FXML
-  public void MoveBlock1(Group group) throws IOException {
+  public void MoveBlock1(){
+     
+           double Y = GroupSquareBlock.getTranslateY();
+            double X = GroupSquareBlock.getTranslateX();
+            GroupSquareBlock.setTranslateX(X);
+            GroupSquareBlock.setTranslateY(Y);
+            //SettingsAnchorPane.getChildren().add(GroupSquareBlock);     
+ } 
+ /* @FXML
+  public void MoveBlock3(Rectangle group) throws IOException {
        
     group.setOnMousePressed(event -> {
             dragStartX = event.getSceneX() - group.getTranslateX();
             dragStartY = event.getSceneY() - group.getTranslateY();
         });
       group.setOnMouseDragged(event -> {
-            double offsetX = event.getSceneX() - dragStartX;
-            double offsetY = event.getSceneY() - dragStartY;
+            double offsetX = event.getSceneX();
+            double offsetY = event.getSceneY();
             group.setTranslateX(offsetX);
             group.setTranslateY(offsetY);
         });
@@ -61,5 +77,5 @@ private double dragStartX, dragStartY;
         });
 
         return group;
-    }
+    }*/
 }
