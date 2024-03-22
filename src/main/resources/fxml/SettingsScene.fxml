@@ -73,28 +73,49 @@
             <Line endX="100.0" />
          </children>
       </Group>
-      <Group fx:id="GroupTBlock" layoutX="109.0" layoutY="115.0">
+      <Group fx:id="GroupTBlock" layoutX="89.0" layoutY="32.0">
          <children>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f50000" height="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" />
+            <Line endX="100.0" startX="-50.0" />
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f50000" height="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" x="-50.0" />
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f50000" height="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" y="50.0" />
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f50000" height="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" x="50.0" />
+            <Line endX="100.0" endY="50.0" startX="-50.0" startY="50.0" />
+            <Line endX="50.0" endY="100.0" startY="100.0" />
+            <Line endX="-50.0" endY="50.0" startX="-50.0" />
+            <Line endY="100.0" />
+            <Line endX="100.0" endY="50.0" startX="100.0" />
+            <Line endX="50.0" endY="100.0" startX="50.0" />
          </children>
       </Group>
-      <Group fx:id="GroupSBlock" layoutX="125.0" layoutY="183.0">
+      <Group fx:id="GroupSBlock" layoutX="221.0" layoutY="132.0">
          <children>
+            <Line endX="-50.0" endY="100.0" startX="-50.0" startY="50.0" />
+            <Line endX="100.0" />
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#237201" height="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" />
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#237201" height="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" x="50.0" />
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#237201" height="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" x="-50.0" y="50.0" />
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#237201" height="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" y="50.0" />
+            <Line endX="100.0" endY="50.0" startX="-50.0" startY="50.0" />
+            <Line endX="50.0" endY="100.0" startX="-50.0" startY="100.0" />
+            <Line endX="100.0" endY="50.0" startX="100.0" />
+            <Line endX="50.0" endY="100.0" startX="50.0" />
+            <Line endY="100.0" />
          </children>
       </Group>
       <Group fx:id="GroupZBlock" layoutX="100.0" layoutY="251.0">
          <children>
+            <Line endX="-50.0" endY="50.0" startX="-50.0" />
+            <Line endX="50.0" startX="-50.0" />
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6b4003" height="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" />
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6b4003" height="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" x="50.0" y="50.0" />
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6b4003" height="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" y="50.0" />
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6b4003" height="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" x="-50.0" />
+            <Line endX="100.0" endY="100.0" startY="100.0" />
+            <Line endX="100.0" endY="50.0" startX="-50.0" startY="50.0" />
+            <Line endX="100.0" endY="100.0" startX="100.0" startY="50.0" />
+            <Line endX="50.0" endY="100.0" startX="50.0" />
+            <Line endY="100.0" />
          </children>
       </Group>
    </children>

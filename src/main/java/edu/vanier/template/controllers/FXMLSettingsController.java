@@ -45,9 +45,7 @@ private double dragStartX, dragStartY;
  } 
         
  private Group MoveBlock2(Group group) {
-        
 
-        
         // Set up event handlers for dragging the group
         double[] dragStart = new double[2];
         group.setOnMousePressed(event -> {
