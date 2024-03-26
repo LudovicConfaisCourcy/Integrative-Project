@@ -113,8 +113,8 @@ public class FXMLPlayController {
           
     block.setOnMouseDragged(event -> {
         block.setManaged(false);
-        block.setTranslateX(event.getX() + block.getTranslateX()-200);
-        block.setTranslateY(event.getY() + block.getTranslateY() );
+        block.setTranslateX(event.getX() + block.getTranslateX() - block.getWidth()/2);
+        block.setTranslateY(event.getY() + block.getTranslateY() - block.getHeight()/2);
         event.consume();
         physics.stopPhysics();
         });

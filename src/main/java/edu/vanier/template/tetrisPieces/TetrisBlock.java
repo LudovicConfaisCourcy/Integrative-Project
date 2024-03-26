@@ -15,12 +15,18 @@ public class TetrisBlock extends Rectangle {
     private double speedY;
 
     public TetrisBlock(int x, int y, Color color) {
-        super(x,y,BLOCK_SIZE, BLOCK_SIZE);
+        super(BLOCK_SIZE, BLOCK_SIZE);
+        setTranslateX(x);
+        setTranslateY(y);
+
         setFill(color);
     }
 
     public TetrisBlock(int x, int y, int width, int height, Color color) {
-        super(x,y,width, height);
+        super(width, height);
+        setTranslateX(x);
+        setTranslateY(y);
+
         setFill(color);
     }
 
