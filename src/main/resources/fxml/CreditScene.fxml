@@ -9,7 +9,7 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: gray;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <VBox alignment="TOP_CENTER" layoutX="11.0" layoutY="10.0" prefHeight="400.0" prefWidth="600.0">
+      <VBox alignment="TOP_CENTER" prefHeight="400.0" prefWidth="600.0">
          <children>
             <Label fx:id="welcomeLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="40.0" prefWidth="597.0" style="-fx-opacity: 1;" text="Credits" textAlignment="CENTER">
                <VBox.margin>
@@ -30,7 +30,7 @@
                   <Font name="Bodoni MT" size="16.0" />
                </font>
             </Button>
-            <Button fx:id="btnInspirations" mnemonicParsing="false" prefHeight="20.0" prefWidth="175.0" style="-fx-background-color: DarkGray;" text="Inspirations">
+            <Button fx:id="btnInspirations" mnemonicParsing="false" prefHeight="20.0" prefWidth="175.0" style="-fx-background-color: DarkGray;" text="Description">
                <VBox.margin>
                   <Insets bottom="30.0" />
                </VBox.margin>
@@ -49,7 +49,7 @@
                   <Font name="Bodoni MT" size="16.0" />
                </font>
             </Button>
-            <Button fx:id="btnDescription" mnemonicParsing="false" prefHeight="20.0" prefWidth="175.0" style="-fx-background-color: DarkGray;" text="Description">
+            <Button fx:id="btnDescription" mnemonicParsing="false" prefHeight="20.0" prefWidth="175.0" style="-fx-background-color: DarkGray;" text="Inspirations">
                <VBox.margin>
                   <Insets top="30.0" />
                </VBox.margin>
