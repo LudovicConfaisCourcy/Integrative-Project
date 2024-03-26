@@ -3,14 +3,18 @@ package edu.vanier.template.controllers;
 
 
 import edu.vanier.template.MainApp;
+import java.io.IOException;
+import java.util.logging.Level;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import java.io.IOException;
 import javafx.scene.control.Button;
 import javafx.event.ActionEvent;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+   
 public class FXMLCreditsController {
     
     @FXML
@@ -22,9 +26,9 @@ public class FXMLCreditsController {
     @FXML
     Button btnDescription;
     
-    
     @FXML
-    public void switchScenes(ActionEvent event) throws IOException {        
+    public void switchScenes(ActionEvent event) throws IOException {
+     
         Object clickButton = event.getSource();
         
         if (clickButton == btnCreators) {
@@ -44,6 +48,7 @@ public class FXMLCreditsController {
             
         }
     }
+    
     
     @FXML
     public void switchScene(String fxml, Object controller) throws IOException {
