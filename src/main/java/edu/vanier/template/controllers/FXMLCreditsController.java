@@ -8,15 +8,21 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 
-/**
- * @authors
+ /* @authors
  *  Ludovic Confais Courcy
  *  Anton Lisunov
  *  Shyam Patel
  */
 
-
+   
 public class FXMLCreditsController {
-    
+    @FXML
+    Button btnCreators;
+    @FXML
+    Button btnInspirations;
+    @FXML
+    Button btnScience;
+    @FXML
+    Button btnDescription;   
 
 }
