@@ -1,15 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.Group?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Slider?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="SettingsAnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: darkgray;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Group fx:id="GroupSquareBlock" layoutX="485.0" layoutY="32.0" onMouseDragged="#MoveBlock1">
+      <Group fx:id="GroupSquareBlock" layoutX="1.0" layoutY="-1.0" onMouseDragged="#MoveBlock1">
          <children>
             <Line endX="100.0" endY="50.0" startY="50.0" />
             <Line endX="50.0" endY="100.0" startX="50.0" />
@@ -28,7 +33,7 @@
             <Font name="System Bold" size="24.0" />
          </font>
       </Label>
-      <Group fx:id="GroupLineBlock" layoutX="374.0" layoutY="15.0">
+      <Group fx:id="GroupLineBlock" layoutX="550.0" layoutY="88.0">
          <children>
             <Line endY="200.0" />
             <Line endX="50.0" endY="200.0" startX="50.0" />
@@ -43,7 +48,7 @@
             <Line endX="50.0" endY="200.0" startY="200.0" />
          </children>
       </Group>
-      <Group fx:id="GroupLBlock" layoutX="374.0" layoutY="235.0">
+      <Group fx:id="GroupLBlock" layoutX="491.0" layoutY="235.0">
          <children>
             <Line endY="150.0" />
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#0400ff" height="50.0" layoutX="50.0" layoutY="100.0" stroke="BLACK" strokeType="INSIDE" width="50.0" />
@@ -58,7 +63,7 @@
             <Line endX="50.0" />
          </children>
       </Group>
-      <Group fx:id="GroupJBlock" layoutX="485.0" layoutY="235.0">
+      <Group fx:id="GroupJBlock" layoutX="499.0" layoutY="1.0">
          <children>
             <Line endY="150.0" />
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ff921e" height="50.0" layoutX="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" />
@@ -73,7 +78,7 @@
             <Line endX="100.0" />
          </children>
       </Group>
-      <Group fx:id="GroupTBlock" layoutX="89.0" layoutY="32.0">
+      <Group fx:id="GroupTBlock" layoutX="51.0" layoutY="100.0">
          <children>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f50000" height="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" />
             <Line endX="100.0" startX="-50.0" />
@@ -88,7 +93,7 @@
             <Line endX="50.0" endY="100.0" startX="50.0" />
          </children>
       </Group>
-      <Group fx:id="GroupSBlock" layoutX="221.0" layoutY="132.0">
+      <Group fx:id="GroupSBlock" layoutX="51.0" layoutY="299.0">
          <children>
             <Line endX="-50.0" endY="100.0" startX="-50.0" startY="50.0" />
             <Line endX="100.0" />
@@ -103,7 +108,7 @@
             <Line endY="100.0" />
          </children>
       </Group>
-      <Group fx:id="GroupZBlock" layoutX="100.0" layoutY="251.0">
+      <Group fx:id="GroupZBlock" layoutX="51.0" layoutY="201.0">
          <children>
             <Line endX="-50.0" endY="50.0" startX="-50.0" />
             <Line endX="50.0" startX="-50.0" />
@@ -118,5 +123,35 @@
             <Line endY="100.0" />
          </children>
       </Group>
+      <VBox layoutX="152.0" layoutY="88.0" prefHeight="200.0" prefWidth="324.0">
+         <children>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <CheckBox mnemonicParsing="false" text="Music">
+                     <HBox.margin>
+                        <Insets right="30.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font name="Bodoni MT Bold" size="16.0" />
+                     </font>
+                  </CheckBox>
+                  <Slider prefHeight="42.0" prefWidth="201.0" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <CheckBox mnemonicParsing="false" text="Sounds">
+                     <HBox.margin>
+                        <Insets right="25.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font name="Bodoni MT Bold" size="16.0" />
+                     </font>
+                  </CheckBox>
+                  <Slider prefHeight="42.0" prefWidth="201.0" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
    </children>
 </AnchorPane>
