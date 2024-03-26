@@ -55,7 +55,7 @@ public class FXMLPlayController {
     private void handleBtnPlay() {
 
         logger.info("Start button clicked");
-        physics.startPhysics();
+        physics.startGravity();
         TetrisBlock block = new TetrisBlock((int) pnBoard.getWidth() / 2 - 15, 0, Color.RED);
         pnBoard.getChildren().add(block);
         MoveBlock(block);
@@ -64,7 +64,7 @@ public class FXMLPlayController {
     @FXML
     private void handleBtnStop() {
         logger.info("Stop button clicked");
-        physics.stopPhysics();
+        physics.stopGravity();
     }
 
     @FXML
@@ -111,8 +111,8 @@ public class FXMLPlayController {
           
     block.setOnMouseDragged(event -> {
         block.setManaged(false);
-        block.setTranslateX(event.getX() + block.getTranslateX() );
-        block.setTranslateY(event.getY() + block.getTranslateY() );
+        block.setTranslateX(event.getX() + block.getTranslateX() - 195);
+        block.setTranslateY(event.getY() + block.getTranslateY() - 15);
         event.consume();
         physics.stopGravity();
         });
