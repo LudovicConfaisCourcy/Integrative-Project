@@ -10,8 +10,7 @@ import javafx.scene.layout.Pane;
 public class Physics {
 
     private final Pane simulationPane;
-    private AnimationTimer physicsTimer;
-    //private long previousTime = 0;
+    private AnimationTimer gravityTimer;
     public double gravity = 0.98;
 
     public Physics(Pane simulationPane) {
@@ -20,49 +19,33 @@ public class Physics {
     }
 
     private void start() {
-        physicsTimer = new AnimationTimer() {
+        gravityTimer = new AnimationTimer() {
             @Override
             public void handle(long now) {
-                //now is equal to total time from start till end
-
-                /*double time = (now - previousTime);
-                previousTime = now;*/
                 applyGravity();
-
             }
 
         };
-
+        gravityTimer.start();
     }
 
-    private void applyGravity() {
-        // Vf = Vi + at
-
+    public void applyGravity() {
         for (javafx.scene.Node node : simulationPane.getChildren()) {
             if (node instanceof TetrisBlock block) {
-                //1.6E7 average frame time in ns
-                double newSpeed = (block.getSpeedY() + gravity * 1.6E7 / 1_000_000_000);
-                block.setSpeedY(newSpeed);
-                double newY = block.getTranslateY() + block.getSpeedY();
-                block.setTranslateY(newY);
-                //if(block.getTranslateY() >= 1000){System.out.println(newSpeed);}
-
+                block.setTranslateY(block.getTranslateY() + gravity);
             }
         }
 
     }
 
-    private void applyNormalForce() {
-        //Define normal force
+    public void stopGravity() {
+        if (gravityTimer != null) {
+            gravityTimer.stop();
+        }
     }
-
-    public void startPhysics() {
-        physicsTimer.start();
-    }
-
-    public void stopPhysics() {
-        if (physicsTimer != null) {
-            physicsTimer.stop();
+    public void startGravity() {
+        if (gravityTimer != null) {
+            gravityTimer.start();
         }
     }
 
