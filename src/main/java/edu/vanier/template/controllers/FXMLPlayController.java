@@ -45,9 +45,9 @@ public class FXMLPlayController {
     @FXML
     public void initialize() {
         physics = new Physics(pnBoard);
-        //TetrisGround ground = new TetrisGround((int) pnBoard.getWidth() / 2, 100  ,100,100);
+        TetrisGround ground = new TetrisGround((int) pnBoard.getWidth() /2 + 100, 325  ,200,100);
         System.out.println(pnBoard.getMaxHeight());
-        //pnBoard.getChildren().add(ground);
+       pnBoard.getChildren().add(ground);
 
     }
 

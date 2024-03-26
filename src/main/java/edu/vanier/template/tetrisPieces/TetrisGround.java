@@ -10,8 +10,8 @@ public class TetrisGround extends Rectangle {
 
     public TetrisGround(int x, int y, int widht, int height) {
         super(x, y, widht, height);
-        setArcHeight(5);
-        setArcWidth(5);
+        setArcHeight(50);
+        setArcWidth(50);
          setFill(Color.GREEN);
 
     }
