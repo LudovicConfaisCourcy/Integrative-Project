@@ -24,7 +24,7 @@ public class Physics {
             @Override
             public void handle(long now) {
                 //now is equal to total time from start till end
-                
+
                 /*double time = (now - previousTime);
                 previousTime = now;*/
                 applyGravity();
@@ -32,7 +32,7 @@ public class Physics {
             }
 
         };
-        physicsTimer.start();
+
     }
 
     private void applyGravity() {
@@ -40,19 +40,27 @@ public class Physics {
 
         for (javafx.scene.Node node : simulationPane.getChildren()) {
             if (node instanceof TetrisBlock block) {
-                //1.60159055E7 average frame time
-                double newSpeed = (block.getSpeedY() + gravity * 1.60159055E7/1_000_000_000);
+                //1.6E7 average frame time in ns
+                double newSpeed = (block.getSpeedY() + gravity * 1.6E7 / 1_000_000_000);
                 block.setSpeedY(newSpeed);
                 double newY = block.getTranslateY() + block.getSpeedY();
                 block.setTranslateY(newY);
                 //if(block.getTranslateY() >= 1000){System.out.println(newSpeed);}
-                
+
             }
         }
 
     }
 
-    public void stopGravity() {
+    private void applyNormalForce() {
+        //Define normal force
+    }
+
+    public void startPhysics() {
+        physicsTimer.start();
+    }
+
+    public void stopPhysics() {
         if (physicsTimer != null) {
             physicsTimer.stop();
         }

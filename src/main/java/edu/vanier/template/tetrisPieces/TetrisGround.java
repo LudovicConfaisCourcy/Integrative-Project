@@ -1,0 +1,19 @@
+package edu.vanier.template.tetrisPieces;
+
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+
+/**
+ * @author Anton Lisunov
+ */
+public class TetrisGround extends Rectangle {
+
+    public TetrisGround(int x, int y, int widht, int height) {
+        super(x, y, widht, height);
+        setArcHeight(5);
+        setArcWidth(5);
+         setFill(Color.GREEN);
+
+    }
+
+}

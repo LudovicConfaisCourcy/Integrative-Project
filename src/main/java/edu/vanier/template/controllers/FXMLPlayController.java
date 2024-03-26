@@ -4,13 +4,11 @@ import edu.vanier.template.MainApp;
 import edu.vanier.template.graphs.Graph1;
 import edu.vanier.template.physicalLaws.Physics;
 import edu.vanier.template.tetrisPieces.TetrisBlock;
+import edu.vanier.template.tetrisPieces.TetrisGround;
 import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.chart.LineChart;
-import javafx.scene.chart.NumberAxis;
-import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
@@ -47,24 +45,26 @@ public class FXMLPlayController {
     @FXML
     public void initialize() {
         physics = new Physics(pnBoard);
+        TetrisGround ground = new TetrisGround((int) pnBoard.getWidth() / 2, 100  ,100,100);
+        System.out.println(pnBoard.getMaxHeight());
+        pnBoard.getChildren().add(ground);
+
     }
 
     @FXML
     private void handleBtnPlay() {
-        
+
         logger.info("Start button clicked");
-       
-        TetrisBlock block = new TetrisBlock((int) pnBoard.getWidth() / 2 - 15, 0,Color.RED );
+        physics.startPhysics();
+        TetrisBlock block = new TetrisBlock((int) pnBoard.getWidth() / 2 - 15, 0, Color.RED);
         pnBoard.getChildren().add(block);
-        
 
     }
 
     @FXML
     private void handleBtnStop() {
         logger.info("Stop button clicked");
-        physics.stopGravity();
-        // Implement the functionality to stop the game
+        physics.stopPhysics();
     }
 
     @FXML
@@ -78,7 +78,6 @@ public class FXMLPlayController {
         logger.info("Graphs button clicked");
         Graph1 testGraph = new Graph1();
 
-       
     }
 
     @FXML

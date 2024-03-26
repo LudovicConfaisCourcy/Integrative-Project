@@ -6,23 +6,23 @@ import javafx.scene.shape.Rectangle;
 /**
  * @author Anton Lisunov
  */
+public class TetrisBlock extends Rectangle {
 
-public class TetrisBlock extends Rectangle{
-    
     private static final int BLOCK_SIZE = 30;
 
     // Speed
     private double speedX;
     private double speedY;
 
-    
-    public TetrisBlock(int x, int y, Color color){
-       super(BLOCK_SIZE, BLOCK_SIZE);
-        setTranslateX(x);
-        setTranslateY(y);
+    public TetrisBlock(int x, int y, Color color) {
+        super(x,y,BLOCK_SIZE, BLOCK_SIZE);
         setFill(color);
     }
-    
+
+    public TetrisBlock(int x, int y, int width, int height, Color color) {
+        super(x,y,width, height);
+        setFill(color);
+    }
 
     // Getters and setters for speed
     public double getSpeedX() {
@@ -40,5 +40,5 @@ public class TetrisBlock extends Rectangle{
     public void setSpeedY(double speedY) {
         this.speedY = speedY;
     }
-    
+
 }
