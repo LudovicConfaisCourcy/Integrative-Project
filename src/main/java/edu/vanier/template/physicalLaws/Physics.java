@@ -29,7 +29,7 @@ public class Physics {
         gravityTimer.start();
     }
 
-    private void applyGravity() {
+    public void applyGravity() {
         for (javafx.scene.Node node : simulationPane.getChildren()) {
             if (node instanceof TetrisBlock block) {
                 block.setTranslateY(block.getTranslateY() + gravity);
@@ -41,6 +41,11 @@ public class Physics {
     public void stopGravity() {
         if (gravityTimer != null) {
             gravityTimer.stop();
+        }
+    }
+    public void startGravity() {
+        if (gravityTimer != null) {
+            gravityTimer.start();
         }
     }
 
