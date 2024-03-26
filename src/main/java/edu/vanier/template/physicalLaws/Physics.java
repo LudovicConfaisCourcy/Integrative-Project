@@ -57,7 +57,9 @@ public class Physics {
     }
 
     public void startPhysics() {
+        if (physicsTimer != null) {
         physicsTimer.start();
+        }
     }
 
     public void stopPhysics() {

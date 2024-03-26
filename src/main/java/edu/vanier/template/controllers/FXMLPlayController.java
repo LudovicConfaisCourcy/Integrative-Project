@@ -58,6 +58,7 @@ public class FXMLPlayController {
         physics.startPhysics();
         TetrisBlock block = new TetrisBlock((int) pnBoard.getWidth() / 2 - 15, 0, Color.RED);
         pnBoard.getChildren().add(block);
+         MoveBlock(block);
 
     }
 
@@ -107,4 +108,19 @@ public class FXMLPlayController {
             logger.error(ex.getMessage());
         }
     }
+    
+    public void MoveBlock(TetrisBlock block){
+          
+    block.setOnMouseDragged(event -> {
+        block.setManaged(false);
+        block.setTranslateX(event.getX() + block.getTranslateX()-200);
+        block.setTranslateY(event.getY() + block.getTranslateY() );
+        event.consume();
+        physics.stopPhysics();
+        });
+    
+    block.setOnMouseReleased(event -> {   
+        physics.startPhysics();
+    });    
+}
 }
