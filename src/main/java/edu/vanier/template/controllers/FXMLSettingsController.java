@@ -1,4 +1,3 @@
-
 package edu.vanier.template.controllers;
 
 
@@ -38,6 +37,12 @@ private double dragStartX, dragStartY;
     }*/
 @FXML
   public void MoveBlock1(){
+     
+       /* double Y = GroupSquareBlock.getTranslateY();
+        double X = GroupSquareBlock.getTranslateX();
+            GroupSquareBlock.setTranslateX(X);
+            GroupSquareBlock.setTranslateY(Y);
+            SettingsAnchorPane.getChildren().add(GroupSquareBlock);     */
        
             SettingsAnchorPane.getChildren().add(GroupSquareBlock);     
  } 

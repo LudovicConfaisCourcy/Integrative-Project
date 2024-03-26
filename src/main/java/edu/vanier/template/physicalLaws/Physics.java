@@ -10,7 +10,8 @@ import javafx.scene.layout.Pane;
 public class Physics {
 
     private final Pane simulationPane;
-    private AnimationTimer gravityTimer;
+    private AnimationTimer physicsTimer;
+    //private long previousTime = 0;
     public double gravity = 0.98;
 
     public Physics(Pane simulationPane) {
@@ -19,33 +20,51 @@ public class Physics {
     }
 
     private void start() {
-        gravityTimer = new AnimationTimer() {
+        physicsTimer = new AnimationTimer() {
             @Override
             public void handle(long now) {
+                //now is equal to total time from start till end
+
+                /*double time = (now - previousTime);
+                previousTime = now;*/
                 applyGravity();
+
             }
 
         };
-        gravityTimer.start();
+
     }
 
-    public void applyGravity() {
+    private void applyGravity() {
+        // Vf = Vi + at
+
         for (javafx.scene.Node node : simulationPane.getChildren()) {
             if (node instanceof TetrisBlock block) {
-                block.setTranslateY(block.getTranslateY() + gravity);
+                //1.6E7 average frame time in ns
+                double newSpeed = (block.getSpeedY() + gravity * 1.6E7 / 1_000_000_000);
+                block.setSpeedY(newSpeed);
+                double newY = block.getTranslateY() + block.getSpeedY();
+                block.setTranslateY(newY);
+                //if(block.getTranslateY() >= 1000){System.out.println(newSpeed);}
+
             }
         }
 
     }
 
-    public void stopGravity() {
-        if (gravityTimer != null) {
-            gravityTimer.stop();
+    private void applyNormalForce() {
+        //Define normal force
+    }
+
+    public void startPhysics() {
+        if (physicsTimer != null) {
+        physicsTimer.start();
         }
     }
-    public void startGravity() {
-        if (gravityTimer != null) {
-            gravityTimer.start();
+
+    public void stopPhysics() {
+        if (physicsTimer != null) {
+            physicsTimer.stop();
         }
     }
 

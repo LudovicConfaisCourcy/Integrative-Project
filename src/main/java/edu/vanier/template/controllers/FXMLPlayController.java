@@ -45,9 +45,9 @@ public class FXMLPlayController {
     @FXML
     public void initialize() {
         physics = new Physics(pnBoard);
-        TetrisGround ground = new TetrisGround((int) pnBoard.getWidth() / 2, 100  ,100,100);
+        //TetrisGround ground = new TetrisGround((int) pnBoard.getWidth() / 2, 100  ,100,100);
         System.out.println(pnBoard.getMaxHeight());
-        pnBoard.getChildren().add(ground);
+        //pnBoard.getChildren().add(ground);
 
     }
 
@@ -58,7 +58,8 @@ public class FXMLPlayController {
         physics.startGravity();
         TetrisBlock block = new TetrisBlock((int) pnBoard.getWidth() / 2 - 15, 0, Color.RED);
         pnBoard.getChildren().add(block);
-        MoveBlock(block);
+         MoveBlock(block);
+
     }
 
     @FXML
@@ -107,18 +108,19 @@ public class FXMLPlayController {
             logger.error(ex.getMessage());
         }
     }
+    
     public void MoveBlock(TetrisBlock block){
           
     block.setOnMouseDragged(event -> {
         block.setManaged(false);
-        block.setTranslateX(event.getX() + block.getTranslateX() );
+        block.setTranslateX(event.getX() + block.getTranslateX()-200);
         block.setTranslateY(event.getY() + block.getTranslateY() );
         event.consume();
-        physics.stopGravity();
+        physics.stopPhysics();
         });
     
     block.setOnMouseReleased(event -> {   
-        physics.startGravity();
+        physics.startPhysics();
     });    
 }
 }
