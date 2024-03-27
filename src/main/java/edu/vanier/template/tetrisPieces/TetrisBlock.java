@@ -22,6 +22,10 @@ public class TetrisBlock extends Rectangle {
         setTranslateX(x);
         setTranslateY(y);
         this.weight = 1;
+        this.speedX = 0;
+        this.speedY = 0;
+        this.accX = 0;
+        this.accY = 0;
         setFill(color);
     }
 
@@ -30,6 +34,10 @@ public class TetrisBlock extends Rectangle {
         setTranslateX(x);
         setTranslateY(y);
         this.weight = 1;
+        this.speedX = 0;
+        this.speedY = 0;
+        this.accX = 0;
+        this.accY = 0;
         setFill(color);
     }
 
@@ -38,10 +46,24 @@ public class TetrisBlock extends Rectangle {
         setTranslateX(x);
         setTranslateY(y);
         this.weight = weight;
+        this.speedX = 0;
+        this.speedY = 0;
+        this.accX = 0;
+        this.accY = 0;
         setFill(color);
     }
 
-    // Getters and setters for speed
+    public void addAcc(double x, double y) {
+        setAccX(getAccX() + x);
+        setAccY(getAccY() + y);
+    }
+
+    public void addSpeed(double x, double y) {
+        setSpeedX(getSpeedX() + x);
+        setSpeedY(getSpeedY() + y);
+    }
+
+    // Getters and setters 
     public double getWeight() {
         return weight;
     }
