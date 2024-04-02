@@ -11,6 +11,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -47,7 +48,7 @@ public class FXMLPlayController {
         physics = new Physics(pnBoard);
         TetrisGround ground = new TetrisGround((int) pnBoard.getWidth() /2 + 100, 325  ,200,100);
         System.out.println(pnBoard.getMaxHeight());
-       pnBoard.getChildren().add(ground);
+        pnBoard.getChildren().add(ground);
 
     }
 
@@ -58,7 +59,8 @@ public class FXMLPlayController {
         physics.startPhysics();
         TetrisBlock block = new TetrisBlock((int) pnBoard.getWidth() / 2 - 15, 0, Color.RED);
         pnBoard.getChildren().add(block);
-         MoveBlock(block);
+        MoveBlock(block);
+        RotateBlock(block);
 
     }
 
@@ -110,7 +112,7 @@ public class FXMLPlayController {
     }
     
     public void MoveBlock(TetrisBlock block){
-          
+    logger.info("Activate Movement");      
     block.setOnMouseDragged(event -> {
         block.setManaged(false);
         block.setTranslateX(event.getX() + block.getTranslateX() - block.getWidth()/2);
@@ -123,4 +125,10 @@ public class FXMLPlayController {
         physics.startPhysics();
     });    
 }
+    public void RotateBlock(TetrisBlock block) {
+    logger.info("Activate Rotation");
+    block.setOnMousePressed(event -> {
+        block.setRotate(block.getRotate() + 45);
+    });
+    }  
 }

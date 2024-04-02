@@ -40,7 +40,7 @@ public class TetrisBlock extends Rectangle {
         this.weight = weight;
         setFill(color);
     }
-
+    
     // Getters and setters for speed
     public double getWeight() {
         return weight;
