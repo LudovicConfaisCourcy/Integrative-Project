@@ -9,6 +9,8 @@ import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
@@ -45,9 +47,9 @@ public class FXMLPlayController {
     @FXML
     public void initialize() {
         physics = new Physics(pnBoard);
-        TetrisGround ground = new TetrisGround((int) pnBoard.getWidth() /2 + 100, 325  ,200,100);
+        TetrisGround ground = new TetrisGround((int) pnBoard.getWidth() / 2 + 100, 325, 200, 100);
         System.out.println(pnBoard.getMaxHeight());
-       pnBoard.getChildren().add(ground);
+        pnBoard.getChildren().add(ground);
 
     }
 
@@ -58,7 +60,7 @@ public class FXMLPlayController {
         physics.startPhysics();
         TetrisBlock block = new TetrisBlock((int) pnBoard.getWidth() / 2 - 15, 0, Color.RED);
         pnBoard.getChildren().add(block);
-         MoveBlock(block);
+        MoveBlock(block);
 
     }
 
@@ -108,19 +110,36 @@ public class FXMLPlayController {
             logger.error(ex.getMessage());
         }
     }
-    
-    public void MoveBlock(TetrisBlock block){
-          
-    block.setOnMouseDragged(event -> {
-        block.setManaged(false);
-        block.setTranslateX(event.getX() + block.getTranslateX() - block.getWidth()/2);
-        block.setTranslateY(event.getY() + block.getTranslateY() - block.getHeight()/2);
-        event.consume();
-        physics.stopPhysics();
+
+    public void MoveBlock(TetrisBlock block) {
+
+        block.setOnMouseClicked(event -> {
+            double posX = block.getTranslateX();
+            double posY = block.getTranslateY();
+            double speedX = block.getSpeedX();
+            double speedY = block.getSpeedY();
+            double accelerationX = block.getAccX();
+            double accelerationY = block.getAccY();
+
+            Alert alert = new Alert(AlertType.INFORMATION);
+            alert.setTitle("Block Information");
+            alert.setHeaderText(null);
+            alert.setContentText("Position: (" + posX + ", " + posY + ")\n"
+                    + "Speed: (" + speedX + ", " + speedY + ")\n"
+                    + "Acceleration: (" + accelerationX + ", " + accelerationY + ")");
+            alert.showAndWait();
         });
-    
-    block.setOnMouseReleased(event -> {   
-        physics.startPhysics();
-    });    
-}
+
+        block.setOnMouseDragged(event -> {
+            block.setManaged(false);
+            block.setTranslateX(event.getX() + block.getTranslateX() - block.getWidth() / 2);
+            block.setTranslateY(event.getY() + block.getTranslateY() - block.getHeight() / 2);
+            event.consume();
+            physics.stopPhysics();
+        });
+
+        block.setOnMouseReleased(event -> {
+            physics.startPhysics();
+        });
+    }
 }
