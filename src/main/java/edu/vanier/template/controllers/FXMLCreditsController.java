@@ -13,10 +13,14 @@ import javafx.event.ActionEvent;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
    
 public class FXMLCreditsController {
-    
+
+    private final static Logger logger = LoggerFactory.getLogger(FXMLMainAppController.class);
+
     @FXML
     Button btnCreators;
     @FXML
@@ -27,35 +31,48 @@ public class FXMLCreditsController {
     Button btnDescription;
     
     @FXML
-    public void switchScenes(ActionEvent event) throws IOException {
-     
-        Object clickButton = event.getSource();
-        
-        if (clickButton == btnCreators) {
-            switchScene("/fxml/CreatorsScene.fxml", new FXMLCreatorsController());
-            
-        } 
-        else if (clickButton == btnInspirations) {
-            switchScene("/fxml/InspirationsScene.fxml", new FXMLInspirationsController());
-            
-        }
-        else if (clickButton == btnScience) {
-            switchScene("/fxml/ScienceScene.fxml", new FXMLScienceController());
-            
-        }
-        else if (clickButton == btnDescription) {
-            switchScene("/fxml/DescriptionScene.fxml", new FXMLDescriptionController());
-            
-        }
-    }
+    private void handleBtnCreators() throws IOException {
+    logger.info("Creators button clicked");  
     
+    Stage stage = (Stage) btnCreators.getScene().getWindow();
+    MainApp mainApp = new MainApp();
+    FXMLLoader loader = mainApp.loadFXML("/fxml/CreatorsScene.fxml", new FXMLMainAppController());
+    Scene scene = new Scene(loader.load());
+    stage.setScene(scene);
+    }
+     
+    @FXML
+    private void handleBtnInspirations() throws IOException {
+    logger.info("Inspirations button clicked"); 
+    
+    Stage stage = (Stage) btnCreators.getScene().getWindow();
+    MainApp mainApp = new MainApp();
+    FXMLLoader loader = mainApp.loadFXML("/fxml/InspirationsScene.fxml", new FXMLMainAppController());
+    Scene scene = new Scene(loader.load());
+    stage.setScene(scene);
+    }
     
     @FXML
-    public void switchScene(String fxml, Object controller) throws IOException {
-        Stage currentStage = (Stage) btnCreators.getScene().getWindow();
-        MainApp mainApp = new MainApp();
-        FXMLLoader loader = mainApp.loadFXML(fxml, controller);
-        currentStage.setScene(new Scene(loader.load()));
+    private void handleBtnScience() throws IOException {
+    logger.info("Science button clicked"); 
+    
+    Stage stage = (Stage) btnCreators.getScene().getWindow();
+    MainApp mainApp = new MainApp();
+    FXMLLoader loader = mainApp.loadFXML("/fxml/ScienceScene.fxml", new FXMLMainAppController());
+    Scene scene = new Scene(loader.load());
+    stage.setScene(scene);
     }
-
+    
+    @FXML
+    private void handleBtnDescription() throws IOException { 
+    logger.info("Description button clicked");  
+    
+    Stage stage = (Stage) btnCreators.getScene().getWindow();
+    MainApp mainApp = new MainApp();
+    FXMLLoader loader = mainApp.loadFXML("/fxml/DescriptionScene.fxml", new FXMLMainAppController());
+    Scene scene = new Scene(loader.load());
+    stage.setScene(scene);
+    }
+    
+    
 }
