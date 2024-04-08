@@ -17,6 +17,8 @@ public class TetrisBlock extends Rectangle {
     private double accY;
     private double weight;
 
+    private boolean active = true;
+
     public TetrisBlock(int x, int y, Color color) {
         super(BLOCK_SIZE, BLOCK_SIZE);
         setTranslateX(x);
@@ -54,13 +56,25 @@ public class TetrisBlock extends Rectangle {
     }
 
     public void addAcc(double x, double y) {
+        if(this.active) {
         setAccX(getAccX() + x);
         setAccY(getAccY() + y);
+        }
     }
 
     public void addSpeed(double x, double y) {
+        if(this.active) {
         setSpeedX(getSpeedX() + x);
         setSpeedY(getSpeedY() + y);
+        }
+    }
+
+    public void setActive() {
+        this.active = true;
+    }
+    
+    public void setDisActive() {
+        this.active = false;
     }
 
     // Getters and setters 

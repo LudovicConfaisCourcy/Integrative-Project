@@ -13,7 +13,7 @@ public class Physics {
     private AnimationTimer physicsTimer;
     private final double deltaTime = 1.6E7 / 1_000_000_000;
     //private long previousTime = 0;
-    public double gravity = 0.98;
+    public double gravity = 9.8;
 
     public Physics(Pane simulationPane) {
         this.simulationPane = simulationPane;
@@ -44,7 +44,7 @@ public class Physics {
         for (javafx.scene.Node node : simulationPane.getChildren()) {
             if (node instanceof TetrisBlock) {
                 TetrisBlock block = (TetrisBlock) node;
-                block.addAcc(0, gravity); // Add gravity acceleration
+                block.setAccY(gravity); // Add gravity acceleration
             }
         }
     }

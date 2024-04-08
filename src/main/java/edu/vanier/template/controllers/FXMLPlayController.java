@@ -114,6 +114,23 @@ public class FXMLPlayController {
     public void MoveBlock(TetrisBlock block) {
 
         block.setOnMouseClicked(event -> {
+
+        });
+
+        block.setOnMouseDragged(event -> {
+            block.setAccX(0);
+           // block.setAccY(0);
+            block.setSpeedX(0);
+           // block.setSpeedY(0);
+            block.setDisActive();
+            block.setManaged(false);
+            block.setTranslateX(event.getX() + block.getTranslateX() - block.getWidth() / 2);
+            //block.setTranslateY(event.getY() + block.getTranslateY() - block.getHeight() / 2);
+            event.consume();
+           // physics.stopPhysics();
+        });
+
+        block.setOnMouseReleased(event -> {
             double posX = block.getTranslateX();
             double posY = block.getTranslateY();
             double speedX = block.getSpeedX();
@@ -128,18 +145,9 @@ public class FXMLPlayController {
                     + "Speed: (" + speedX + ", " + speedY + ")\n"
                     + "Acceleration: (" + accelerationX + ", " + accelerationY + ")");
             alert.showAndWait();
-        });
+            //physics.startPhysics();
+            block.setActive();
 
-        block.setOnMouseDragged(event -> {
-            block.setManaged(false);
-            block.setTranslateX(event.getX() + block.getTranslateX() - block.getWidth() / 2);
-            block.setTranslateY(event.getY() + block.getTranslateY() - block.getHeight() / 2);
-            event.consume();
-            physics.stopPhysics();
-        });
-
-        block.setOnMouseReleased(event -> {
-            physics.startPhysics();
         });
     }
 }
