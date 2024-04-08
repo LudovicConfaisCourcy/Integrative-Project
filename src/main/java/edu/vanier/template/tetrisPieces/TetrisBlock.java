@@ -1,5 +1,7 @@
 package edu.vanier.template.tetrisPieces;
 
+import java.util.ArrayList;
+import java.util.List;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
@@ -9,113 +11,62 @@ import javafx.scene.shape.Rectangle;
 public class TetrisBlock extends Rectangle {
 
     private static final int BLOCK_SIZE = 30;
-
-    // Speed, Acceleration, Weight
-    private double speedX;
-    private double speedY;
-    private double accX;
-    private double accY;
-    private double weight;
-
+    private List<BlockState> blockStates = new ArrayList<>();
+    private int weight;
     private boolean active = true;
 
-    public TetrisBlock(int x, int y, Color color) {
+    public TetrisBlock(BlockState state, Color color) {
         super(BLOCK_SIZE, BLOCK_SIZE);
-        setTranslateX(x);
-        setTranslateY(y);
+        setTranslateX(state.getPosX());
+        setTranslateY(state.getPosY());
         this.weight = 1;
-        this.speedX = 0;
-        this.speedY = 0;
-        this.accX = 0;
-        this.accY = 0;
+        addBlockState(state);
         setFill(color);
     }
 
-    public TetrisBlock(int x, int y, int width, int height, Color color) {
-        super(width, height);
-        setTranslateX(x);
-        setTranslateY(y);
-        this.weight = 1;
-        this.speedX = 0;
-        this.speedY = 0;
-        this.accX = 0;
-        this.accY = 0;
-        setFill(color);
+    public void addBlockState(BlockState state) {
+        if (blockStates.size() >= 2) {
+            blockStates.remove(0);
+        }
+        blockStates.add(state);
     }
 
-    public TetrisBlock(int x, int y, int width, int height, Color color, double weight) {
-        super(width, height);
-        setTranslateX(x);
-        setTranslateY(y);
-        this.weight = weight;
-        this.speedX = 0;
-        this.speedY = 0;
-        this.accX = 0;
-        this.accY = 0;
-        setFill(color);
+    // Method to get the current block state
+    public BlockState getCurrentState() {
+        return blockStates.get(blockStates.size() - 1);
     }
 
-    public void addAcc(double x, double y) {
-        if(this.active) {
-        setAccX(getAccX() + x);
-        setAccY(getAccY() + y);
+    // Method to get the previous block state
+    public BlockState getPreviousState() {
+        if (blockStates.size() >= 2) {
+            return blockStates.get(blockStates.size() - 2);
+        } else {
+            // Return null or handle appropriately if there is no previous state
+            return null;
         }
     }
 
-    public void addSpeed(double x, double y) {
-        if(this.active) {
-        setSpeedX(getSpeedX() + x);
-        setSpeedY(getSpeedY() + y);
-        }
+    public void addSpeed(double speedX, double speedY) {
+        this.getCurrentState().setSpeedX(this.getCurrentState().getSpeedX() + speedX);
+        this.getCurrentState().setSpeedY(this.getCurrentState().getSpeedY() + speedY);
+
     }
 
+    //***************
     public void setActive() {
         this.active = true;
     }
-    
+
     public void setDisActive() {
         this.active = false;
     }
 
-    // Getters and setters 
-    public double getWeight() {
+    public int getWeight() {
         return weight;
     }
 
-    public void setWeight(double weight) {
+    public void setWeight(int weight) {
         this.weight = weight;
-    }
-
-    public double getAccX() {
-        return accX;
-    }
-
-    public void setAccX(double accX) {
-        this.accX = accX;
-    }
-
-    public double getAccY() {
-        return accY;
-    }
-
-    public void setAccY(double accY) {
-        this.accY = accY;
-    }
-
-    public double getSpeedX() {
-        return speedX;
-    }
-
-    public void setSpeedX(double speedX) {
-        this.speedX = speedX;
-    }
-
-    public double getSpeedY() {
-        return speedY;
-    }
-
-    public void setSpeedY(double speedY) {
-        this.speedY = speedY;
     }
 
 }

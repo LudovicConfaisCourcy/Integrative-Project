@@ -3,6 +3,7 @@ package edu.vanier.template.controllers;
 import edu.vanier.template.MainApp;
 import edu.vanier.template.graphs.Graph1;
 import edu.vanier.template.physicalLaws.Physics;
+import edu.vanier.template.tetrisPieces.BlockState;
 import edu.vanier.template.tetrisPieces.TetrisBlock;
 import edu.vanier.template.tetrisPieces.TetrisGround;
 import java.io.IOException;
@@ -58,7 +59,8 @@ public class FXMLPlayController {
 
         logger.info("Start button clicked");
         physics.startPhysics();
-        TetrisBlock block = new TetrisBlock((int) pnBoard.getWidth() / 2 - 15, 0, Color.RED);
+        BlockState initialState = new BlockState((int) pnBoard.getWidth() / 2 - 15, 0, 0, 0, 0, 0);
+        TetrisBlock block = new TetrisBlock(initialState, Color.RED);
         pnBoard.getChildren().add(block);
         MoveBlock(block);
 
@@ -112,42 +114,56 @@ public class FXMLPlayController {
     }
 
     public void MoveBlock(TetrisBlock block) {
+        block.setOnMousePressed(event
+                -> {
+            // Store the initial position when mouse is pressed
+            block.getCurrentState().setPosX(block.getTranslateX());
+            block.getCurrentState().setPosY(block.getTranslateY());
+        }
+        );
 
-        block.setOnMouseClicked(event -> {
-
-        });
-
-        block.setOnMouseDragged(event -> {
-            block.setAccX(0);
-           // block.setAccY(0);
-            block.setSpeedX(0);
-           // block.setSpeedY(0);
-            block.setDisActive();
+        block.setOnMouseDragged(event
+                -> {
+            block.getCurrentState().setAccX(0);
+            block.getCurrentState().setAccY(0);
+            block.getCurrentState().setSpeedX(0);
+            block.getCurrentState().setSpeedY(0);
             block.setManaged(false);
             block.setTranslateX(event.getX() + block.getTranslateX() - block.getWidth() / 2);
-            //block.setTranslateY(event.getY() + block.getTranslateY() - block.getHeight() / 2);
+            block.setTranslateY(event.getY() + block.getTranslateY() - block.getHeight() / 2);
             event.consume();
-           // physics.stopPhysics();
-        });
+            physics.stopPhysics();
+        }
+        );
 
-        block.setOnMouseReleased(event -> {
+        block.setOnMouseReleased(event
+                -> {
             double posX = block.getTranslateX();
             double posY = block.getTranslateY();
-            double speedX = block.getSpeedX();
-            double speedY = block.getSpeedY();
-            double accelerationX = block.getAccX();
-            double accelerationY = block.getAccY();
 
-            Alert alert = new Alert(AlertType.INFORMATION);
+            // Calculate velocity based on the change in position
+            double speedX = (posX - block.getCurrentState().getPosX()) / 0.16;
+            double speedY = (posY - block.getCurrentState().getPosY()) / 0.16;
+
+            // Store the current position, velocity, and acceleration as previous values
+            block.getCurrentState().setPosX(posX);
+            block.getCurrentState().setPosY(posY);
+            block.getCurrentState().setSpeedX(speedX);
+            block.getCurrentState().setSpeedY(speedY);
+
+            // Start physics simulation
+            physics.startPhysics();
+        }
+        );
+    }
+
+    /*
+     Alert alert = new Alert(AlertType.INFORMATION);
             alert.setTitle("Block Information");
             alert.setHeaderText(null);
             alert.setContentText("Position: (" + posX + ", " + posY + ")\n"
                     + "Speed: (" + speedX + ", " + speedY + ")\n"
                     + "Acceleration: (" + accelerationX + ", " + accelerationY + ")");
             alert.showAndWait();
-            //physics.startPhysics();
-            block.setActive();
-
-        });
-    }
+     */
 }

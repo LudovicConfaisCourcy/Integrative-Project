@@ -2,6 +2,7 @@ package edu.vanier.template.physicalLaws;
 
 import edu.vanier.template.tetrisPieces.TetrisBlock;
 import javafx.animation.AnimationTimer;
+import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 
 /**
@@ -41,28 +42,29 @@ public class Physics {
 
     private void applyGravity() {
         // Apply gravity to all Tetris blocks
-        for (javafx.scene.Node node : simulationPane.getChildren()) {
+        for (Node node : simulationPane.getChildren()) {
             if (node instanceof TetrisBlock) {
                 TetrisBlock block = (TetrisBlock) node;
-                block.setAccY(gravity); // Add gravity acceleration
+                block.getCurrentState().setAccY(gravity); // Add gravity acceleration
             }
         }
     }
 
     private void applyNormalForce() {
-        // Loop through all Tetris blocks in the simulation pane
-        for (javafx.scene.Node node : simulationPane.getChildren()) {
+        double simulationPaneHeight = simulationPane.getHeight();
+
+        for (Node node : simulationPane.getChildren()) {
             if (node instanceof TetrisBlock) {
                 TetrisBlock block = (TetrisBlock) node;
                 double blockBottomY = block.getTranslateY() + block.getHeight();
 
-                if (blockBottomY >= simulationPane.getHeight()) {
+                if (blockBottomY >= simulationPaneHeight) {
                     // If the block hits the bottom, apply normal force
-                    block.setTranslateY(simulationPane.getHeight() - block.getHeight());
-                    block.setSpeedY(0); // Reset vertical speed
-                    block.addAcc(0, -gravity); // Reset vertical acceleration
+                    block.setTranslateY(simulationPaneHeight - block.getHeight());
+                    block.getCurrentState().setSpeedY(0); // Reset vertical speed
+                    block.getCurrentState().setAccY(0); // Reset vertical acceleration
                 } else {
-                    for (javafx.scene.Node otherNode : simulationPane.getChildren()) {
+                    for (Node otherNode : simulationPane.getChildren()) {
                         if (otherNode instanceof TetrisBlock && otherNode != block) {
                             TetrisBlock otherBlock = (TetrisBlock) otherNode;
                             if (block.getBoundsInParent().intersects(otherBlock.getBoundsInParent())) {
@@ -70,14 +72,14 @@ public class Physics {
                                 double deltaY = block.getTranslateY() - otherBlock.getTranslateY();
 
                                 // Adjust positions and velocities based on relative positions
-                                if (deltaY > 0) { 
+                                if (deltaY > 0) { // Block is above
                                     block.setTranslateY(otherBlock.getTranslateY() + otherBlock.getHeight());
-                                    block.setSpeedY(0); 
-                                    block.addAcc(0, gravity); 
+                                    block.getCurrentState().setSpeedY(0); // Reset vertical speed
+                                    block.getCurrentState().setAccY(gravity); // Apply gravity
                                 } else { // Block is below
                                     block.setTranslateY(otherBlock.getTranslateY() - block.getHeight());
-                                    block.setSpeedY(0); 
-                                    block.addAcc(0, -gravity); 
+                                    block.getCurrentState().setSpeedY(0); // Reset vertical speed
+                                    block.getCurrentState().setAccY(-gravity); // Apply upward force
                                 }
                                 break;
                             }
@@ -90,10 +92,11 @@ public class Physics {
 
     private void moveBlock() {
         // Move Tetris blocks according to their speed and acceleration
-        for (javafx.scene.Node node : simulationPane.getChildren()) {
-            if (node instanceof TetrisBlock block) {
-                block.addSpeed(block.getAccX() * deltaTime, block.getAccY() * deltaTime); // Update speed
-                double newY = block.getTranslateY() + block.getSpeedY() * deltaTime; // Update position
+        for (Node node : simulationPane.getChildren()) {
+            if (node instanceof TetrisBlock) {
+                TetrisBlock block = (TetrisBlock) node;
+                block.addSpeed(block.getCurrentState().getAccX() * deltaTime, block.getCurrentState().getAccY() * deltaTime); // Update speed
+                double newY = block.getTranslateY() + block.getCurrentState().getSpeedY() * deltaTime; // Update position
                 block.setTranslateY(newY);
             }
         }
