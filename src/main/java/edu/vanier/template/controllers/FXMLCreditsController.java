@@ -10,8 +10,10 @@ import javafx.fxml.FXMLLoader;
 import java.io.IOException;
 import javafx.scene.control.Button;
 import javafx.event.ActionEvent;
+import javafx.scene.Cursor;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,6 +31,8 @@ public class FXMLCreditsController {
     Button btnScience;
     @FXML
     Button btnDescription;
+    @FXML
+    Pane CreditsPane;
     
     @FXML
     private void handleBtnCreators() throws IOException {
@@ -74,5 +78,13 @@ public class FXMLCreditsController {
     stage.setScene(scene);
     }
     
+    @FXML
+    private void CursorChange(){
+        CreditsPane.setCursor(Cursor.HAND);
+    }
+    @FXML
+    private void CursorChangeExit(){
+        CreditsPane.setCursor(Cursor.DEFAULT);
+    }
     
 }
