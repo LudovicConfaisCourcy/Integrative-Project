@@ -193,10 +193,19 @@ public class FXMLPlayController {
     private void CursorChangeExit(){
         BorderPane.setCursor(Cursor.DEFAULT);
     }
+    
     public void CursorChangeBlock(TetrisBlock block){
           
     block.setOnMouseEntered(event -> {
-        BorderPane.setCursor(Cursor.HAND);
+        BorderPane.setCursor(Cursor.OPEN_HAND);
+        });
+    
+    block.setOnMousePressed(event -> {
+        BorderPane.setCursor(Cursor.CLOSED_HAND);
+        });
+    
+    block.setOnMouseReleased(event -> {
+        BorderPane.setCursor(Cursor.OPEN_HAND);
         });
     
     block.setOnMouseExited(event -> {   
