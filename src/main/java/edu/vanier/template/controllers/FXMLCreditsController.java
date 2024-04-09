@@ -5,27 +5,22 @@ package edu.vanier.template.controllers;
 import edu.vanier.template.MainApp;
 import java.io.IOException;
 import java.util.logging.Level;
-import javafx.application.Platform;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Cursor;
-import javafx.scene.Scene;
+import java.io.IOException;
 import javafx.scene.control.Button;
-import javafx.scene.layout.Pane;
+import javafx.event.ActionEvent;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
- /* @authors
- *  Ludovic Confais Courcy
- *  Anton Lisunov
- *  Shyam Patel
- */
-
    
 public class FXMLCreditsController {
+
     private final static Logger logger = LoggerFactory.getLogger(FXMLMainAppController.class);
+
     @FXML
     Button btnCreators;
     @FXML
@@ -33,41 +28,51 @@ public class FXMLCreditsController {
     @FXML
     Button btnScience;
     @FXML
-    Button btnDescription;  
+    Button btnDescription;
+    
     @FXML
-    Pane CreditsPane;
-
-    @FXML
-    public void switchScenes(ActionEvent event) throws IOException {
-        Object clickButton = event.getSource();
-        if (clickButton == btnCreators) {
-            logger.info("Clicked Play Button");
-            switchScene("/fxml/TetrisScene.fxml", new FXMLPlayController());
-        } else if (clickButton == btnInspirations) {
-            logger.info("Clicked Settng Button");
-            switchScene("/fxml/SettingsScene.fxml", new FXMLSettingsController());
-        } else if (clickButton == btnScience) {
-            logger.info("Clicked Credit Button");
-            switchScene("/fxml/CreditScene.fxml", new FXMLCreditsController());
-        } else if (clickButton == btnDescription) {
-            logger.info("Clicked Quit Button");
-            Stage currentStage = (Stage) btnCreators.getScene().getWindow();
-        }
+    private void handleBtnCreators() throws IOException {
+    logger.info("Creators button clicked");  
+    
+    Stage stage = (Stage) btnCreators.getScene().getWindow();
+    MainApp mainApp = new MainApp();
+    FXMLLoader loader = mainApp.loadFXML("/fxml/CreatorsScene.fxml", new FXMLMainAppController());
+    Scene scene = new Scene(loader.load());
+    stage.setScene(scene);
     }
-
-    public void switchScene(String fxml, Object controller) throws IOException {
-        logger.info("Stage is changed");
-        Stage currentStage = (Stage) btnCreators.getScene().getWindow();
-        MainApp mainApp = new MainApp();
-        FXMLLoader loader = mainApp.loadFXML(fxml, controller);
-        currentStage.setScene(new Scene(loader.load()));
+     
+    @FXML
+    private void handleBtnInspirations() throws IOException {
+    logger.info("Inspirations button clicked"); 
+    
+    Stage stage = (Stage) btnCreators.getScene().getWindow();
+    MainApp mainApp = new MainApp();
+    FXMLLoader loader = mainApp.loadFXML("/fxml/InspirationsScene.fxml", new FXMLMainAppController());
+    Scene scene = new Scene(loader.load());
+    stage.setScene(scene);
+    }
+    
+    @FXML
+    private void handleBtnScience() throws IOException {
+    logger.info("Science button clicked"); 
+    
+    Stage stage = (Stage) btnCreators.getScene().getWindow();
+    MainApp mainApp = new MainApp();
+    FXMLLoader loader = mainApp.loadFXML("/fxml/ScienceScene.fxml", new FXMLMainAppController());
+    Scene scene = new Scene(loader.load());
+    stage.setScene(scene);
+    }
+    
+    @FXML
+    private void handleBtnDescription() throws IOException { 
+    logger.info("Description button clicked");  
+    
+    Stage stage = (Stage) btnCreators.getScene().getWindow();
+    MainApp mainApp = new MainApp();
+    FXMLLoader loader = mainApp.loadFXML("/fxml/DescriptionScene.fxml", new FXMLMainAppController());
+    Scene scene = new Scene(loader.load());
+    stage.setScene(scene);
+    }
+    
     
 }
-@FXML
-    private void CursorChange(){
-        CreditsPane.setCursor(Cursor.HAND);
-    }
-    @FXML
-    private void CursorChangeExit(){
-        CreditsPane.setCursor(Cursor.DEFAULT);
-    }}
