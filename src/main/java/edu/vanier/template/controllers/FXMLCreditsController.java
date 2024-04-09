@@ -68,12 +68,12 @@ public class FXMLCreditsController {
     }
     
     @FXML
-    private void handleBtnDescription() throws IOException { 
+    private void handleBtnMenu() throws IOException { 
     logger.info("Description button clicked");  
     
     Stage stage = (Stage) btnCreators.getScene().getWindow();
     MainApp mainApp = new MainApp();
-    FXMLLoader loader = mainApp.loadFXML("/fxml/DescriptionScene.fxml", new FXMLMainAppController());
+    FXMLLoader loader = mainApp.loadFXML("/fxml/IntroScene.fxml", new FXMLMainAppController());
     Scene scene = new Scene(loader.load());
     stage.setScene(scene);
     }

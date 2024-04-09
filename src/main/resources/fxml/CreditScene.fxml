@@ -19,39 +19,42 @@
                   <Font name="Bell MT Bold" size="40.0" />
                </font>
             </Label>
-            <Button fx:id="btnCreators" mnemonicParsing="false" onMouseEntered="#CursorChange" onMouseExited="#CursorChangeExit" prefHeight="20.0" prefWidth="175.0" style="-fx-background-color: DarkGray;" text="Creators">
+            <Button fx:id="btnScience" mnemonicParsing="false" onAction="#handleBtnScience" onMouseEntered="#CursorChange" onMouseExited="#CursorChangeExit" prefHeight="20.0" prefWidth="175.0" style="-fx-background-color: DarkGray;" text="Science">
+               <padding>
+                  <Insets left="30.0" right="30.0" />
+               </padding>
+               <font>
+                  <Font name="Bodoni MT" size="16.0" />
+               </font>
                <VBox.margin>
-                  <Insets bottom="30.0" top="50.0" />
+                  <Insets top="50.0" />
                </VBox.margin>
-               <padding>
-                  <Insets left="30.0" right="30.0" />
-               </padding>
-               <font>
-                  <Font name="Bodoni MT" size="16.0" />
-               </font>
             </Button>
-            <Button fx:id="btnDescription" mnemonicParsing="false" onMouseEntered="#CursorChange" onMouseExited="#CursorChangeExit" prefHeight="20.0" prefWidth="175.0" style="-fx-background-color: DarkGray;" text="Description">
-               <VBox.margin>
-                  <Insets bottom="30.0" />
-               </VBox.margin>
-               <padding>
-                  <Insets left="30.0" right="30.0" />
-               </padding>
-               <font>
-                  <Font name="Bodoni MT" size="16.0" />
-               </font>
-            </Button>
-            <Button fx:id="btnScience" mnemonicParsing="false" onMouseEntered="#CursorChange" onMouseExited="#CursorChangeExit" prefHeight="20.0" prefWidth="175.0" style="-fx-background-color: DarkGray;" text="Science">
-               <padding>
-                  <Insets left="30.0" right="30.0" />
-               </padding>
-               <font>
-                  <Font name="Bodoni MT" size="16.0" />
-               </font>
-            </Button>
-            <Button fx:id="btnInspirations" mnemonicParsing="false" onMouseEntered="#CursorChange" onMouseExited="#CursorChangeExit" prefHeight="20.0" prefWidth="175.0" style="-fx-background-color: DarkGray;" text="Inspirations">
+            <Button fx:id="btnInspirations" mnemonicParsing="false" onAction="#handleBtnInspirations" onMouseEntered="#CursorChange" onMouseExited="#CursorChangeExit" prefHeight="20.0" prefWidth="175.0" style="-fx-background-color: DarkGray;" text="Inspirations">
                <VBox.margin>
                   <Insets top="30.0" />
+               </VBox.margin>
+               <padding>
+                  <Insets left="30.0" right="30.0" />
+               </padding>
+               <font>
+                  <Font name="Bodoni MT" size="16.0" />
+               </font>
+            </Button>
+            <Button fx:id="btnCreators" mnemonicParsing="false" onAction="#handleBtnCreators" onMouseEntered="#CursorChange" onMouseExited="#CursorChangeExit" prefHeight="20.0" prefWidth="175.0" style="-fx-background-color: DarkGray;" text="Creators">
+               <VBox.margin>
+                  <Insets bottom="30.0" top="30.0" />
+               </VBox.margin>
+               <padding>
+                  <Insets left="30.0" right="30.0" />
+               </padding>
+               <font>
+                  <Font name="Bodoni MT" size="16.0" />
+               </font>
+            </Button>
+            <Button fx:id="btnMenu" mnemonicParsing="false" onAction="#handleBtnMenu" onMouseEntered="#CursorChange" onMouseExited="#CursorChangeExit" prefHeight="20.0" prefWidth="175.0" style="-fx-background-color: DarkGray;" text="Menu">
+               <VBox.margin>
+                  <Insets bottom="30.0" />
                </VBox.margin>
                <padding>
                   <Insets left="30.0" right="30.0" />
