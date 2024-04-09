@@ -6,9 +6,11 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Cursor;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,6 +28,8 @@ public class FXMLMainAppController {
     Button btnCredits;
     @FXML
     Button btnQuit;
+    @FXML
+    Pane introPane;
 
     @FXML
     public void initialize() {
@@ -58,5 +62,13 @@ public class FXMLMainAppController {
         MainApp mainApp = new MainApp();
         FXMLLoader loader = mainApp.loadFXML(fxml, controller);
         currentStage.setScene(new Scene(loader.load()));
+    }
+    @FXML
+    private void CursorChange(){
+        introPane.setCursor(Cursor.HAND);
+    }
+    @FXML
+    private void CursorChangeExit(){
+        introPane.setCursor(Cursor.DEFAULT);
     }
 }
