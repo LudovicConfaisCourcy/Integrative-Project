@@ -24,6 +24,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  * @author Anton Lisunov
+ *         Ludovic Confais Courcy
  */
 public class FXMLPlayController {
 
@@ -48,14 +49,26 @@ public class FXMLPlayController {
     Pane pnBoard;
     @FXML
     BorderPane BorderPane;
-
+    @FXML
+    BorderPane TetrisBorderPane;
+    
+    
     @FXML
     public void initialize() {
         physics = new Physics(pnBoard);
-        TetrisGround ground = new TetrisGround((int) pnBoard.getWidth() / 2 + 100, 325, 200, 100);
+        TetrisGround ground = new TetrisGround(0,0, 200, 100);
         System.out.println(pnBoard.getMaxHeight());
         pnBoard.getChildren().add(ground);
+        
+        pnBoard.widthProperty().addListener((obs, oldWidth, newWidth) -> {
+            ground.setWidth(newWidth.doubleValue() * 0.5);
+            ground.setTranslateX(newWidth.doubleValue() * 0.25);
+        });
 
+        pnBoard.heightProperty().addListener((obs, oldHeight, newHeight) -> {
+            ground.setHeight(newHeight.doubleValue() * 0.3);
+            ground.setTranslateY(newHeight.doubleValue() * 0.9);
+        });
     }
 
     @FXML
@@ -67,11 +80,7 @@ public class FXMLPlayController {
         TetrisBlock block = new TetrisBlock(initialState, Color.RED);
         pnBoard.getChildren().add(block);
         MoveBlock(block);
-<<<<<<< HEAD
         CursorChangeBlock(block);
-=======
-
->>>>>>> main
     }
 
     @FXML
@@ -174,8 +183,8 @@ public class FXMLPlayController {
                     + "Acceleration: (" + accelerationX + ", " + accelerationY + ")");
             alert.showAndWait();
      */
-}
-<<<<<<< HEAD
+
+
     @FXML
     private void CursorChange(){
         BorderPane.setCursor(Cursor.HAND);
@@ -195,5 +204,3 @@ public class FXMLPlayController {
     });
 }
 }
-=======
->>>>>>> main

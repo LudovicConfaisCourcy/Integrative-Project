@@ -39,7 +39,7 @@
                         <Font name="System Bold" size="18.0" />
                      </font>
                   </Label>
-                  <Label fx:id="lbScore" prefHeight="30.0" prefWidth="80.0" style="-fx-background-color: black;" text=": 0000" textFill="WHITE">
+                  <Label fx:id="lbScore" prefHeight="30.0" prefWidth="80.0" style="-fx-background-color: black;" text="     0000" textFill="WHITE">
                      <VBox.margin>
                         <Insets />
                      </VBox.margin>
