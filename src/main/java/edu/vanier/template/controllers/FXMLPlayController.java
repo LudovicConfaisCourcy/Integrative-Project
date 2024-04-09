@@ -7,12 +7,14 @@ import edu.vanier.template.tetrisPieces.TetrisBlock;
 import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import org.slf4j.Logger;
@@ -42,6 +44,8 @@ public class FXMLPlayController {
     Pane pnNext;
     @FXML
     Pane pnBoard;
+    @FXML
+    BorderPane BorderPane;
 
     @FXML
     public void initialize() {
@@ -54,6 +58,7 @@ public class FXMLPlayController {
         TetrisBlock block = new TetrisBlock((int) pnBoard.getWidth() / 2 - 15, 0);
         pnBoard.getChildren().add(block);
         MoveBlock(block);
+        CursorChangeBlock(block);
     }
 
     @FXML
@@ -117,5 +122,23 @@ public class FXMLPlayController {
     block.setOnMouseReleased(event -> {   
         physics.startGravity();
     });    
+}
+    @FXML
+    private void CursorChange(){
+        BorderPane.setCursor(Cursor.HAND);
+    }
+    @FXML
+    private void CursorChangeExit(){
+        BorderPane.setCursor(Cursor.DEFAULT);
+    }
+    public void CursorChangeBlock(TetrisBlock block){
+          
+    block.setOnMouseEntered(event -> {
+        BorderPane.setCursor(Cursor.HAND);
+        });
+    
+    block.setOnMouseExited(event -> {   
+        BorderPane.setCursor(Cursor.DEFAULT);
+    });
 }
 }
