@@ -79,8 +79,9 @@ public class FXMLPlayController {
         BlockState initialState = new BlockState((int) pnBoard.getWidth() / 2 - 15, 0, 0, 0, 0, 0);
         TetrisBlock block = new TetrisBlock(initialState, Color.RED);
         pnBoard.getChildren().add(block);
-        MoveBlock(block);
         CursorChangeBlock(block);
+        MoveBlock(block);
+      
     }
 
     @FXML
@@ -136,8 +137,8 @@ public class FXMLPlayController {
             // Store the initial position when mouse is pressed
             block.getCurrentState().setPosX(block.getTranslateX());
             block.getCurrentState().setPosY(block.getTranslateY());
-        }
-        );
+            BorderPane.setCursor(Cursor.CLOSED_HAND);
+        });
 
         block.setOnMouseDragged(event
                 -> {
@@ -150,8 +151,7 @@ public class FXMLPlayController {
             block.setTranslateY(event.getY() + block.getTranslateY() - block.getHeight() / 2);
             event.consume();
             physics.stopPhysics();
-        }
-        );
+        });
 
         block.setOnMouseReleased(event
                 -> {
@@ -170,8 +170,8 @@ public class FXMLPlayController {
 
             // Start physics simulation
             physics.startPhysics();
-        }
-        );
+            BorderPane.setCursor(Cursor.OPEN_HAND);
+        });
     }
 
     /*
@@ -194,17 +194,9 @@ public class FXMLPlayController {
         BorderPane.setCursor(Cursor.DEFAULT);
     }
     
-    public void CursorChangeBlock(TetrisBlock block){
-          
+    public void CursorChangeBlock(TetrisBlock block){      
+    
     block.setOnMouseEntered(event -> {
-        BorderPane.setCursor(Cursor.OPEN_HAND);
-        });
-    
-    block.setOnMousePressed(event -> {
-        BorderPane.setCursor(Cursor.CLOSED_HAND);
-        });
-    
-    block.setOnMouseReleased(event -> {
         BorderPane.setCursor(Cursor.OPEN_HAND);
         });
     
