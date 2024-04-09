@@ -8,6 +8,7 @@ import javafx.scene.shape.Rectangle;
 /**
  * @author Anton Lisunov
  */
+
 public class TetrisBlock extends Rectangle {
 
     private static final int BLOCK_SIZE = 30;
@@ -24,24 +25,23 @@ public class TetrisBlock extends Rectangle {
         setFill(color);
     }
 
-    public void addBlockState(BlockState state) {
+    public final void addBlockState(BlockState state) {
         if (blockStates.size() >= 2) {
             blockStates.remove(0);
         }
         blockStates.add(state);
+        this.setTranslateX(state.getPosX());
+        this.setTranslateY(state.getPosY());
     }
 
-    // Method to get the current block state
     public BlockState getCurrentState() {
         return blockStates.get(blockStates.size() - 1);
     }
-
-    // Method to get the previous block state
+    
     public BlockState getPreviousState() {
         if (blockStates.size() >= 2) {
             return blockStates.get(blockStates.size() - 2);
         } else {
-            // Return null or handle appropriately if there is no previous state
             return null;
         }
     }
@@ -49,8 +49,8 @@ public class TetrisBlock extends Rectangle {
     public void addSpeed(double speedX, double speedY) {
         this.getCurrentState().setSpeedX(this.getCurrentState().getSpeedX() + speedX);
         this.getCurrentState().setSpeedY(this.getCurrentState().getSpeedY() + speedY);
-
     }
+    
 
     //***************
     public void setActive() {

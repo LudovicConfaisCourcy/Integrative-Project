@@ -114,45 +114,42 @@ public class FXMLPlayController {
     }
 
     public void MoveBlock(TetrisBlock block) {
-        block.setOnMousePressed(event
+
+        block.setOnMouseClicked(event
                 -> {
-            // Store the initial position when mouse is pressed
-            block.getCurrentState().setPosX(block.getTranslateX());
-            block.getCurrentState().setPosY(block.getTranslateY());
+            BlockState state = new BlockState(block.getCurrentState().getPosX(), block.getCurrentState().getPosY(), block.getCurrentState().getSpeedX(), block.getCurrentState().getSpeedY(), 0, 0);
+            block.addBlockState(state);
         }
         );
 
         block.setOnMouseDragged(event
                 -> {
-            block.getCurrentState().setAccX(0);
-            block.getCurrentState().setAccY(0);
-            block.getCurrentState().setSpeedX(0);
-            block.getCurrentState().setSpeedY(0);
+
             block.setManaged(false);
-            block.setTranslateX(event.getX() + block.getTranslateX() - block.getWidth() / 2);
-            block.setTranslateY(event.getY() + block.getTranslateY() - block.getHeight() / 2);
+            BlockState state = new BlockState(event.getX() + block.getCurrentState().getPosX() - block.getWidth() / 2, event.getY() + block.getCurrentState().getPosY() - block.getHeight() / 2,block.getCurrentState().getSpeedX(), block.getCurrentState().getSpeedY(), 0, 0);
+            block.addBlockState(state);
             event.consume();
             physics.stopPhysics();
+
         }
         );
 
         block.setOnMouseReleased(event
                 -> {
-            double posX = block.getTranslateX();
-            double posY = block.getTranslateY();
 
             // Calculate velocity based on the change in position
-            double speedX = (posX - block.getCurrentState().getPosX()) / 0.16;
-            double speedY = (posY - block.getCurrentState().getPosY()) / 0.16;
+            double speedX = (block.getCurrentState().getPosX() - block.getPreviousState().getPosX()) / 0.16;
+            double speedY = (block.getCurrentState().getPosY() - block.getPreviousState().getPosY()) / 0.16;
+            BlockState state = new BlockState(block.getCurrentState().getPosX(), block.getCurrentState().getPosY(), speedX, speedY, 0, 0);
+            block.addBlockState(state);
+            physics.startPhysics();
+            
+            
+            System.out.println(block.getCurrentState().getSpeedX());
 
-            // Store the current position, velocity, and acceleration as previous values
-            block.getCurrentState().setPosX(posX);
-            block.getCurrentState().setPosY(posY);
-            block.getCurrentState().setSpeedX(speedX);
-            block.getCurrentState().setSpeedY(speedY);
+            
 
             // Start physics simulation
-            physics.startPhysics();
         }
         );
     }
