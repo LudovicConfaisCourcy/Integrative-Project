@@ -7,6 +7,7 @@ import edu.vanier.template.tetrisPieces.BlockState;
 import edu.vanier.template.tetrisPieces.TetrisBlock;
 import edu.vanier.template.tetrisPieces.TetrisGround;
 import java.io.IOException;
+import javafx.event.EventHandler; //Added
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Cursor;
@@ -15,6 +16,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.input.KeyCode; //Added
+import javafx.scene.input.KeyEvent; //Added
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -76,6 +79,26 @@ public class FXMLPlayController {
         pnBoard.getChildren().add(block);
         CursorChangeBlock(block);
         MoveBlock(block);
+        
+        Stage gameStage = (Stage) btnPlay.getScene().getWindow();
+        
+        EventHandler start_rotation = (EventHandler<KeyEvent>) (KeyEvent event) -> {
+            if(KeyCode.R == event.getCode()){
+               logger.info("Rotation Activate");
+               physics.stopPhysics();
+               RotateBlock(block);
+            }           
+        };
+        gameStage.getScene().setOnKeyPressed(start_rotation);
+        
+        EventHandler stop_rotation = (EventHandler<KeyEvent>) (KeyEvent event) -> {
+            if(KeyCode.R == event.getCode()){
+               logger.info("Rotation Deactivate");
+               physics.startPhysics();
+               StopRotateBlock(block);
+            }           
+        };
+        gameStage.getScene().setOnKeyReleased(stop_rotation);
 
     }
 
@@ -156,6 +179,22 @@ public class FXMLPlayController {
             System.out.println(block.getCurrentState().getSpeedX());
             // Start physics simulation
         });
+    }
+    
+    public void RotateBlock(TetrisBlock block) {
+    logger.info("Activate Rotation");
+    
+    block.setOnMousePressed(event -> {
+        block.setRotate(block.getRotate() + 45);
+    });
+    }
+    
+    public void StopRotateBlock (TetrisBlock block) {
+    logger.info("Deactivate Rotation");
+    
+    block.setOnMousePressed(event -> {
+        block.setRotate(block.getRotate());
+    });    
     }
 
     /*
