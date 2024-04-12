@@ -12,7 +12,7 @@ public class TetrisGround extends Rectangle {
         super(x, y, widht, height);
         setArcHeight(50);
         setArcWidth(50);
-         setFill(Color.GREEN);
+        setFill(Color.GREEN);
 
     }
 
