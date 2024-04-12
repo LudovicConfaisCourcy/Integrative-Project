@@ -76,6 +76,7 @@ public class FXMLPlayController {
         pnBoard.getChildren().add(block);
         CursorChangeBlock(block);
         MoveBlock(block);
+        RotateBlock(block);
 
     }
 
@@ -156,7 +157,20 @@ public class FXMLPlayController {
             System.out.println(block.getCurrentState().getSpeedX());
             // Start physics simulation
         });
+        
+         block.setOnScroll(event -> {
+        block.setRotate( block.getRotate() + 15);
+        event.consume();
+    });
+       
     }
+    
+    public void RotateBlock(TetrisBlock block) {
+
+    // Existing code for mouse pressed, dragged, and released events
+
+   
+}
 
     /*
      Alert alert = new Alert(AlertType.INFORMATION);
