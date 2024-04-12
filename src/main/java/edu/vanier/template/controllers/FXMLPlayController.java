@@ -84,7 +84,7 @@ public class FXMLPlayController {
         
         EventHandler start_rotation = (EventHandler<KeyEvent>) (KeyEvent event) -> {
             if(KeyCode.R == event.getCode()){
-               logger.info("Rotation Activate");
+             //logger.info("Rotation Activate");
                physics.stopPhysics();
                RotateBlock(block);
             }           
@@ -93,7 +93,7 @@ public class FXMLPlayController {
         
         EventHandler stop_rotation = (EventHandler<KeyEvent>) (KeyEvent event) -> {
             if(KeyCode.R == event.getCode()){
-               logger.info("Rotation Deactivate");
+             //logger.info("Rotation Deactivate");
                physics.startPhysics();
                StopRotateBlock(block);
             }           
