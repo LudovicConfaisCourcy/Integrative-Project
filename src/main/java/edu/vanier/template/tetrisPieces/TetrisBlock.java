@@ -1,85 +1,72 @@
 package edu.vanier.template.tetrisPieces;
 
+import java.util.ArrayList;
+import java.util.List;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 /**
  * @author Anton Lisunov
  */
+
 public class TetrisBlock extends Rectangle {
 
     private static final int BLOCK_SIZE = 30;
+    private List<BlockState> blockStates = new ArrayList<>();
+    private int weight;
+    private boolean active = true;
 
-    // Speed, Acceleration, Weight
-    private double speedX;
-    private double speedY;
-    private double accX;
-    private double accY;
-    private double weight;
-
-    public TetrisBlock(int x, int y, Color color) {
+    public TetrisBlock(BlockState state, Color color) {
         super(BLOCK_SIZE, BLOCK_SIZE);
-        setTranslateX(x);
-        setTranslateY(y);
+        setTranslateX(state.getPosX());
+        setTranslateY(state.getPosY());
         this.weight = 1;
+        addBlockState(state);
         setFill(color);
     }
 
-    public TetrisBlock(int x, int y, int width, int height, Color color) {
-        super(width, height);
-        setTranslateX(x);
-        setTranslateY(y);
-        this.weight = 1;
-        setFill(color);
+    public final void addBlockState(BlockState state) {
+        if (blockStates.size() >= 2) {
+            blockStates.remove(0);
+        }
+        blockStates.add(state);
+        this.setTranslateX(state.getPosX());
+        this.setTranslateY(state.getPosY());
     }
 
-    public TetrisBlock(int x, int y, int width, int height, Color color, double weight) {
-        super(width, height);
-        setTranslateX(x);
-        setTranslateY(y);
-        this.weight = weight;
-        setFill(color);
+    public BlockState getCurrentState() {
+        return blockStates.get(blockStates.size() - 1);
     }
     
-    // Getters and setters for speed
-    public double getWeight() {
+    public BlockState getPreviousState() {
+        if (blockStates.size() >= 2) {
+            return blockStates.get(blockStates.size() - 2);
+        } else {
+            return null;
+        }
+    }
+
+    public void addSpeed(double speedX, double speedY) {
+        this.getCurrentState().setSpeedX(this.getCurrentState().getSpeedX() + speedX);
+        this.getCurrentState().setSpeedY(this.getCurrentState().getSpeedY() + speedY);
+    }
+    
+
+    //***************
+    public void setActive() {
+        this.active = true;
+    }
+
+    public void setDisActive() {
+        this.active = false;
+    }
+
+    public int getWeight() {
         return weight;
     }
 
-    public void setWeight(double weight) {
+    public void setWeight(int weight) {
         this.weight = weight;
-    }
-
-    public double getAccX() {
-        return accX;
-    }
-
-    public void setAccX(double accX) {
-        this.accX = accX;
-    }
-
-    public double getAccY() {
-        return accY;
-    }
-
-    public void setAccY(double accY) {
-        this.accY = accY;
-    }
-
-    public double getSpeedX() {
-        return speedX;
-    }
-
-    public void setSpeedX(double speedX) {
-        this.speedX = speedX;
-    }
-
-    public double getSpeedY() {
-        return speedY;
-    }
-
-    public void setSpeedY(double speedY) {
-        this.speedY = speedY;
     }
 
 }

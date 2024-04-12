@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.Group?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Slider?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.shape.Rectangle?>
@@ -14,7 +12,7 @@
 
 <AnchorPane fx:id="SettingsAnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: darkgray;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Group fx:id="GroupSquareBlock" layoutX="1.0" layoutY="-1.0" onMouseDragged="#MoveBlock1">
+      <Group fx:id="GroupSquareBlock" layoutX="1.0" layoutY="-1.0">
          <children>
             <Line endX="100.0" endY="50.0" startY="50.0" />
             <Line endX="50.0" endY="100.0" startX="50.0" />
@@ -123,34 +121,18 @@
             <Line endY="100.0" />
          </children>
       </Group>
-      <VBox layoutX="152.0" layoutY="88.0" prefHeight="200.0" prefWidth="324.0">
+      <VBox alignment="CENTER" layoutX="152.0" layoutY="88.0" prefHeight="200.0" prefWidth="324.0">
          <children>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-               <children>
-                  <CheckBox mnemonicParsing="false" text="Music">
-                     <HBox.margin>
-                        <Insets right="30.0" />
-                     </HBox.margin>
-                     <font>
-                        <Font name="Bodoni MT Bold" size="16.0" />
-                     </font>
-                  </CheckBox>
-                  <Slider prefHeight="42.0" prefWidth="201.0" />
-               </children>
-            </HBox>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-               <children>
-                  <CheckBox mnemonicParsing="false" text="Sounds">
-                     <HBox.margin>
-                        <Insets right="25.0" />
-                     </HBox.margin>
-                     <font>
-                        <Font name="Bodoni MT Bold" size="16.0" />
-                     </font>
-                  </CheckBox>
-                  <Slider prefHeight="42.0" prefWidth="201.0" />
-               </children>
-            </HBox>
+            <CheckBox mnemonicParsing="false" onMouseEntered="#CursorChange" onMouseExited="#CursorChangeExit" text="CheckBox">
+               <graphic>
+                  <Slider />
+               </graphic>
+            </CheckBox>
+            <CheckBox mnemonicParsing="false" onMouseEntered="#CursorChange" onMouseExited="#CursorChangeExit" text="CheckBox">
+               <graphic>
+                  <Slider />
+               </graphic>
+            </CheckBox>
          </children>
       </VBox>
    </children>
