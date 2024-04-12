@@ -86,7 +86,7 @@ public class FXMLPlayController {
             if(KeyCode.R == event.getCode()){
              //logger.info("Rotation Activate");
                physics.stopPhysics();
-               RotateBlock(block);
+               RotateBlock45(block);
             }           
         };
         gameStage.getScene().setOnKeyPressed(start_rotation);
@@ -181,7 +181,7 @@ public class FXMLPlayController {
         });
     }
     
-    public void RotateBlock(TetrisBlock block) {
+    public void RotateBlock45(TetrisBlock block) {
   //logger.info("Activate Rotation");
     
     block.setOnMousePressed(event -> {
