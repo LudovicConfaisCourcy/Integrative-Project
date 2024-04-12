@@ -182,7 +182,7 @@ public class FXMLPlayController {
     }
     
     public void RotateBlock(TetrisBlock block) {
-    logger.info("Activate Rotation");
+  //logger.info("Activate Rotation");
     
     block.setOnMousePressed(event -> {
         block.setRotate(block.getRotate() + 45);
@@ -190,7 +190,7 @@ public class FXMLPlayController {
     }
     
     public void StopRotateBlock (TetrisBlock block) {
-    logger.info("Deactivate Rotation");
+  //logger.info("Deactivate Rotation");
     
     block.setOnMousePressed(event -> {
         block.setRotate(block.getRotate());
@@ -205,7 +205,7 @@ public class FXMLPlayController {
                     + "Speed: (" + speedX + ", " + speedY + ")\n"
                     + "Acceleration: (" + accelerationX + ", " + accelerationY + ")");
             alert.showAndWait();
-     */
+    */
     @FXML
     private void CursorChange(){
         BorderPane.setCursor(Cursor.HAND);
