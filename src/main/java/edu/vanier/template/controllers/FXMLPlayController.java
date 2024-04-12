@@ -87,7 +87,7 @@ public class FXMLPlayController {
              //logger.info("Rotation Activate");
                physics.stopPhysics();
                RotateBlock45(block);
-            }           
+            }
         };
         gameStage.getScene().setOnKeyPressed(start_rotation);
         
@@ -96,7 +96,7 @@ public class FXMLPlayController {
              //logger.info("Rotation Deactivate");
                physics.startPhysics();
                StopRotateBlock(block);
-            }           
+            }
         };
         gameStage.getScene().setOnKeyReleased(stop_rotation);
 
@@ -188,7 +188,7 @@ public class FXMLPlayController {
         block.setRotate(block.getRotate() + 45);
     });
     }
-    
+       
     public void StopRotateBlock (TetrisBlock block) {
   //logger.info("Deactivate Rotation");
     
