@@ -8,7 +8,6 @@ import javafx.scene.shape.Rectangle;
 /**
  * @author Anton Lisunov
  */
-
 public class TetrisBlock extends Rectangle {
 
     private static final int BLOCK_SIZE = 30;
@@ -34,10 +33,17 @@ public class TetrisBlock extends Rectangle {
         this.setTranslateY(state.getPosY());
     }
 
+    public BlockState getBlockState() {
+        if (this.blockStates.size() > 1) {
+            return this.blockStates.get(1);
+        }
+        return this.blockStates.get(0);
+    }
+
     public BlockState getCurrentState() {
         return blockStates.get(blockStates.size() - 1);
     }
-    
+
     public BlockState getPreviousState() {
         if (blockStates.size() >= 2) {
             return blockStates.get(blockStates.size() - 2);
@@ -50,7 +56,6 @@ public class TetrisBlock extends Rectangle {
         this.getCurrentState().setSpeedX(this.getCurrentState().getSpeedX() + speedX);
         this.getCurrentState().setSpeedY(this.getCurrentState().getSpeedY() + speedY);
     }
-    
 
     //***************
     public void setActive() {

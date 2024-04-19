@@ -24,6 +24,10 @@ public class BlockState {
         this.speedY = speedY;
         this.accX = accX;
         this.accY = accY;
+        
+        this.posA = 0;
+        this.speedA = 30;
+        this.accA = 0;
 
     }
 

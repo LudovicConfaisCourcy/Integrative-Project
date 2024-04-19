@@ -48,13 +48,14 @@ public class FXMLPlayController {
     Pane pnBoard;
     @FXML
     BorderPane BorderPane;
+
     @FXML
     public void initialize() {
         physics = new Physics(pnBoard);
-        TetrisGround ground = new TetrisGround(0,0, 200, 100);
+        TetrisGround ground = new TetrisGround(0, 0, 200, 100);
         System.out.println(pnBoard.getMaxHeight());
         pnBoard.getChildren().add(ground);
-        
+
         pnBoard.widthProperty().addListener((obs, oldWidth, newWidth) -> {
             ground.setWidth(newWidth.doubleValue() * 0.5);
             ground.setTranslateX(newWidth.doubleValue() * 0.25);
@@ -76,7 +77,6 @@ public class FXMLPlayController {
         pnBoard.getChildren().add(block);
         CursorChangeBlock(block);
         MoveBlock(block);
-        RotateBlock(block);
 
     }
 
@@ -129,23 +129,29 @@ public class FXMLPlayController {
 
     public void MoveBlock(TetrisBlock block) {
 
-        block.setOnMousePressed(event-> {
-            
+        /*block.setOnScroll(event -> {
+            double delta = event.getDeltaY();
+            double rotationAngle = 10.0;
+            block.setRotate(block.getRotate() + rotationAngle * delta);
+        });
+*/
+        block.setOnMousePressed(event -> {
+
             BlockState state = new BlockState(block.getCurrentState().getPosX(), block.getCurrentState().getPosY(), block.getCurrentState().getSpeedX(), block.getCurrentState().getSpeedY(), 0, 0);
             block.addBlockState(state);
             BorderPane.setCursor(Cursor.CLOSED_HAND);
         });
 
-        block.setOnMouseDragged(event-> {
-            
+        block.setOnMouseDragged(event -> {
+
             block.setManaged(false);
-            BlockState state = new BlockState(event.getX() + block.getCurrentState().getPosX() - block.getWidth() / 2, event.getY() + block.getCurrentState().getPosY() - block.getHeight() / 2,block.getCurrentState().getSpeedX(), block.getCurrentState().getSpeedY(), 0, 0);
+            BlockState state = new BlockState(event.getX() + block.getCurrentState().getPosX() - block.getWidth() / 2, event.getY() + block.getCurrentState().getPosY() - block.getHeight() / 2, block.getCurrentState().getSpeedX(), block.getCurrentState().getSpeedY(), 0, 0);
             block.addBlockState(state);
             event.consume();
             physics.stopPhysics();
         });
 
-        block.setOnMouseReleased(event-> {
+        block.setOnMouseReleased(event -> {
 
             // Calculate velocity based on the change in position
             double speedX = (block.getCurrentState().getPosX() - block.getPreviousState().getPosX()) / 0.16;
@@ -153,51 +159,33 @@ public class FXMLPlayController {
             BlockState state = new BlockState(block.getCurrentState().getPosX(), block.getCurrentState().getPosY(), speedX, speedY, 0, 0);
             block.addBlockState(state);
             physics.startPhysics();
-            BorderPane.setCursor(Cursor.OPEN_HAND);           
-            System.out.println(block.getCurrentState().getSpeedX());
+            BorderPane.setCursor(Cursor.OPEN_HAND);
+
             // Start physics simulation
         });
-        
-         block.setOnScroll(event -> {
-        block.setRotate( block.getRotate() + 15);
-        event.consume();
-    });
+
        
+
     }
-    
-    public void RotateBlock(TetrisBlock block) {
 
-    // Existing code for mouse pressed, dragged, and released events
-
-   
-}
-
-    /*
-     Alert alert = new Alert(AlertType.INFORMATION);
-            alert.setTitle("Block Information");
-            alert.setHeaderText(null);
-            alert.setContentText("Position: (" + posX + ", " + posY + ")\n"
-                    + "Speed: (" + speedX + ", " + speedY + ")\n"
-                    + "Acceleration: (" + accelerationX + ", " + accelerationY + ")");
-            alert.showAndWait();
-     */
     @FXML
-    private void CursorChange(){
+    private void CursorChange() {
         BorderPane.setCursor(Cursor.HAND);
     }
+
     @FXML
-    private void CursorChangeExit(){
+    private void CursorChangeExit() {
         BorderPane.setCursor(Cursor.DEFAULT);
     }
-    
-    public void CursorChangeBlock(TetrisBlock block){      
-    
-    block.setOnMouseEntered(event -> {
-        BorderPane.setCursor(Cursor.OPEN_HAND);
+
+    public void CursorChangeBlock(TetrisBlock block) {
+
+        block.setOnMouseEntered(event -> {
+            BorderPane.setCursor(Cursor.OPEN_HAND);
         });
-    
-    block.setOnMouseExited(event -> {   
-        BorderPane.setCursor(Cursor.DEFAULT);
-    });
-}
+
+        block.setOnMouseExited(event -> {
+            BorderPane.setCursor(Cursor.DEFAULT);
+        });
+    }
 }

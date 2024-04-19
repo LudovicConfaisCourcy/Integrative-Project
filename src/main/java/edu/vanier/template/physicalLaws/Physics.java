@@ -9,7 +9,6 @@ import javafx.scene.layout.Pane;
 /**
  * @author Anton Lisunov
  */
-
 public class Physics {
 
     private final Pane simulationPane;
@@ -30,8 +29,7 @@ public class Physics {
                 applyGravity();
                 applyNormalForce();
                 moveBlock();
-                rotateBlock();
-                
+               rotateBlock();
 
             }
 
@@ -92,16 +90,25 @@ public class Physics {
     private void moveBlock() {
         for (Node node : simulationPane.getChildren()) {
             if (node instanceof TetrisBlock block) {
-                System.out.println( block.getCurrentState().getSpeedX());
-                block.addSpeed(block.getCurrentState().getAccX() * deltaTime, block.getCurrentState().getAccY() * deltaTime); 
-                double newY = block.getCurrentState().getPosY() + block.getCurrentState().getSpeedY() * deltaTime; 
+                block.addSpeed(block.getCurrentState().getAccX() * deltaTime, block.getCurrentState().getAccY() * deltaTime);
+                double newY = block.getCurrentState().getPosY() + block.getCurrentState().getSpeedY() * deltaTime;
                 double newX = block.getCurrentState().getPosX() + block.getCurrentState().getSpeedX() * deltaTime;
                 block.addBlockState(new BlockState(newX, newY, block.getCurrentState().getSpeedX(), block.getCurrentState().getSpeedY(), block.getCurrentState().getAccX(), block.getCurrentState().getAccY()));
+                System.out.println(block.getCurrentState().getSpeedX() + "___" + block.getCurrentState().getSpeedY());
             }
         }
     }
-    
-     private void rotateBlock() {}
+
+    private void rotateBlock() {
+        for (Node node : simulationPane.getChildren()) {
+            if (node instanceof TetrisBlock block) {
+                
+                block.getCurrentState().setPosA(block.getPreviousState().getPosA() + block.getCurrentState().getSpeedA() * deltaTime);
+                block.addBlockState(block.getBlockState());
+                block.setRotate(block.getCurrentState().getPosA());
+            }
+        }
+    }
 
     public void startPhysics() {
         if (physicsTimer != null) {
