@@ -32,11 +32,16 @@ public class Graph1 {
     String string = SwitchGraphCB.getValue().toString();
     
     switch(string){
-        case "Position Graph" -> System.out.println("P");
-        case "Velocity Graph" -> System.out.println("v");
-        case "Acceleration Graph" -> System.out.println("a");
-    }
-    });
+        case "Position Graph":
+            System.out.println("P");
+            
+        case "Velocity Graph":
+            System.out.println("v");
+            
+        case "Acceleration Graph":
+            
+            System.out.println("a");
+    }});
     
     final NumberAxis xAxis = new NumberAxis();
     final NumberAxis yAxis = new NumberAxis();
@@ -53,7 +58,7 @@ public class Graph1 {
     XYChart.Series<Number, Number> series2 = new XYChart.Series<>();
 
     series1.setName("Position");
-    series1.setName("Veocity");
+    series1.setName("Velocity");
 
     LineChart<Number, Number> chart = new LineChart<>(xAxis, yAxis);
     chart.setAnimated(false);
@@ -90,7 +95,7 @@ public class Graph1 {
                 try {
                     Thread.sleep(1000);
                     Platform.runLater(() -> series.getData().add(new XYChart.Data<>(time.incrementAndGet()- 1, (int) (Math.random() * 100 ))));
-                    System.out.println(Math.random());
+                    
                 }
                 
                 catch (InterruptedException e) {
