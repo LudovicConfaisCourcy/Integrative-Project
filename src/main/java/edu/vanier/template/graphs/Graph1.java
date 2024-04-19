@@ -6,11 +6,14 @@ package edu.vanier.template.graphs;
 
 import java.util.concurrent.atomic.AtomicInteger;
 import javafx.application.Platform;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.stage.Stage;
+import javafx.scene.control.ComboBox;
+import javafx.scene.layout.VBox;
 
 /**
  *
@@ -18,79 +21,108 @@ import javafx.stage.Stage;
  */
 public class Graph1 {
     private AtomicInteger time = new AtomicInteger(0);
+    
     public Graph1 (){
-     Stage graphStage = new Stage();
-        graphStage.setTitle("Line Chart Example");
+    ComboBox SwitchGraphCB = new ComboBox();    
+    SwitchGraphCB.getItems().addAll("Position Graph", "Velocity Graph", "Acceleration Graph");
+    SwitchGraphCB.setValue("Position Graph");
 
-        /*final NumberAxis xAxis = new NumberAxis();
-        final NumberAxis yAxis = new NumberAxis();
-        xAxis.setLabel("X Axis");
-        yAxis.setLabel("Y Axis");
-
-        final LineChart<Number, Number> lineChart = new LineChart<>(xAxis, yAxis);
-        lineChart.setTitle("Line Chart Example");
-
-        XYChart.Series series = new XYChart.Series();
-        series.setName("Example Data");
-
-        series.getData().add(new XYChart.Data(1, 23));
-        series.getData().add(new XYChart.Data(2, 14));
-        series.getData().add(new XYChart.Data(3, 15));
-        series.getData().add(new XYChart.Data(4, 24));
-        series.getData().add(new XYChart.Data(5, 34));
-        series.getData().add(new XYChart.Data(6, 36));
-        series.getData().add(new XYChart.Data(7, 22));
-        series.getData().add(new XYChart.Data(8, 45));
-        series.getData().add(new XYChart.Data(9, 43));
-        series.getData().add(new XYChart.Data(10, 17));
-        series.getData().add(new XYChart.Data(11, 29));
-        series.getData().add(new XYChart.Data(12, 25));
-
-        lineChart.getData().add(series);
-
-        Scene scene = new Scene(lineChart, 800, 600);
-        graphStage.setScene(scene);
-        graphStage.show();}*/
+        
+    SwitchGraphCB.setOnAction(event ->{
+    String string = SwitchGraphCB.getValue().toString();
+    
+    switch(string){
+        case "Position Graph" -> System.out.println("P");
+        case "Velocity Graph" -> System.out.println("v");
+        case "Acceleration Graph" -> System.out.println("a");
+    }
+    });
+    
     final NumberAxis xAxis = new NumberAxis();
     final NumberAxis yAxis = new NumberAxis();
 
-    xAxis.setAnimated(false);
     xAxis.setLabel("Time (s)");
+    
+    yAxis.setLabel("Velocity (m/s)");
+    yAxis.setAutoRanging(false);
+    yAxis.setLowerBound(0);
+    yAxis.setUpperBound(100);
+    yAxis.setTickUnit(10);
 
-    yAxis.setAnimated(false);
-    yAxis.setLabel("Position");
+    XYChart.Series<Number, Number> series1 = new XYChart.Series<>();
+    XYChart.Series<Number, Number> series2 = new XYChart.Series<>();
 
-    XYChart.Series<Number, Number> series = new XYChart.Series<>();
-    series.setName("Values");
+    series1.setName("Position");
+    series1.setName("Veocity");
 
     LineChart<Number, Number> chart = new LineChart<>(xAxis, yAxis);
     chart.setAnimated(false);
-    chart.getData().add(series);
+    chart.getData().add(series1);
+    chart.getData().add(series2);
 
-    Scene scene = new Scene(chart, 620, 350);
-    graphStage.setScene(scene);
+    VBox vbox = new VBox(SwitchGraphCB, chart);
+    vbox.setAlignment(Pos.CENTER);
+    Scene scene = new Scene(vbox, 620, 350);
+    
+    Stage graphStage = new Stage();
+    graphStage.setTitle("Line Chart Example");graphStage.setScene(scene);
     graphStage.show();
-    UpdatewithTime(series);
+    
+    UpdatePositionwithTime(series1, graphStage);
+    UpdateVelocitywithTime(series2, graphStage);
     
     }
     
-    
-    public void UpdatewithTime(XYChart.Series<Number, Number> series){
-        Thread updateThreadwithTime = new Thread(() -> {
-      
-    while (true) {
-        
-        try {
-          Thread.sleep(1000);
-          Platform.runLater(() -> series.getData().add(new XYChart.Data<>(time.incrementAndGet()- 1, (int) (Math.random() * 100 ))));
+   /* public String SiwtchGraph(ComboBox SwitchGraphCB ){
+        int graph = 0;
+        switch(graph){
+            case SwitchGraphCB.getValue() == "Position Graph":
+                break;
         }
-        
-        catch (InterruptedException e) {
-          throw new RuntimeException(e);
-        }
-      }
-    });   
+        return null;   
+    }*/
+    public void UpdatePositionwithTime(XYChart.Series<Number, Number> series, Stage graphStage){
+        Thread updateThreadwithTime;
+        updateThreadwithTime = new Thread(() -> {
+            
+            while (true) {
+                
+                try {
+                    Thread.sleep(1000);
+                    Platform.runLater(() -> series.getData().add(new XYChart.Data<>(time.incrementAndGet()- 1, (int) (Math.random() * 100 ))));
+                    System.out.println(Math.random());
+                }
+                
+                catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            }   
+        });
+    updateThreadwithTime.setDaemon(true);
     updateThreadwithTime.start();
+    
   } 
+    
+    public void UpdateVelocitywithTime(XYChart.Series<Number, Number> series, Stage graphStage){
+        Thread updateThreadwithTime;
+        updateThreadwithTime = new Thread(() -> {
+            
+            while (true) {
+                
+                try {
+                    Thread.sleep(1000);
+                    Platform.runLater(() -> series.getData().add(new XYChart.Data<>(time.incrementAndGet()- 1, (int) (Math.random() * 100 ))));
+                    System.out.println(Math.random());
+                }
+                
+                catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            }   
+        });
+    updateThreadwithTime.setDaemon(true);
+    updateThreadwithTime.start();
+    
+  }
 
 }

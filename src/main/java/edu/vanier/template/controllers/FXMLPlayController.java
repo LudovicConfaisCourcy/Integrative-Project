@@ -153,7 +153,6 @@ public class FXMLPlayController {
             block.addBlockState(state);
             physics.startPhysics();
             BorderPane.setCursor(Cursor.OPEN_HAND);           
-            System.out.println(block.getCurrentState().getSpeedX());
             // Start physics simulation
         });
     }
