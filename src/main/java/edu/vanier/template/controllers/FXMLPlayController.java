@@ -187,6 +187,11 @@ public class FXMLPlayController {
     block.setOnMousePressed(event -> {
         block.setRotate(block.getRotate() + 45);
     });
+    
+    block.setOnScroll(event -> {
+        block.setRotate(block.getRotate() + 45);
+    });
+    
     }
        
     public void StopRotateBlock (TetrisBlock block) {
