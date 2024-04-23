@@ -54,6 +54,8 @@ public class FXMLPlayController {
     @FXML
     public void initialize() {
         physics = new Physics(pnBoard);
+       
+        /*
         TetrisGround ground = new TetrisGround(0,0, 200, 100);
         System.out.println(pnBoard.getMaxHeight());
         pnBoard.getChildren().add(ground);
@@ -67,6 +69,7 @@ public class FXMLPlayController {
             ground.setHeight(newHeight.doubleValue() * 0.3);
             ground.setTranslateY(newHeight.doubleValue() * 0.9);
         });
+        */
     }
 
     @FXML
@@ -111,7 +114,7 @@ public class FXMLPlayController {
     @FXML
     private void handleBtnRestart() {
         logger.info("Restart button clicked");
-        // Implement the functionality to restart the game
+        pnBoard.getChildren().clear();
     }
 
     @FXML
