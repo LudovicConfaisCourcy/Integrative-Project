@@ -64,8 +64,10 @@ public class FXMLPlayController {
             ground.setHeight(newHeight.doubleValue() * 0.3);
             ground.setTranslateY(newHeight.doubleValue() * 0.9);
         });
+        
     }
 
+    
     @FXML
     private void handleBtnPlay() {
 
@@ -88,13 +90,16 @@ public class FXMLPlayController {
     @FXML
     private void handleBtnRestart() {
         logger.info("Restart button clicked");
-        // Implement the functionality to restart the game
+        pnBoard.getChildren().clear();
+       
     }
 
     @FXML
     private void handleBtnGraphics() {
         logger.info("Graphs button clicked");
-        Graph1 testGraph = new Graph1();
+        BlockState initialState = new BlockState((int) pnBoard.getWidth() / 2 - 15, 0, 0, 0, 0, 0);
+        TetrisBlock block = new TetrisBlock(initialState, Color.RED);
+        Graph1 testGraph = new Graph1 (block, initialState);
 
     }
 

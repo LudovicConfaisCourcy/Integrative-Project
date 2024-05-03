@@ -4,6 +4,8 @@
  */
 package edu.vanier.template.graphs;
 
+import edu.vanier.template.tetrisPieces.BlockState;
+import edu.vanier.template.tetrisPieces.TetrisBlock;
 import java.util.Collections;
 import java.util.concurrent.atomic.AtomicInteger;
 import javafx.application.Platform;
@@ -15,15 +17,18 @@ import javafx.scene.chart.XYChart;
 import javafx.stage.Stage;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 
 /**
  *
  * @author 2163918
  */
-public class Graph1 {
-    private AtomicInteger time = new AtomicInteger(0);
-
-    public Graph1 (){
+public class Graph1{
+    
+  
+    public Graph1 (TetrisBlock block, BlockState State){
+        
+        
         ComboBox SwitchGraphCB = new ComboBox();
         SwitchGraphCB.getItems().addAll("Position Graph", "Velocity Graph", "Acceleration Graph");
         SwitchGraphCB.setValue("Position Graph");
@@ -66,6 +71,8 @@ public class Graph1 {
         chart2.setAnimated(false);
         chart3.setAnimated(false);
 
+        BlockState initialState = new BlockState(0, 0, 0, 0, 0, 0);
+        
         chart1.getData().add(series1);
         chart2.getData().add(series2);
         chart3.getData().add(series3);
@@ -80,6 +87,7 @@ public class Graph1 {
         VBox vbox = new VBox(SwitchGraphCB,chart1);
 
         Stage graphStageP = new Stage();
+        UpdatePositionGraph(series1, graphStageP);
 
         SwitchGraphCB.setOnAction(event ->{
             String string = SwitchGraphCB.getValue().toString();
@@ -93,7 +101,7 @@ public class Graph1 {
 
                 case "Velocity Graph" -> {
                     vbox.getChildren().clear();
-                    UpdateVelocityGraph(series2, graphStageP);
+                    UpdateVelocityGraph(series2, graphStageP);                                      
                     vbox.getChildren().addAll(SwitchGraphCB,chart2);
 
                 }
@@ -116,12 +124,13 @@ public class Graph1 {
 
     public void UpdatePositionGraph(XYChart.Series<Number, Number> series, Stage graphStage){
         Thread updateThreadwithTime = new Thread();
+        AtomicInteger time = new AtomicInteger(0);
         updateThreadwithTime = new Thread(() -> {
 
             while (true) {
                 try {
                     Thread.sleep(1000);
-                    Platform.runLater(() -> series.getData().add(new XYChart.Data<>(time.incrementAndGet()- 1, (int) (Math.random() * 100 ))));
+                    Platform.runLater(() -> series.getData().add(new XYChart.Data<>(time.incrementAndGet()- 1, (int) (Math.random() * 100 ))));                   
                 }
                 catch (InterruptedException e) {
                     throw new RuntimeException(e);
@@ -134,6 +143,7 @@ public class Graph1 {
 
     public void UpdateVelocityGraph(XYChart.Series<Number, Number> series, Stage graphStage){
         Thread updateThreadwithTime;
+        AtomicInteger time = new AtomicInteger(0);
         updateThreadwithTime = new Thread(() -> {
 
             while (true) {
@@ -151,6 +161,7 @@ public class Graph1 {
     }
 
     public void UpdateAccelerationGraph(XYChart.Series<Number, Number> series, Stage graphStage){
+        AtomicInteger time = new AtomicInteger(0);
         Thread updateThreadwithTime;
         updateThreadwithTime = new Thread(() -> {
 
