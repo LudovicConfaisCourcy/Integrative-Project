@@ -100,32 +100,44 @@ public class FXMLPlayController {
         
         Stage gameStage = (Stage) btnPlay.getScene().getWindow();
         
-        EventHandler start_rotation = (EventHandler<KeyEvent>) (KeyEvent event) -> {
-            if(KeyCode.R == event.getCode()){
+        EventHandler start_movement = (EventHandler<KeyEvent>) (KeyEvent event) -> {
+            //block rotation
+            if(KeyCode.F == event.getCode()){
              //logger.info("Rotation Activate");
                physics.stopPhysics();
                RotateBlock45(block);
             }
-            if(KeyCode.E == event.getCode()){
+            if(KeyCode.G == event.getCode()){
                physics.stopPhysics();
                RotateBlock90(block);
             }
+            //block movement
+            if(KeyCode.A == event.getCode()){
+               block.getCurrentState().setPosX(block.getCurrentState().getPosX() - 10);
+            }
+            if(KeyCode.S == event.getCode()){
+               block.getCurrentState().setPosY(block.getCurrentState().getPosY() + 10);
+            }
+            if(KeyCode.D == event.getCode()){
+               block.getCurrentState().setPosX(block.getCurrentState().getPosX() + 10);
+            }
         };
-        gameStage.getScene().setOnKeyPressed(start_rotation);
+        gameStage.getScene().setOnKeyPressed(start_movement);
         
-        EventHandler stop_rotation = (EventHandler<KeyEvent>) (KeyEvent event) -> {
-            if(KeyCode.R == event.getCode()){
+        EventHandler stop_movement = (EventHandler<KeyEvent>) (KeyEvent event) -> {
+            //block rotation
+            if(KeyCode.F == event.getCode()){
              //logger.info("Rotation Deactivate");
                physics.startPhysics();
                StopRotateBlock(block);
             }
-            if(KeyCode.E == event.getCode()){
+            if(KeyCode.G == event.getCode()){
                physics.startPhysics();
                StopRotateBlock(block);
             }
         };
-        gameStage.getScene().setOnKeyReleased(stop_rotation);
-
+        gameStage.getScene().setOnKeyReleased(stop_movement);
+        
     }
 
     @FXML
