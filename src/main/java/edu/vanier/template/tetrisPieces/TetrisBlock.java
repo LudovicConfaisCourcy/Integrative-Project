@@ -8,7 +8,7 @@ import javafx.scene.shape.Rectangle;
 /**
  * @author Anton Lisunov
  */
-public class TetrisBlock extends Rectangle {
+public class TetrisBlock extends RigidBody2D {
 
     private static final int BLOCK_SIZE = 30;
     private List<BlockState> blockStates = new ArrayList<>();

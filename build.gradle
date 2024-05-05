@@ -11,8 +11,12 @@ def javafxVersion = "20.0.2"
 
 repositories {
     // Use Maven Central for resolving dependencies.
+    jcenter()
     mavenCentral()
     mavenLocal()
+    maven {
+    url "https://oss.sonatype.org/content/repositories/snapshots/"
+    }
 }
 
 //-- Loads the JavaFX modules of the selected JavaFX version.
@@ -21,7 +25,14 @@ javafx {
     modules = [ 'javafx.controls', 'javafx.fxml', 'javafx.graphics', 'javafx.media' ]
 }
 
+
+
+project.ext.jomlVersion = "1.10.5"
+
 dependencies {
+  testImplementation('junit:junit:4.13')
+  implementation "org.joml:joml:${jomlVersion}"
+
     // The following .jars are pulled from:
     // https://repo.maven.apache.org/maven2/org/openjfx/    
     compileOnly  "org.openjfx:javafx-base:$javafxVersion:sources"
