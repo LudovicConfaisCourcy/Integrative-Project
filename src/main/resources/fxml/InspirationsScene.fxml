@@ -51,7 +51,7 @@
                   <Font name="Bell MT" size="15.0" />
                </font>
             </Hyperlink>
-            <Button fx:id="btnReturn" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="47.0" prefWidth="600.0" style="-fx-background-color: grey;" text="Return" textAlignment="CENTER">
+            <Button fx:id="btnBack" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleBtnBack" prefHeight="59.0" prefWidth="600.0" style="-fx-background-color: grey;" text="back" textAlignment="CENTER">
                <font>
                   <Font name="Bell MT Bold" size="15.0" />
                </font>
