@@ -5,6 +5,7 @@ package edu.vanier.template.controllers;
 import edu.vanier.template.MainApp;
 import javafx.scene.control.CheckBox;
 import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.logging.Level;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -19,6 +20,8 @@ import javafx.event.Event;
 import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -60,21 +63,28 @@ public class FXMLSettingsController{
     @FXML
     Button btnExit;
 
+    double volume;
+
+
     @FXML
     public void initialize() {
+        musicPlay();
 
         musicSlider.setShowTickMarks(true);
-        musicSlider.setMajorTickUnit(5);
-        musicSlider.setMinorTickCount(5);
+        musicSlider.setMajorTickUnit(25);
+        musicSlider.setMinorTickCount(25);
         musicSlider.setShowTickLabels(true);
         musicSlider.setSnapToTicks(true);
-        musicSlider.setValue(10);
-        musicSlider.setMax(20);
+        musicSlider.setValue(50);
+        musicSlider.setMax(100);
 
         musicTextField.setText(String.valueOf(musicSlider.getValue()));
         musicSlider.valueProperty().addListener((observable, oldvalue, newvalue)->{
             musicTextField.setText(String.format("%.2f", newvalue.doubleValue()));
+            volume = (musicSlider.getValue() / 50) - 1;
+            mediaPlayer.setVolume(volume + 1);
         });
+
 
         MusicCheckBox.selectedProperty().addListener(event -> {
             if (MusicCheckBox.isSelected()) {
@@ -136,7 +146,7 @@ public class FXMLSettingsController{
         MainApp mainApp = new MainApp();
         FXMLLoader loader = mainApp.loadFXML("/fxml/TetrisScene.fxml", new FXMLPlayController());
         currentStage.setScene(new Scene(loader.load()));
-
+        musicStop();
     }
 
     @FXML
@@ -147,7 +157,7 @@ public class FXMLSettingsController{
         FXMLLoader loader = mainApp.loadFXML("/fxml/IntroScene.fxml", new FXMLMainAppController());
         Scene scene = new Scene(loader.load());
         currentStage.setScene(scene);
-
+        musicStop();
     }
 
     @FXML
@@ -157,7 +167,36 @@ public class FXMLSettingsController{
         currentStage.close();
     }
 
+    MediaPlayer mediaPlayer;
 
+    public void musicStop(){
+        mediaPlayer.stop();
+    }
+
+    public void musicPlay(){
+        String a = "Original Tetris theme (Tetris Soundtrack).mp3";
+        Media media = new Media(Paths.get(a).toUri().toString());
+        mediaPlayer = new MediaPlayer(media);
+        mediaPlayer.play();
+
+    }
+
+    public void checkMute(){
+        if(volume == -1){
+            mediaPlayer.setMute(true);
+        }
+        else{
+            mediaPlayer.setMute(false);
+        }
+    }
+
+    public void setVolume(double volume){
+        volume = this.volume;
+    }
+
+    public double getVolume(){
+        return volume;
+    }
 
 
     @FXML
