@@ -25,14 +25,11 @@ import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/**
- * @author Anton Lisunov
- */
 public class FXMLPlayController {
 
     private final static Logger logger = LoggerFactory.getLogger(FXMLMainAppController.class);
     Physics physics;
-
+    
     @FXML
     Button btnPlay;
     @FXML
@@ -89,7 +86,7 @@ public class FXMLPlayController {
 
     @FXML
     private void handleBtnPlay() {
-
+    
         logger.info("Start button clicked");
         physics.startPhysics();
         BlockState initialState = new BlockState((int) pnBoard.getWidth() / 2 - 15, 0, 0, 0, 0, 0);
@@ -103,7 +100,6 @@ public class FXMLPlayController {
         EventHandler start_movement = (EventHandler<KeyEvent>) (KeyEvent event) -> {
             //block rotation
             if(KeyCode.F == event.getCode()){
-             //logger.info("Rotation Activate");
                physics.stopPhysics();
                RotateBlock45(block);
             }
@@ -127,7 +123,6 @@ public class FXMLPlayController {
         EventHandler stop_movement = (EventHandler<KeyEvent>) (KeyEvent event) -> {
             //block rotation
             if(KeyCode.F == event.getCode()){
-             //logger.info("Rotation Deactivate");
                physics.startPhysics();
                StopRotateBlock(block);
             }
@@ -219,7 +214,6 @@ public class FXMLPlayController {
     }
     
     public void RotateBlock45(TetrisBlock block) {
-  //logger.info("Activate Rotation");
     
     block.setOnMousePressed(event -> {
         block.setRotate(block.getRotate() + 45);
@@ -232,7 +226,6 @@ public class FXMLPlayController {
     }
     
     public void RotateBlock90(TetrisBlock block) {
-  //logger.info("Activate Rotation");
     
     block.setOnMousePressed(event -> {
         block.setRotate(block.getRotate() + 90);
@@ -245,7 +238,6 @@ public class FXMLPlayController {
     }
        
     public void StopRotateBlock (TetrisBlock block) {
-  //logger.info("Deactivate Rotation");
     
     block.setOnMousePressed(event -> {
         block.setRotate(block.getRotate());
