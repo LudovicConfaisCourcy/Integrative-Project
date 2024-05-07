@@ -27,7 +27,6 @@ public class MainApp extends Application {
             Pane root = loadFXML("/fxml/IntroScene.fxml", new FXMLMainAppController()).load();
             Scene scene = new Scene(root);
             
-            String music = "/music/MenuTheme.wav";
             Media media = new Media(getClass().getResource("/music/MenuTheme.wav").toExternalForm());
             MediaPlayer player = new MediaPlayer(media);
             player.setAutoPlay(true);
