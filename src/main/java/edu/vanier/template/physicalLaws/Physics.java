@@ -30,11 +30,11 @@ public class Physics {
         Rectangle rect2 = new Rectangle(10, 10);
 
         Polygon boxShape = new Polygon(rect1);
-        Body cubeBody = new Body(boxShape, 100, 80);
+        Body cubeBody = new Body(boxShape, 0, 80);
 
         Polygon boxShape2 = new Polygon(rect2);
 
-        Body cubeBody2 = new Body(boxShape2, 100, 40);
+        Body cubeBody2 = new Body(boxShape2, 0, 40);
         cubeBody2.setStatic();
 
         simulationPane.getChildren().add(rect1);
@@ -42,9 +42,9 @@ public class Physics {
         world.addBody(cubeBody);
         world.addBody(cubeBody2);
 
-        TestBedWindow demoWindow = new TestBedWindow(true);
+        /*TestBedWindow demoWindow = new TestBedWindow(true);
         TestBedWindow.showWindow(demoWindow, "2D Physics Engine Demo", 1280, 720);
-        demoWindow.startThread();
+        demoWindow.startThread();*/
         start();
     }
 
@@ -52,13 +52,21 @@ public class Physics {
         physicsTimer = new AnimationTimer() {
             @Override
             public void handle(long now) {
+                double paneWidth = simulationPane.getWidth();
+                double paneHeight = simulationPane.getHeight();
 
                 for (int i = 0; i < simulationPane.getChildren().size(); i++) {
                     Body body = world.bodies.get(i);
 
+                    Rectangle rect = (Rectangle) simulationPane.getChildren().get(i);
+                    double rectWidth = rect.getWidth();
+                    double rectHeight = rect.getHeight();
+
                     // Calculate translated coordinates
-                    double translatedX = body.position.x;
-                    double translatedY = body.position.y;
+                    double translatedX = (body.position.x-rectWidth/2) + paneWidth / 2;
+                    double translatedY = paneHeight / 2 - (body.position.y-rectHeight/2);
+                    
+                    System.out.println("Y = "+translatedY);
 
                     simulationPane.getChildren().get(i).setTranslateX(translatedX);
                     simulationPane.getChildren().get(i).setTranslateY(translatedY);
