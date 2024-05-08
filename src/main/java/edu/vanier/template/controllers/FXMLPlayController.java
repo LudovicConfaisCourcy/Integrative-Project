@@ -53,7 +53,6 @@ public class FXMLPlayController {
     public void initialize() {
         physics = new Physics(pnBoard);
         TetrisGround ground = new TetrisGround(0,0, 200, 100);
-        System.out.println(pnBoard.getMaxHeight());
         //pnBoard.getChildren().add(ground);
 
         pnBoard.widthProperty().addListener((obs, oldWidth, newWidth) -> {

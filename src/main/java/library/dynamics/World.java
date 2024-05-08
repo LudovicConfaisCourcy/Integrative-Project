@@ -10,6 +10,7 @@ import testbed.Camera;
 import java.awt.*;
 import java.awt.geom.Line2D;
 import java.util.ArrayList;
+import java.util.Arrays;
 import javafx.scene.layout.Pane;
 
 /**
@@ -55,6 +56,16 @@ public class World{
         bodies.add(b);
         return b;
     }
+    
+        /**
+     * Adds multiple bodies to the world.
+     *
+     * @param bodiesToAdd The array of bodies to add.
+     */
+    public void addBodies(Body... bodiesToAdd) {
+        bodies.addAll(Arrays.asList(bodiesToAdd));
+    }
+
 
     /**
      * Removes a body from the world.
