@@ -10,11 +10,12 @@ import testbed.Camera;
 import java.awt.*;
 import java.awt.geom.Line2D;
 import java.util.ArrayList;
+import javafx.scene.layout.Pane;
 
 /**
  * Class for creating a world with iterative solver structure.
  */
-public class World {
+public class World{
     private Vectors2D gravity;
 
     /**
@@ -256,33 +257,6 @@ public class World {
                 A.force.addi(direction);
                 B.force.addi(oppositeDir);
             }
-        }
-    }
-
-    /**
-     * Debug draw method for world objects.
-     *
-     * @param g             Graphics2D object to draw to
-     * @param paintSettings Colour settings to draw the objects to screen with
-     * @param camera        Camera class used to convert points from world space to view space
-     */
-    public void drawContact(Graphics2D g, ColourSettings paintSettings, Camera camera) {
-        for (Arbiter contact : contacts) {
-            Vectors2D point = contact.contacts[0];
-            Vectors2D line;
-            Vectors2D beginningOfLine;
-            Vectors2D endOfLine;
-
-            g.setColor(paintSettings.contactPoint);
-            line = contact.contactNormal.normal().scalar(paintSettings.TANGENT_LINE_SCALAR);
-            beginningOfLine = camera.convertToScreen(point.addi(line));
-            endOfLine = camera.convertToScreen(point.subtract(line));
-            g.draw(new Line2D.Double(beginningOfLine.x, beginningOfLine.y, endOfLine.x, endOfLine.y));
-
-            line = contact.contactNormal.scalar(paintSettings.NORMAL_LINE_SCALAR);
-            beginningOfLine = camera.convertToScreen(point.addi(line));
-            endOfLine = camera.convertToScreen(point.subtract(line));
-            g.draw(new Line2D.Double(beginningOfLine.x, beginningOfLine.y, endOfLine.x, endOfLine.y));
         }
     }
 }

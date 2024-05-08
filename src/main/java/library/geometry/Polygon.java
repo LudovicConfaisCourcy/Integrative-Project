@@ -8,30 +8,34 @@ import testbed.ColourSettings;
 import java.awt.*;
 import java.awt.geom.Path2D;
 import java.util.*;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.shape.Rectangle;
 
-/**
- * Class for representing polygon shape.
- */
 public class Polygon extends Shapes {
+
     public Vectors2D[] vertices;
     public Vectors2D[] normals;
 
-    /**
-     * Constructor takes a supplied list of vertices and generates a convex hull around them.
-     *
-     * @param vertList Vertices of polygon to create.
-     */
     public Polygon(Vectors2D[] vertList) {
         this.vertices = generateHull(vertList, vertList.length);
         calcNormals();
     }
 
-    /**
-     * Constructor to generate a rectangle.
-     *
-     * @param width  Desired width of rectangle
-     * @param height Desired height of rectangle
-     */
+    public Polygon(Rectangle rect) {
+        double width = (double) rect.getWidth() ;
+        double height = (double) rect.getHeight();
+        vertices = new Vectors2D[4];
+        vertices[0] = new Vectors2D(-width, -height);
+        vertices[1] = new Vectors2D(width, -height);
+        vertices[2] = new Vectors2D(width, height);
+        vertices[3] = new Vectors2D(-width, height);
+        normals = new Vectors2D[4];
+        normals[0] = new Vectors2D(0.0, -1.0);
+        normals[1] = new Vectors2D(1.0, 0.0);
+        normals[2] = new Vectors2D(0.0, 1.0);
+        normals[3] = new Vectors2D(-1.0, 0.0);
+    }
+
     public Polygon(double width, double height) {
         vertices = new Vectors2D[4];
         vertices[0] = new Vectors2D(-width, -height);
@@ -48,7 +52,8 @@ public class Polygon extends Shapes {
     /**
      * Generate a regular polygon with a specified number of sides and size.
      *
-     * @param radius    The maximum distance any vertex is away from the center of mass.
+     * @param radius The maximum distance any vertex is away from the center of
+     * mass.
      * @param noOfSides The desired number of face the polygon has.
      */
     public Polygon(int radius, int noOfSides) {
@@ -63,7 +68,8 @@ public class Polygon extends Shapes {
     }
 
     /**
-     * Generates normals for each face of the polygon. Positive normals of polygon faces face outward.
+     * Generates normals for each face of the polygon. Positive normals of
+     * polygon faces face outward.
      */
     public void calcNormals() {
         normals = new Vectors2D[vertices.length];
@@ -143,12 +149,15 @@ public class Polygon extends Shapes {
         body.aabb = new AABB(new Vectors2D(minX, minY), new Vectors2D(maxX, maxY));
     }
 
+   
+
     /**
      * Debug draw method for a polygon.
      *
-     * @param g             Graphics2D object to draw to
+     * @param g Graphics2D object to draw to
      * @param paintSettings Colour settings to draw the objects to screen with
-     * @param camera        Camera class used to convert points from world space to view space
+     * @param camera Camera class used to convert points from world space to
+     * view space
      */
     @Override
     public void draw(Graphics2D g, ColourSettings paintSettings, Camera camera) {
@@ -181,7 +190,7 @@ public class Polygon extends Shapes {
      * Generates a convex hull around the vertices supplied.
      *
      * @param vertices List of vertices.
-     * @param n        Number of vertices supplied.
+     * @param n Number of vertices supplied.
      * @return Returns a convex hull array.
      */
     private Vectors2D[] generateHull(Vectors2D[] vertices, int n) {
@@ -204,8 +213,9 @@ public class Polygon extends Shapes {
             hull.add(vertices[point]);
             currentEvalPoint = (point + 1) % n;
             for (int i = 0; i < n; i++) {
-                if (sideOfLine(vertices[point], vertices[i], vertices[currentEvalPoint]) == -1)
+                if (sideOfLine(vertices[point], vertices[i], vertices[currentEvalPoint]) == -1) {
                     currentEvalPoint = i;
+                }
             }
             point = currentEvalPoint;
         }
@@ -221,18 +231,25 @@ public class Polygon extends Shapes {
     /**
      * Checks which side of a line a point is on.
      *
-     * @param p1    Vertex of line to evaluate.
-     * @param p2    Vertex of line to evaluate.
+     * @param p1 Vertex of line to evaluate.
+     * @param p2 Vertex of line to evaluate.
      * @param point Point to check which side it lies on.
-     * @return Int value - positive = right side of line. Negative = left side of line.
+     * @return Int value - positive = right side of line. Negative = left side
+     * of line.
      */
     private int sideOfLine(Vectors2D p1, Vectors2D p2, Vectors2D point) {
         double val = (p2.y - p1.y) * (point.x - p2.x) - (p2.x - p1.x) * (point.y - p2.y);
-        if (val > 0)
+        if (val > 0) {
             return 1;
-        else if (val == 0)
+        } else if (val == 0) {
             return 0;
-        else
+        } else {
             return -1;
+        }
+    }
+
+    @Override
+    public void draw(GraphicsContext gc, ColourSettings paintSettings, Camera camera) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

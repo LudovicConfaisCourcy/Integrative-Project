@@ -5,6 +5,12 @@ import edu.vanier.template.tetrisPieces.TetrisBlock;
 import javafx.animation.AnimationTimer;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
+import javafx.scene.shape.Rectangle;
+import library.dynamics.Body;
+import library.dynamics.World;
+import library.geometry.Polygon;
+import library.math.Vectors2D;
+import testbed.demo.TestBedWindow;
 
 /**
  * @author Anton Lisunov
@@ -13,12 +19,32 @@ public class Physics {
 
     private final Pane simulationPane;
     private AnimationTimer physicsTimer;
-    private final double deltaTime = 1.6E7 / 1_000_000_000;
-    //private long previousTime = 0;
-    public double gravity = 9.8;
+    public World world = new World(new Vectors2D(0, -9.81));
+    //double paneWidth = simulationPane.getWidth();
+    //double paneHeight = simulationPane.getHeight();
 
     public Physics(Pane simulationPane) {
         this.simulationPane = simulationPane;
+
+        Rectangle rect1 = new Rectangle(20, 20);
+        Rectangle rect2 = new Rectangle(10, 10);
+
+        Polygon boxShape = new Polygon(rect1);
+        Body cubeBody = new Body(boxShape, 100, 80);
+
+        Polygon boxShape2 = new Polygon(rect2);
+
+        Body cubeBody2 = new Body(boxShape2, 100, 40);
+        cubeBody2.setStatic();
+
+        simulationPane.getChildren().add(rect1);
+        simulationPane.getChildren().add(rect2);
+        world.addBody(cubeBody);
+        world.addBody(cubeBody2);
+
+        TestBedWindow demoWindow = new TestBedWindow(true);
+        TestBedWindow.showWindow(demoWindow, "2D Physics Engine Demo", 1280, 720);
+        demoWindow.startThread();
         start();
     }
 
@@ -26,88 +52,24 @@ public class Physics {
         physicsTimer = new AnimationTimer() {
             @Override
             public void handle(long now) {
-                applyGravity();
-                applyNormalForce();
-                moveBlock();
-               rotateBlock();
+
+                for (int i = 0; i < simulationPane.getChildren().size(); i++) {
+                    Body body = world.bodies.get(i);
+
+                    // Calculate translated coordinates
+                    double translatedX = body.position.x;
+                    double translatedY = body.position.y;
+
+                    simulationPane.getChildren().get(i).setTranslateX(translatedX);
+                    simulationPane.getChildren().get(i).setTranslateY(translatedY);
+                }
+
+                world.step(1.0 / 60.0);
 
             }
 
         };
 
-    }
-
-    private void applyGravity() {
-        // Apply gravity to all Tetris blocks
-        for (Node node : simulationPane.getChildren()) {
-            if (node instanceof TetrisBlock block) {
-                block.getCurrentState().setAccY(gravity); // Add gravity acceleration
-            }
-        }
-    }
-
-    private void applyNormalForce() {
-        double simulationPaneHeight = simulationPane.getHeight();
-
-        for (Node node : simulationPane.getChildren()) {
-            if (node instanceof TetrisBlock block) {
-
-                double blockBottomY = block.getCurrentState().getPosY() + block.getHeight();
-
-                if (blockBottomY >= simulationPaneHeight) {
-
-                    block.getCurrentState().setPosY(simulationPaneHeight - block.getHeight());
-                    block.getCurrentState().setSpeedY(0);
-                    block.getCurrentState().setAccY(0);
-
-                } else {
-                    for (Node otherNode : simulationPane.getChildren()) {
-                        if (otherNode instanceof TetrisBlock && otherNode != block) {
-                            TetrisBlock otherBlock = (TetrisBlock) otherNode;
-                            if (block.getBoundsInParent().intersects(otherBlock.getBoundsInParent())) {
-                                // Determine relative positions of blocks
-                                double deltaY = block.getCurrentState().getPosY() - otherBlock.getCurrentState().getPosY();
-
-                                // Adjust positions and velocities based on relative positions
-                                if (deltaY > 0) { // Block is above
-                                    block.getCurrentState().setPosY(otherBlock.getCurrentState().getPosY() + otherBlock.getHeight());
-                                    block.getCurrentState().setSpeedY(0);
-                                    block.getCurrentState().setAccY(gravity);
-                                } else { // Block is below
-                                    block.getCurrentState().setPosY(otherBlock.getCurrentState().getPosY() - block.getHeight());
-                                    block.getCurrentState().setSpeedY(0);
-                                    block.getCurrentState().setAccY(-gravity);
-                                }
-                                break;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    private void moveBlock() {
-        for (Node node : simulationPane.getChildren()) {
-            if (node instanceof TetrisBlock block) {
-                block.addSpeed(block.getCurrentState().getAccX() * deltaTime, block.getCurrentState().getAccY() * deltaTime);
-                double newY = block.getCurrentState().getPosY() + block.getCurrentState().getSpeedY() * deltaTime;
-                double newX = block.getCurrentState().getPosX() + block.getCurrentState().getSpeedX() * deltaTime;
-                block.addBlockState(new BlockState(newX, newY, block.getCurrentState().getSpeedX(), block.getCurrentState().getSpeedY(), block.getCurrentState().getAccX(), block.getCurrentState().getAccY()));
-                System.out.println(block.getCurrentState().getSpeedX() + "___" + block.getCurrentState().getSpeedY());
-            }
-        }
-    }
-
-    private void rotateBlock() {
-        for (Node node : simulationPane.getChildren()) {
-            if (node instanceof TetrisBlock block) {
-                
-                block.getCurrentState().setPosA(block.getPreviousState().getPosA() + block.getCurrentState().getSpeedA() * deltaTime);
-                block.addBlockState(block.getBlockState());
-                block.setRotate(block.getCurrentState().getPosA());
-            }
-        }
     }
 
     public void startPhysics() {

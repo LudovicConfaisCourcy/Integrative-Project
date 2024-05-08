@@ -1,5 +1,6 @@
 package library.dynamics;
 
+import javafx.scene.shape.Shape;
 import library.collision.AABB;
 import library.geometry.Shapes;
 import library.math.Vectors2D;
@@ -7,7 +8,7 @@ import library.math.Vectors2D;
 /**
  * Class to create a body to add to a world.
  */
-public class Body {
+public class Body{
     public double dynamicFriction;
     public double staticFriction;
     public Vectors2D position;
@@ -65,6 +66,8 @@ public class Body {
         particle = false;
         affectedByGravity = true;
     }
+    
+    public Body(Shape shape){}
 
     /**
      * Applies force ot body.
@@ -133,7 +136,7 @@ public class Body {
     /**
      * Sets all mass and inertia variables to zero. Object cannot be moved.
      */
-    private void setStatic() {
+    public void setStatic() {
         mass = 0.0;
         invMass = 0.0;
         I = 0.0;

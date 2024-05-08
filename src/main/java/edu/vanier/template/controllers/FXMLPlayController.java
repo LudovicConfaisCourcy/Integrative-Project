@@ -54,7 +54,7 @@ public class FXMLPlayController {
         physics = new Physics(pnBoard);
         TetrisGround ground = new TetrisGround(0,0, 200, 100);
         System.out.println(pnBoard.getMaxHeight());
-        pnBoard.getChildren().add(ground);
+        //pnBoard.getChildren().add(ground);
 
         pnBoard.widthProperty().addListener((obs, oldWidth, newWidth) -> {
             ground.setWidth(newWidth.doubleValue() * 0.5);
@@ -75,11 +75,11 @@ public class FXMLPlayController {
 
         logger.info("Start button clicked");
         physics.startPhysics();
-        BlockState initialState = new BlockState((int) pnBoard.getWidth() / 2 - 15, 0, 0, 0, 0, 0);
-        TetrisBlock block = new TetrisBlock(initialState, Color.RED);
-        pnBoard.getChildren().add(block);
-        CursorChangeBlock(block);
-        MoveBlock(block);
+        //BlockState initialState = new BlockState((int) pnBoard.getWidth() / 2 - 15, 0, 0, 0, 0, 0);
+        //TetrisBlock block = new TetrisBlock(initialState, Color.RED);
+        //pnBoard.getChildren().add(block);
+        //CursorChangeBlock(block);
+        //MoveBlock(block);
 
     }
 

@@ -69,9 +69,11 @@ public class TestBedWindow extends JPanel implements Runnable {
         addMouseMotionListener(MOUSE_MOTION_INPUT);
 
         Chains.load(this);
+        
     }
 
     public void startThread() {
+        System.out.println("startTread");
         PHYSICS_THREAD.start();
     }
 
@@ -211,9 +213,9 @@ public class TestBedWindow extends JPanel implements Runnable {
     private void update() {
         double dt = Settings.HERTZ > 0.0 ? 1.0 / Settings.HERTZ : 0.0;
         world.step(dt);
-        updateTrails();
-        updateRays();
-        checkParticleLifetime(dt);
+        //updateTrails();
+        //updateRays();
+        //checkParticleLifetime(dt);
     }
 
     private void checkParticleLifetime(double timePassed) {
@@ -281,15 +283,12 @@ public class TestBedWindow extends JPanel implements Runnable {
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
         if (ANTIALIASING) {
-            g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+            //g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         }
         setBackground(PAINT_SETTINGS.background);
         update();
         if (followPayload){
             setCamera(new Vectors2D(world.bodies.get(3).position.x,getCamera().centre.y) , 2.0);
-        }
-        if (PAINT_SETTINGS.getDrawGrid()) {
-            drawGridMethod(g2d);
         }
         for (ShadowCasting s : shadowCastings) {
             s.draw(g2d, PAINT_SETTINGS, CAMERA);
@@ -299,15 +298,7 @@ public class TestBedWindow extends JPanel implements Runnable {
             if (PAINT_SETTINGS.getDrawShapes()) {
                 b.shape.draw(g2d, PAINT_SETTINGS, CAMERA);
             }
-            if (PAINT_SETTINGS.getDrawAABBs()) {
-                b.shape.drawAABB(g2d, PAINT_SETTINGS, CAMERA);
-            }
-            if (PAINT_SETTINGS.getDrawCOMs()) {
-                b.shape.drawCOMS(g2d, PAINT_SETTINGS, CAMERA);
-            }
-        }
-        if (PAINT_SETTINGS.getDrawContacts()) {
-            world.drawContact(g2d, PAINT_SETTINGS, CAMERA);
+            //b.shape.draw(gc, PAINT_SETTINGS, CAMERA);
         }
         if (PAINT_SETTINGS.getDrawJoints()) {
             for (Joint j : world.joints) {

@@ -7,6 +7,7 @@ import testbed.ColourSettings;
 
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
+import javafx.scene.canvas.GraphicsContext;
 
 /**
  * Circle class to create a circle object.
@@ -67,5 +68,10 @@ public class Circle extends Shapes {
             g.setColor(paintSettings.shapeOutLine);
         }
         g.draw(new Ellipse2D.Double(circlePotion.x - drawnRadius, circlePotion.y - drawnRadius, 2 * drawnRadius, 2 * drawnRadius));
+    }
+
+    @Override
+    public void draw(GraphicsContext gc, ColourSettings paintSettings, Camera camera) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }
