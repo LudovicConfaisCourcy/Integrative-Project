@@ -1,139 +1,280 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.Group?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="SettingsAnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: darkgray;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <Group fx:id="GroupSquareBlock" layoutX="1.0" layoutY="-1.0">
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="440.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+   <center>
+      <AnchorPane fx:id="SettingsAnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: darkgray; -fx-border-color: black;" BorderPane.alignment="CENTER">
          <children>
-            <Line endX="100.0" endY="50.0" startY="50.0" />
-            <Line endX="50.0" endY="100.0" startX="50.0" />
-            <Line endY="100.0" />
-            <Line endX="100.0" endY="100.0" startX="100.0" />
-            <Line endX="100.0" endY="100.0" startY="100.0" />
-            <Line endX="100.0" />
-            <Rectangle fx:id="Square" arcHeight="5.0" arcWidth="5.0" fill="#fbff1f" height="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fbff1f" height="50.0" layoutY="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fbff1f" height="50.0" layoutX="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fbff1f" height="50.0" layoutX="50.0" layoutY="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" />
+            <Group fx:id="GroupSquareBlock" layoutX="500.0" layoutY="300.0">
+               <children>
+                  <Line endX="100.0" endY="50.0" startY="50.0" />
+                  <Line endX="50.0" endY="100.0" startX="50.0" />
+                  <Line endY="100.0" />
+                  <Line endX="100.0" endY="100.0" startX="100.0" />
+                  <Line endX="100.0" endY="100.0" startY="100.0" />
+                  <Line endX="100.0" />
+                  <Rectangle fx:id="Square" arcHeight="5.0" arcWidth="5.0" fill="#fbff1f" height="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fbff1f" height="50.0" layoutY="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fbff1f" height="50.0" layoutX="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fbff1f" height="50.0" layoutX="50.0" layoutY="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" />
+               </children>
+            </Group>
+            <Label layoutX="235.0" layoutY="14.0" text="Settings">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </Label>
+            <Group fx:id="GroupLineBlock" layoutX="550.0" layoutY="50.0">
+               <children>
+                  <Line endY="200.0" />
+                  <Line endX="50.0" endY="200.0" startX="50.0" />
+                  <Rectangle fx:id="GRoupLineBlock" arcHeight="5.0" arcWidth="5.0" fill="#1f93ff" height="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" y="50.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff" height="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" y="150.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff" height="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff" height="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" y="100.0" />
+                  <Line endX="50.0" />
+                  <Line endX="50.0" endY="150.0" startY="150.0" />
+                  <Line endX="50.0" endY="100.0" startY="100.0" />
+                  <Line endX="50.0" endY="50.0" startY="50.0" />
+                  <Line endX="50.0" endY="200.0" startY="200.0" />
+               </children>
+            </Group>
+            <Group fx:id="GroupLBlock" layoutX="500.0" layoutY="150.0">
+               <children>
+                  <Line endY="150.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#0400ff" height="50.0" layoutX="50.0" layoutY="100.0" stroke="BLACK" strokeType="INSIDE" width="50.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#0400ff" height="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#0400ff" height="50.0" layoutY="100.0" stroke="BLACK" strokeType="INSIDE" width="50.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#0400ff" height="50.0" layoutY="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" />
+                  <Line endX="50.0" endY="150.0" startX="50.0" />
+                  <Line endX="100.0" endY="150.0" startX="100.0" startY="100.0" />
+                  <Line endX="100.0" endY="150.0" startY="150.0" />
+                  <Line endX="100.0" endY="100.0" startY="100.0" />
+                  <Line endX="50.0" endY="50.0" startY="50.0" />
+                  <Line endX="50.0" />
+               </children>
+            </Group>
+            <Group fx:id="GroupJBlock" layoutX="500.0">
+               <children>
+                  <Line endY="150.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ff921e" height="50.0" layoutX="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" />
+                  <Rectangle fx:id="GroupJBlock" arcHeight="5.0" arcWidth="5.0" fill="#ff921e" height="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ff921e" height="50.0" layoutY="100.0" stroke="BLACK" strokeType="INSIDE" width="50.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ff921e" height="50.0" layoutY="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" />
+                  <Line endX="50.0" endY="150.0" startX="50.0" />
+                  <Line endX="100.0" endY="50.0" startX="100.0" />
+                  <Line endX="50.0" endY="150.0" startY="150.0" />
+                  <Line endX="50.0" endY="100.0" startY="100.0" />
+                  <Line endX="50.0" endY="50.0" startY="50.0" />
+                  <Line endX="100.0" />
+               </children>
+            </Group>
+            <Group fx:id="GroupTBlock" layoutX="26.0" layoutY="126.0" rotate="270.0">
+               <children>
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f50000" height="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" />
+                  <Line endX="100.0" startX="-50.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f50000" height="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" x="-50.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f50000" height="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" y="50.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f50000" height="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" x="50.0" />
+                  <Line endX="100.0" endY="50.0" startX="-50.0" startY="50.0" />
+                  <Line endX="50.0" endY="100.0" startY="100.0" />
+                  <Line endX="-50.0" endY="50.0" startX="-50.0" />
+                  <Line endY="100.0" />
+                  <Line endX="100.0" endY="50.0" startX="100.0" />
+                  <Line endX="50.0" endY="100.0" startX="50.0" />
+               </children>
+            </Group>
+            <Group fx:id="GroupSBlock" layoutX="51.0" layoutY="299.0">
+               <children>
+                  <Line endX="-50.0" endY="100.0" startX="-50.0" startY="50.0" />
+                  <Line endX="100.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#237201" height="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#237201" height="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" x="50.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#237201" height="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" x="-50.0" y="50.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#237201" height="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" y="50.0" />
+                  <Line endX="100.0" endY="50.0" startX="-50.0" startY="50.0" />
+                  <Line endX="50.0" endY="100.0" startX="-50.0" startY="100.0" />
+                  <Line endX="100.0" endY="50.0" startX="100.0" />
+                  <Line endX="50.0" endY="100.0" startX="50.0" />
+                  <Line endY="100.0" />
+               </children>
+            </Group>
+            <Group fx:id="GroupZBlock" layoutX="26.0" layoutY="223.0" rotate="90.0">
+               <children>
+                  <Line endX="-50.0" endY="50.0" startX="-50.0" />
+                  <Line endX="50.0" startX="-50.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6b4003" height="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6b4003" height="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" x="50.0" y="50.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6b4003" height="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" y="50.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6b4003" height="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" x="-50.0" />
+                  <Line endX="100.0" endY="100.0" startY="100.0" />
+                  <Line endX="100.0" endY="50.0" startX="-50.0" startY="50.0" />
+                  <Line endX="100.0" endY="100.0" startX="100.0" startY="50.0" />
+                  <Line endX="50.0" endY="100.0" startX="50.0" />
+                  <Line endY="100.0" />
+               </children>
+            </Group>
+            <HBox layoutX="127.0" layoutY="44.0" prefHeight="336.0" prefWidth="346.0">
+               <children>
+                  <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <Label text="Music">
+                           <VBox.margin>
+                              <Insets bottom="20.0" />
+                           </VBox.margin>
+                           <graphic>
+                              <CheckBox fx:id="MusicCheckBox" mnemonicParsing="false" onMouseEntered="#CursorChange" onMouseExited="#CursorChangeExit">
+                                 <padding>
+                                    <Insets right="5.0" />
+                                 </padding>
+                              </CheckBox>
+                           </graphic>
+                        </Label>
+                        <TextField fx:id="musicTextField" maxWidth="45.0">
+                           <VBox.margin>
+                              <Insets bottom="20.0" />
+                           </VBox.margin>
+                        </TextField>
+                        <Slider fx:id="musicSlider" onMouseEntered="#CursorChange" onMouseExited="#CursorChangeExit" orientation="VERTICAL" />
+                     </children>
+                     <HBox.margin>
+                        <Insets top="30.0" />
+                     </HBox.margin>
+                  </VBox>
+                  <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <Label text="Sound">
+                           <VBox.margin>
+                              <Insets bottom="20.0" />
+                           </VBox.margin>
+                           <graphic>
+                              <CheckBox fx:id="SoundCheckBox" mnemonicParsing="false" onMouseEntered="#CursorChange" onMouseExited="#CursorChangeExit">
+                                 <padding>
+                                    <Insets right="5.0" />
+                                 </padding>
+                              </CheckBox>
+                           </graphic>
+                        </Label>
+                        <TextField fx:id="soundTextField" maxWidth="45.0">
+                           <VBox.margin>
+                              <Insets bottom="20.0" />
+                           </VBox.margin>
+                        </TextField>
+                        <Slider fx:id="soundSlider" onMouseEntered="#CursorChange" onMouseExited="#CursorChangeExit" orientation="VERTICAL" />
+                     </children>
+                     <HBox.margin>
+                        <Insets top="30.0" />
+                     </HBox.margin>
+                  </VBox>
+                  <VBox alignment="TOP_CENTER" prefHeight="336.0" prefWidth="80.0">
+                     <children>
+                        <Label text="Gravity">
+                           <VBox.margin>
+                              <Insets bottom="20.0" />
+                           </VBox.margin>
+                        </Label>
+                        <TextField fx:id="gravityTextField" maxWidth="45.0">
+                           <VBox.margin>
+                              <Insets bottom="20.0" />
+                           </VBox.margin>
+                        </TextField>
+                        <Slider fx:id="gravitySlider" onMouseEntered="#CursorChange" onMouseExited="#CursorChangeExit" orientation="VERTICAL" />
+                     </children>
+                     <HBox.margin>
+                        <Insets top="30.0" />
+                     </HBox.margin>
+                  </VBox>
+                  <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <Label text="Friction">
+                           <VBox.margin>
+                              <Insets bottom="20.0" />
+                           </VBox.margin>
+                        </Label>
+                        <TextField fx:id="frictionTextField" maxWidth="45.0">
+                           <VBox.margin>
+                              <Insets bottom="20.0" />
+                           </VBox.margin>
+                        </TextField>
+                        <Slider fx:id="frictionSlider" onMouseEntered="#CursorChange" onMouseExited="#CursorChangeExit" orientation="VERTICAL" />
+                     </children>
+                     <HBox.margin>
+                        <Insets top="30.0" />
+                     </HBox.margin>
+                  </VBox>
+               </children>
+            </HBox>
+            <Group fx:id="GroupSBlock1" layoutX="25.0" layoutY="25.0" rotate="90.0">
+               <children>
+                  <Line endX="-50.0" endY="100.0" startX="-50.0" startY="50.0" />
+                  <Line endX="100.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#237201" height="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#237201" height="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" x="50.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#237201" height="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" x="-50.0" y="50.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#237201" height="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" y="50.0" />
+                  <Line endX="100.0" endY="50.0" startX="-50.0" startY="50.0" />
+                  <Line endX="50.0" endY="100.0" startX="-50.0" startY="100.0" />
+                  <Line endX="100.0" endY="50.0" startX="100.0" />
+                  <Line endX="50.0" endY="100.0" startX="50.0" />
+                  <Line endY="100.0" />
+               </children>
+            </Group>
+            <Group fx:id="GroupLineBlock1" layoutX="175.0" layoutY="274.0" rotate="90.0">
+               <children>
+                  <Line endY="200.0" />
+                  <Line endX="50.0" endY="200.0" startX="50.0" />
+                  <Rectangle fx:id="GRoupLineBlock1" arcHeight="5.0" arcWidth="5.0" fill="#1f93ff" height="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" y="50.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff" height="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" y="150.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff" height="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff" height="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" y="100.0" />
+                  <Line endX="50.0" />
+                  <Line endX="50.0" endY="150.0" startY="150.0" />
+                  <Line endX="50.0" endY="100.0" startY="100.0" />
+                  <Line endX="50.0" endY="50.0" startY="50.0" />
+                  <Line endX="50.0" endY="200.0" startY="200.0" />
+               </children>
+            </Group>
+            <Group fx:id="GroupLBlock1" layoutX="375.0" layoutY="275.0" rotate="270.0">
+               <children>
+                  <Line endY="150.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#0400ff" height="50.0" layoutX="50.0" layoutY="100.0" stroke="BLACK" strokeType="INSIDE" width="50.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#0400ff" height="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#0400ff" height="50.0" layoutY="100.0" stroke="BLACK" strokeType="INSIDE" width="50.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#0400ff" height="50.0" layoutY="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" />
+                  <Line endX="50.0" endY="150.0" startX="50.0" />
+                  <Line endX="100.0" endY="150.0" startX="100.0" startY="100.0" />
+                  <Line endX="100.0" endY="150.0" startY="150.0" />
+                  <Line endX="100.0" endY="100.0" startY="100.0" />
+                  <Line endX="50.0" endY="50.0" startY="50.0" />
+                  <Line endX="50.0" />
+               </children>
+            </Group>
          </children>
-      </Group>
-      <Label layoutX="235.0" layoutY="14.0" text="Settings">
-         <font>
-            <Font name="System Bold" size="24.0" />
-         </font>
-      </Label>
-      <Group fx:id="GroupLineBlock" layoutX="550.0" layoutY="88.0">
-         <children>
-            <Line endY="200.0" />
-            <Line endX="50.0" endY="200.0" startX="50.0" />
-            <Rectangle fx:id="GRoupLineBlock" arcHeight="5.0" arcWidth="5.0" fill="#1f93ff" height="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" y="50.0" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff" height="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" y="150.0" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff" height="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff" height="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" y="100.0" />
-            <Line endX="50.0" />
-            <Line endX="50.0" endY="150.0" startY="150.0" />
-            <Line endX="50.0" endY="100.0" startY="100.0" />
-            <Line endX="50.0" endY="50.0" startY="50.0" />
-            <Line endX="50.0" endY="200.0" startY="200.0" />
-         </children>
-      </Group>
-      <Group fx:id="GroupLBlock" layoutX="491.0" layoutY="235.0">
-         <children>
-            <Line endY="150.0" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#0400ff" height="50.0" layoutX="50.0" layoutY="100.0" stroke="BLACK" strokeType="INSIDE" width="50.0" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#0400ff" height="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#0400ff" height="50.0" layoutY="100.0" stroke="BLACK" strokeType="INSIDE" width="50.0" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#0400ff" height="50.0" layoutY="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" />
-            <Line endX="50.0" endY="150.0" startX="50.0" />
-            <Line endX="100.0" endY="150.0" startX="100.0" startY="100.0" />
-            <Line endX="100.0" endY="150.0" startY="150.0" />
-            <Line endX="100.0" endY="100.0" startY="100.0" />
-            <Line endX="50.0" endY="50.0" startY="50.0" />
-            <Line endX="50.0" />
-         </children>
-      </Group>
-      <Group fx:id="GroupJBlock" layoutX="499.0" layoutY="1.0">
-         <children>
-            <Line endY="150.0" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ff921e" height="50.0" layoutX="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" />
-            <Rectangle fx:id="GroupJBlock" arcHeight="5.0" arcWidth="5.0" fill="#ff921e" height="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ff921e" height="50.0" layoutY="100.0" stroke="BLACK" strokeType="INSIDE" width="50.0" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ff921e" height="50.0" layoutY="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" />
-            <Line endX="50.0" endY="150.0" startX="50.0" />
-            <Line endX="100.0" endY="50.0" startX="100.0" />
-            <Line endX="50.0" endY="150.0" startY="150.0" />
-            <Line endX="50.0" endY="100.0" startY="100.0" />
-            <Line endX="50.0" endY="50.0" startY="50.0" />
-            <Line endX="100.0" />
-         </children>
-      </Group>
-      <Group fx:id="GroupTBlock" layoutX="51.0" layoutY="100.0">
-         <children>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f50000" height="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" />
-            <Line endX="100.0" startX="-50.0" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f50000" height="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" x="-50.0" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f50000" height="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" y="50.0" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f50000" height="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" x="50.0" />
-            <Line endX="100.0" endY="50.0" startX="-50.0" startY="50.0" />
-            <Line endX="50.0" endY="100.0" startY="100.0" />
-            <Line endX="-50.0" endY="50.0" startX="-50.0" />
-            <Line endY="100.0" />
-            <Line endX="100.0" endY="50.0" startX="100.0" />
-            <Line endX="50.0" endY="100.0" startX="50.0" />
-         </children>
-      </Group>
-      <Group fx:id="GroupSBlock" layoutX="51.0" layoutY="299.0">
-         <children>
-            <Line endX="-50.0" endY="100.0" startX="-50.0" startY="50.0" />
-            <Line endX="100.0" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#237201" height="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#237201" height="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" x="50.0" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#237201" height="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" x="-50.0" y="50.0" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#237201" height="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" y="50.0" />
-            <Line endX="100.0" endY="50.0" startX="-50.0" startY="50.0" />
-            <Line endX="50.0" endY="100.0" startX="-50.0" startY="100.0" />
-            <Line endX="100.0" endY="50.0" startX="100.0" />
-            <Line endX="50.0" endY="100.0" startX="50.0" />
-            <Line endY="100.0" />
-         </children>
-      </Group>
-      <Group fx:id="GroupZBlock" layoutX="51.0" layoutY="201.0">
-         <children>
-            <Line endX="-50.0" endY="50.0" startX="-50.0" />
-            <Line endX="50.0" startX="-50.0" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6b4003" height="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6b4003" height="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" x="50.0" y="50.0" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6b4003" height="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" y="50.0" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6b4003" height="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" x="-50.0" />
-            <Line endX="100.0" endY="100.0" startY="100.0" />
-            <Line endX="100.0" endY="50.0" startX="-50.0" startY="50.0" />
-            <Line endX="100.0" endY="100.0" startX="100.0" startY="50.0" />
-            <Line endX="50.0" endY="100.0" startX="50.0" />
-            <Line endY="100.0" />
-         </children>
-      </Group>
-      <VBox alignment="CENTER" layoutX="152.0" layoutY="88.0" prefHeight="200.0" prefWidth="324.0">
-         <children>
-            <CheckBox mnemonicParsing="false" onMouseEntered="#CursorChange" onMouseExited="#CursorChangeExit" text="CheckBox">
-               <graphic>
-                  <Slider />
-               </graphic>
-            </CheckBox>
-            <CheckBox mnemonicParsing="false" onMouseEntered="#CursorChange" onMouseExited="#CursorChangeExit" text="CheckBox">
-               <graphic>
-                  <Slider />
-               </graphic>
-            </CheckBox>
-         </children>
-      </VBox>
-   </children>
-</AnchorPane>
+      </AnchorPane>
+   </center>
+   <top>
+      <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <items>
+            <Button fx:id="btnPlay" mnemonicParsing="false" onAction="#handleBtnPlay" text="Play" />
+            <Button fx:id="btnMenu" mnemonicParsing="false" onAction="#handleBtnMenu" text="Menu" />
+            <Button fx:id="btnExit" mnemonicParsing="false" onAction="#handleBtnExit" text="Exit" />
+         </items>
+      </ToolBar>
+   </top>
+</BorderPane>

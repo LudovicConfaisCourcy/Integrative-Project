@@ -30,6 +30,7 @@ public class FXMLPlayController {
     private final static Logger logger = LoggerFactory.getLogger(FXMLMainAppController.class);
     Physics physics;
 
+    FXMLSettingsController music = new FXMLSettingsController();
     @FXML
     Button btnPlay;
     @FXML
@@ -48,11 +49,10 @@ public class FXMLPlayController {
     Pane pnBoard;
     @FXML
     BorderPane BorderPane;
-
     @FXML
     public void initialize() {
         physics = new Physics(pnBoard);
-        TetrisGround ground = new TetrisGround(0, 0, 200, 100);
+        TetrisGround ground = new TetrisGround(0,0, 200, 100);
         System.out.println(pnBoard.getMaxHeight());
         pnBoard.getChildren().add(ground);
 
@@ -65,7 +65,10 @@ public class FXMLPlayController {
             ground.setHeight(newHeight.doubleValue() * 0.3);
             ground.setTranslateY(newHeight.doubleValue() * 0.9);
         });
+        music.musicPlay();
+        music.checkMute();
     }
+
 
     @FXML
     private void handleBtnPlay() {
@@ -89,13 +92,16 @@ public class FXMLPlayController {
     @FXML
     private void handleBtnRestart() {
         logger.info("Restart button clicked");
-        // Implement the functionality to restart the game
+        pnBoard.getChildren().clear();
+
     }
 
     @FXML
     private void handleBtnGraphics() {
         logger.info("Graphs button clicked");
-        Graph1 testGraph = new Graph1();
+        BlockState initialState = new BlockState((int) pnBoard.getWidth() / 2 - 15, 0, 0, 0, 0, 0);
+        TetrisBlock block = new TetrisBlock(initialState, Color.RED);
+        Graph1 testGraph = new Graph1 (block, initialState);
 
     }
 
@@ -110,6 +116,7 @@ public class FXMLPlayController {
         FXMLLoader loader = mainApp.loadFXML("/fxml/IntroScene.fxml", new FXMLMainAppController());
         Scene scene = new Scene(loader.load());
         currentStage.setScene(scene);
+        music.musicStop();
 
     }
 
@@ -129,29 +136,23 @@ public class FXMLPlayController {
 
     public void MoveBlock(TetrisBlock block) {
 
-        /*block.setOnScroll(event -> {
-            double delta = event.getDeltaY();
-            double rotationAngle = 10.0;
-            block.setRotate(block.getRotate() + rotationAngle * delta);
-        });
-*/
-        block.setOnMousePressed(event -> {
+        block.setOnMousePressed(event-> {
 
             BlockState state = new BlockState(block.getCurrentState().getPosX(), block.getCurrentState().getPosY(), block.getCurrentState().getSpeedX(), block.getCurrentState().getSpeedY(), 0, 0);
             block.addBlockState(state);
             BorderPane.setCursor(Cursor.CLOSED_HAND);
         });
 
-        block.setOnMouseDragged(event -> {
+        block.setOnMouseDragged(event-> {
 
             block.setManaged(false);
-            BlockState state = new BlockState(event.getX() + block.getCurrentState().getPosX() - block.getWidth() / 2, event.getY() + block.getCurrentState().getPosY() - block.getHeight() / 2, block.getCurrentState().getSpeedX(), block.getCurrentState().getSpeedY(), 0, 0);
+            BlockState state = new BlockState(event.getX() + block.getCurrentState().getPosX() - block.getWidth() / 2, event.getY() + block.getCurrentState().getPosY() - block.getHeight() / 2,block.getCurrentState().getSpeedX(), block.getCurrentState().getSpeedY(), 0, 0);
             block.addBlockState(state);
             event.consume();
             physics.stopPhysics();
         });
 
-        block.setOnMouseReleased(event -> {
+        block.setOnMouseReleased(event-> {
 
             // Calculate velocity based on the change in position
             double speedX = (block.getCurrentState().getPosX() - block.getPreviousState().getPosX()) / 0.16;
@@ -160,25 +161,29 @@ public class FXMLPlayController {
             block.addBlockState(state);
             physics.startPhysics();
             BorderPane.setCursor(Cursor.OPEN_HAND);
-
             // Start physics simulation
         });
-
-       
-
     }
 
+    /*
+     Alert alert = new Alert(AlertType.INFORMATION);
+            alert.setTitle("Block Information");
+            alert.setHeaderText(null);
+            alert.setContentText("Position: (" + posX + ", " + posY + ")\n"
+                    + "Speed: (" + speedX + ", " + speedY + ")\n"
+                    + "Acceleration: (" + accelerationX + ", " + accelerationY + ")");
+            alert.showAndWait();
+     */
     @FXML
-    private void CursorChange() {
+    private void CursorChange(){
         BorderPane.setCursor(Cursor.HAND);
     }
-
     @FXML
-    private void CursorChangeExit() {
+    private void CursorChangeExit(){
         BorderPane.setCursor(Cursor.DEFAULT);
     }
 
-    public void CursorChangeBlock(TetrisBlock block) {
+    public void CursorChangeBlock(TetrisBlock block){
 
         block.setOnMouseEntered(event -> {
             BorderPane.setCursor(Cursor.OPEN_HAND);
@@ -188,4 +193,6 @@ public class FXMLPlayController {
             BorderPane.setCursor(Cursor.DEFAULT);
         });
     }
+
+
 }

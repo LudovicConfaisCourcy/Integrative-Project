@@ -18,10 +18,11 @@ import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-   
+
 public class FXMLCreditsController {
 
     private final static Logger logger = LoggerFactory.getLogger(FXMLMainAppController.class);
+    FXMLSettingsController music = new FXMLSettingsController();
 
     @FXML
     Button btnCreators;
@@ -33,51 +34,57 @@ public class FXMLCreditsController {
     Button btnDescription;
     @FXML
     Pane CreditsPane;
-    
+
+    public void initialize() {
+        music.musicPlay();
+        music.checkMute();
+    }
+
     @FXML
     private void handleBtnCreators() throws IOException {
-    logger.info("Creators button clicked");  
-    
-    Stage stage = (Stage) btnCreators.getScene().getWindow();
-    MainApp mainApp = new MainApp();
-    FXMLLoader loader = mainApp.loadFXML("/fxml/CreatorsScene.fxml", new FXMLMainAppController());
-    Scene scene = new Scene(loader.load());
-    stage.setScene(scene);
+        logger.info("Creators button clicked");
+        music.musicStop();
+        Stage stage = (Stage) btnCreators.getScene().getWindow();
+        MainApp mainApp = new MainApp();
+        FXMLLoader loader = mainApp.loadFXML("/fxml/CreatorsScene.fxml", new FXMLMainAppController());
+        Scene scene = new Scene(loader.load());
+        stage.setScene(scene);
+
     }
-     
+
     @FXML
     private void handleBtnInspirations() throws IOException {
-    logger.info("Inspirations button clicked"); 
-    
-    Stage stage = (Stage) btnCreators.getScene().getWindow();
-    MainApp mainApp = new MainApp();
-    FXMLLoader loader = mainApp.loadFXML("/fxml/InspirationsScene.fxml", new FXMLMainAppController());
-    Scene scene = new Scene(loader.load());
-    stage.setScene(scene);
+        logger.info("Inspirations button clicked");
+        music.musicStop();
+        Stage stage = (Stage) btnCreators.getScene().getWindow();
+        MainApp mainApp = new MainApp();
+        FXMLLoader loader = mainApp.loadFXML("/fxml/InspirationsScene.fxml", new FXMLMainAppController());
+        Scene scene = new Scene(loader.load());
+        stage.setScene(scene);
     }
-    
+
     @FXML
     private void handleBtnScience() throws IOException {
-    logger.info("Science button clicked"); 
-    
-    Stage stage = (Stage) btnCreators.getScene().getWindow();
-    MainApp mainApp = new MainApp();
-    FXMLLoader loader = mainApp.loadFXML("/fxml/ScienceScene.fxml", new FXMLMainAppController());
-    Scene scene = new Scene(loader.load());
-    stage.setScene(scene);
+        logger.info("Science button clicked");
+        music.musicStop();
+        Stage stage = (Stage) btnCreators.getScene().getWindow();
+        MainApp mainApp = new MainApp();
+        FXMLLoader loader = mainApp.loadFXML("/fxml/ScienceScene.fxml", new FXMLMainAppController());
+        Scene scene = new Scene(loader.load());
+        stage.setScene(scene);
     }
-    
+
     @FXML
-    private void handleBtnMenu() throws IOException { 
-    logger.info("Description button clicked");  
-    
-    Stage stage = (Stage) btnCreators.getScene().getWindow();
-    MainApp mainApp = new MainApp();
-    FXMLLoader loader = mainApp.loadFXML("/fxml/IntroScene.fxml", new FXMLMainAppController());
-    Scene scene = new Scene(loader.load());
-    stage.setScene(scene);
+    private void handleBtnMenu() throws IOException {
+        logger.info("Description button clicked");
+        music.musicStop();
+        Stage stage = (Stage) btnCreators.getScene().getWindow();
+        MainApp mainApp = new MainApp();
+        FXMLLoader loader = mainApp.loadFXML("/fxml/IntroScene.fxml", new FXMLMainAppController());
+        Scene scene = new Scene(loader.load());
+        stage.setScene(scene);
     }
-    
+
     @FXML
     private void CursorChange(){
         CreditsPane.setCursor(Cursor.HAND);
@@ -86,5 +93,5 @@ public class FXMLCreditsController {
     private void CursorChangeExit(){
         CreditsPane.setCursor(Cursor.DEFAULT);
     }
-    
+
 }
