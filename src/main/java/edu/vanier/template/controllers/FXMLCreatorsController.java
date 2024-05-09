@@ -1,7 +1,11 @@
 package edu.vanier.template.controllers;
 
 import edu.vanier.template.MainApp;
+import java.awt.Desktop;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -12,6 +16,21 @@ public class FXMLCreatorsController {
 
 @FXML
 Button btnBack;
+
+@FXML
+private void openL(ActionEvent event) throws URISyntaxException, IOException {
+Desktop.getDesktop().browse(new URI("https://github.com/LudovicConfaisCourcy"));
+}
+
+@FXML
+private void openA(ActionEvent event) throws URISyntaxException, IOException {
+Desktop.getDesktop().browse(new URI("https://github.com/AntoxaLis"));
+}
+
+@FXML
+private void openS(ActionEvent event) throws URISyntaxException, IOException {
+Desktop.getDesktop().browse(new URI("https://github.com/FBI-bot"));
+}
 
 @FXML
 private void handleBtnBack() throws IOException {

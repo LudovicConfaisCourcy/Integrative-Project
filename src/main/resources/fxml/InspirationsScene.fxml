@@ -21,7 +21,7 @@
                   <Font name="Bell MT Bold" size="20.0" />
                </font>
             </Label>
-            <Hyperlink alignment="CENTER" contentDisplay="CENTER" prefHeight="39.0" prefWidth="600.0" text="https://www.trickytowers.com/" textAlignment="CENTER" textFill="WHITE">
+            <Hyperlink alignment="CENTER" contentDisplay="CENTER" onAction="#openLink" prefHeight="39.0" prefWidth="600.0" text="trickytowers.com" textAlignment="CENTER" textFill="WHITE">
                <font>
                   <Font name="Bell MT" size="15.0" />
                </font>
@@ -36,7 +36,7 @@
                   <Font name="Bell MT" size="15.0" />
                </font>
             </Label>
-            <Hyperlink alignment="CENTER" contentDisplay="CENTER" prefHeight="26.0" prefWidth="680.0" text="https://github.com/Przemekkkth/gravity-tetris" textAlignment="CENTER" textFill="WHITE">
+            <Hyperlink alignment="CENTER" contentDisplay="CENTER" onAction="#openLink1" prefHeight="26.0" prefWidth="680.0" text="github.com" textAlignment="CENTER" textFill="WHITE">
                <font>
                   <Font name="Bell MT" size="15.0" />
                </font>
@@ -46,7 +46,7 @@
                   <Font name="Bell MT" size="15.0" />
                </font>
             </Label>
-            <Hyperlink alignment="CENTER" contentDisplay="CENTER" prefHeight="26.0" prefWidth="680.0" text="https://www.ventrella.com/GravityTetris/" textAlignment="CENTER" textFill="WHITE">
+            <Hyperlink alignment="CENTER" contentDisplay="CENTER" onAction="#openLink2" prefHeight="26.0" prefWidth="680.0" text="ventrella.com" textAlignment="CENTER" textFill="WHITE">
                <font>
                   <Font name="Bell MT" size="15.0" />
                </font>

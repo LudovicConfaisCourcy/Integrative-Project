@@ -28,7 +28,7 @@
             <Font name="Bell MT Bold" size="20.0" />
          </font>
       </Label>
-      <Hyperlink alignment="CENTER" layoutY="152.0" prefHeight="24.0" prefWidth="600.0" text="https://natureofcode.com/" textAlignment="CENTER" textFill="WHITE">
+      <Hyperlink alignment="CENTER" layoutY="152.0" onAction="#openLink" prefHeight="24.0" prefWidth="600.0" text="natureofcode.com" textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font name="Bodoni MT" size="15.0" />
          </font>
