@@ -152,11 +152,11 @@ public class FXMLSettingsController{
         mediaPlayer = new MediaPlayer(media);
         mediaPlayer.setAutoPlay(true);
         mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
-   /* mediaPlayer.setOnEndOfMedia(new Runnable() {
+    mediaPlayer.setOnEndOfMedia(new Runnable() {
        public void run() {
          a.seek(Duration.ZERO);
-       }*/
-        //});
+       }
+        });
         // mediaPlayer.setVolume(musicSlider.getValue()/100);
         mediaPlayer.play();
 
