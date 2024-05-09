@@ -33,6 +33,16 @@ Desktop.getDesktop().browse(new URI("https://www.ventrella.com/GravityTetris/"))
 }
 
 @FXML
+private void openLink3(ActionEvent event) throws URISyntaxException, IOException {
+Desktop.getDesktop().browse(new URI("https://mixkit.co/free-sound-effects/click/"));
+}
+
+@FXML
+private void openLink4(ActionEvent event) throws URISyntaxException, IOException {
+Desktop.getDesktop().browse(new URI("https://www.youtube.com/watch?v=NmCCQxVBfyM&t=2s"));
+}
+
+@FXML
 private void handleBtnBack() throws IOException {
 
 Stage stage = (Stage) btnBack.getScene().getWindow();
