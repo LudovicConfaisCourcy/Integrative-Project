@@ -55,7 +55,7 @@ public class FXMLPlayController {
     public void initialize() {
         physics = new Physics(pnBoard);
         for (int i = 0; i < 4; i++) {
-                    physics.addGround(new TetrisGround(60, 40, Color.GREEN), 0, -150);
+            physics.addGround(new TetrisGround(60, 40, Color.GREEN), 0, -150);
 
         }
 
@@ -78,8 +78,13 @@ public class FXMLPlayController {
 
         logger.info("Start button clicked");
         physics.startPhysics();
-        physics.addTetrisShape('I',new TetrisBlock(10, 10, Color.RED), 0, 150);
-        
+        physics.addTetrisShape('I', new TetrisBlock(10, 10, Color.RED), 0, 150);
+        physics.addTetrisShape('L', new TetrisBlock(10, 10, Color.RED), 0, 250);
+        physics.addTetrisShape('J', new TetrisBlock(10, 10, Color.RED), 0, 350);
+        physics.addTetrisShape('T', new TetrisBlock(10, 10, Color.RED), 0, 450);
+        physics.addTetrisShape('O', new TetrisBlock(10, 10, Color.RED), 0, 550);
+        physics.addTetrisShape('S', new TetrisBlock(10, 10, Color.RED), 0, 650);
+        physics.addTetrisShape('Z', new TetrisBlock(10, 10, Color.RED), 0, 750);
 
     }
 

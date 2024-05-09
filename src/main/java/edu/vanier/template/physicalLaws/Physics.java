@@ -246,7 +246,7 @@ public class Physics {
             }
         }
     }
-
+    
     private void narrowPhaseCheck(Body a, Body b) {
         Arbiter contactQuery = new Arbiter(a, b);
         contactQuery.narrowPhase();
