@@ -3,11 +3,6 @@ package library.joints;
 import library.dynamics.Body;
 import library.math.Matrix2D;
 import library.math.Vectors2D;
-import testbed.ColourSettings;
-import testbed.Camera;
-
-import java.awt.*;
-import java.awt.geom.Line2D;
 
 /**
  * Class for a joint between a body and a point in world space.
@@ -94,18 +89,4 @@ public class JointToPoint extends Joint {
         return relativeVelocity.dotProduct(distance);
     }
 
-    /**
-     * Implementation of the draw method.
-     *
-     * @param g             Graphics2D object to draw to
-     * @param paintSettings Colour settings to draw the objects to screen with
-     * @param camera        Camera class used to convert points from world space to view space
-     */
-    @Override
-    public void draw(Graphics2D g, ColourSettings paintSettings, Camera camera) {
-        g.setColor(paintSettings.joints);
-        Vectors2D obj1Pos = camera.convertToScreen(object1AttachmentPoint);
-        Vectors2D obj2Pos = camera.convertToScreen(pointAttachedTo);
-        g.draw(new Line2D.Double(obj1Pos.x, obj1Pos.y, obj2Pos.x, obj2Pos.y));
-    }
 }

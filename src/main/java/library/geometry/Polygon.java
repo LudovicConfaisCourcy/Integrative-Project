@@ -1,14 +1,9 @@
 package library.geometry;
 
-import testbed.Camera;
 import library.collision.AABB;
 import library.math.Vectors2D;
-import testbed.ColourSettings;
 
-import java.awt.*;
-import java.awt.geom.Path2D;
 import java.util.*;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.shape.Rectangle;
 
 public class Polygon extends Shapes {
@@ -149,42 +144,6 @@ public class Polygon extends Shapes {
         body.aabb = new AABB(new Vectors2D(minX, minY), new Vectors2D(maxX, maxY));
     }
 
-   
-
-    /**
-     * Debug draw method for a polygon.
-     *
-     * @param g Graphics2D object to draw to
-     * @param paintSettings Colour settings to draw the objects to screen with
-     * @param camera Camera class used to convert points from world space to
-     * view space
-     */
-    @Override
-    public void draw(Graphics2D g, ColourSettings paintSettings, Camera camera) {
-        Path2D.Double s = new Path2D.Double();
-        for (int i = 0; i < vertices.length; i++) {
-            Vectors2D v = new Vectors2D(this.vertices[i]);
-            orient.mul(v);
-            v.add(body.position);
-            v = camera.convertToScreen(v);
-            if (i == 0) {
-                s.moveTo(v.x, v.y);
-            } else {
-                s.lineTo(v.x, v.y);
-            }
-        }
-        s.closePath();
-        if (body.mass == 0.0) {
-            g.setColor(paintSettings.staticFill);
-            g.fill(s);
-            g.setColor(paintSettings.staticOutLine);
-        } else {
-            g.setColor(paintSettings.shapeFill);
-            g.fill(s);
-            g.setColor(paintSettings.shapeOutLine);
-        }
-        g.draw(s);
-    }
 
     /**
      * Generates a convex hull around the vertices supplied.
@@ -246,10 +205,5 @@ public class Polygon extends Shapes {
         } else {
             return -1;
         }
-    }
-
-    @Override
-    public void draw(GraphicsContext gc, ColourSettings paintSettings, Camera camera) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

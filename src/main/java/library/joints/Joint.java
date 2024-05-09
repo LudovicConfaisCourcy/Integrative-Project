@@ -3,10 +3,6 @@ package library.joints;
 import library.dynamics.Body;
 import library.math.Matrix2D;
 import library.math.Vectors2D;
-import testbed.ColourSettings;
-import testbed.Camera;
-
-import java.awt.*;
 
 /**
  * Abstract class for joints holding all the common properties of joints.
@@ -59,12 +55,5 @@ public abstract class Joint {
      */
     public abstract double rateOfChangeOfExtension();
 
-    /**
-     * Abstract draw method using graphics2D from java.swing for debug drawer.
-     *
-     * @param g             Graphics2D object to draw to
-     * @param paintSettings Colour settings to draw the objects to screen with
-     * @param camera        Camera class used to convert points from world space to view space
-     */
-    public abstract void draw(Graphics2D g, ColourSettings paintSettings, Camera camera);
+   
 }
