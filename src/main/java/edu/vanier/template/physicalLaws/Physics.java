@@ -112,34 +112,42 @@ public class Physics {
     }
 
     private void updatePhysics() {
+    double paneWidth = 400;
+    double paneHeight = 380;
 
-        double paneWidth = 400;
-        double paneHeight = 380;
+    for (int i = 0; i < simulationPane.getChildren().size(); i++) {
+        Body body = bodies.get(i);
+        Rectangle rect = (Rectangle) simulationPane.getChildren().get(i);
 
-        for (int i = 0; i < simulationPane.getChildren().size(); i++) {
-            Body body = bodies.get(i);
-            Rectangle rect = (Rectangle) simulationPane.getChildren().get(i);
+        double rectWidth = rect.getWidth();
+        double rectHeight = rect.getHeight();
 
-            double rectWidth = rect.getWidth();
-            double rectHeight = rect.getHeight();
+        double translatedX = (body.position.x - rectWidth / 2) + paneWidth / 2;
+        double translatedY = paneHeight / 2 - (body.position.y + rectHeight / 2);
 
-            double translatedX = (body.position.x - rectWidth / 2) + paneWidth / 2;
-            double translatedY = paneHeight / 2 - (body.position.y + rectHeight / 2);
+        rect.setTranslateX(translatedX);
+        rect.setTranslateY(translatedY);
+        rect.setRotate(-Math.toDegrees(body.orientation));
 
-            rect.setTranslateX(translatedX);
-            rect.setTranslateY(translatedY);
-            rect.setRotate(-Math.toDegrees(body.orientation));
-
-            if (translatedY > simulationPane.getHeight() + 150) {
-
-                bodies.remove(i);
-                simulationPane.getChildren().remove(i);
-                System.out.println("delete");
+        if (!body.isStatic()) {
+            for (Body staticBody : bodies) {
+                if (staticBody != body && staticBody.isStatic() ) {
+                    if (AABB.AABBOverLap(body, staticBody)) {
+                        System.out.println("Dynamic body collided with static body!");
+                    }
+                }
             }
         }
 
-        step(1.0 / 60.0);
+        if (translatedY > simulationPane.getHeight() + 150) {
+            bodies.remove(i);
+            simulationPane.getChildren().remove(i);
+            System.out.println("delete");
+        }
     }
+
+    step(1.0 / 60.0);
+}
 
     public void setGravity(Vectors2D gravity) {
         this.gravity = gravity;

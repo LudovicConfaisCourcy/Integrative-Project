@@ -9,6 +9,7 @@ import library.math.Vectors2D;
  * Class to create a body to add to a world.
  */
 public class Body{
+    
     public double dynamicFriction;
     public double staticFriction;
     public Vectors2D position;
@@ -31,6 +32,8 @@ public class Body{
     public boolean affectedByGravity;
     public boolean particle;
 
+    private boolean isStatic=false;
+    
     /**
      * Constructor for body.
      *
@@ -49,10 +52,10 @@ public class Body{
         angularVelocity = 0;
         torque = 0;
 
-        restitution = 0.02;
+        restitution = 0.01;
 
-        staticFriction = 1.0;
-        dynamicFriction = 1.0;
+        staticFriction = 0.7;
+        dynamicFriction = 0.4;
 
         linearDampening = 0;
         angularDampening = 0;
@@ -141,5 +144,10 @@ public class Body{
         invMass = 0.0;
         I = 0.0;
         invI = 0.0;
+        isStatic=true;
+    }
+    
+    public boolean  isStatic() {
+       return isStatic;
     }
 }
