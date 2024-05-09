@@ -3,15 +3,11 @@ package edu.vanier.template.controllers;
 
 
 import edu.vanier.template.MainApp;
-import java.io.IOException;
-import java.util.logging.Level;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import java.io.IOException;
 import javafx.scene.control.Button;
-import javafx.event.ActionEvent;
 import javafx.scene.Cursor;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -37,47 +33,57 @@ public class FXMLCreditsController {
 
     public void initialize() {
         music.musicPlay();
-        music.checkMute();
+
     }
 
     @FXML
     private void handleBtnCreators() throws IOException {
+
         logger.info("Creators button clicked");
         music.musicStop();
-        Stage stage = (Stage) btnCreators.getScene().getWindow();
-        MainApp mainApp = new MainApp();
-        FXMLLoader loader = mainApp.loadFXML("/fxml/CreatorsScene.fxml", new FXMLMainAppController());
-        Scene scene = new Scene(loader.load());
-        stage.setScene(scene);
+        music.soundPlay();
+    
+    Stage stage = (Stage) btnCreators.getScene().getWindow();
+    MainApp mainApp = new MainApp();
+    FXMLLoader loader = mainApp.loadFXML("/fxml/CreatorsScene.fxml", new FXMLCreatorsController());
+    Scene scene = new Scene(loader.load());
+    stage.setScene(scene);
 
     }
 
     @FXML
     private void handleBtnInspirations() throws IOException {
-        logger.info("Inspirations button clicked");
         music.musicStop();
-        Stage stage = (Stage) btnCreators.getScene().getWindow();
-        MainApp mainApp = new MainApp();
-        FXMLLoader loader = mainApp.loadFXML("/fxml/InspirationsScene.fxml", new FXMLMainAppController());
-        Scene scene = new Scene(loader.load());
-        stage.setScene(scene);
+        music.soundPlay();
+    logger.info("Inspirations button clicked");
+    
+    Stage stage = (Stage) btnCreators.getScene().getWindow();
+    MainApp mainApp = new MainApp();
+    FXMLLoader loader = mainApp.loadFXML("/fxml/InspirationsScene.fxml", new FXMLInspirationsController());
+    Scene scene = new Scene(loader.load());
+    stage.setScene(scene);
+
     }
 
     @FXML
     private void handleBtnScience() throws IOException {
+
         logger.info("Science button clicked");
         music.musicStop();
+        music.soundPlay();
         Stage stage = (Stage) btnCreators.getScene().getWindow();
-        MainApp mainApp = new MainApp();
-        FXMLLoader loader = mainApp.loadFXML("/fxml/ScienceScene.fxml", new FXMLMainAppController());
-        Scene scene = new Scene(loader.load());
-        stage.setScene(scene);
+    MainApp mainApp = new MainApp();
+    FXMLLoader loader = mainApp.loadFXML("/fxml/ScienceScene.fxml", new FXMLScienceController());
+    Scene scene = new Scene(loader.load());
+    stage.setScene(scene);
+
     }
 
     @FXML
     private void handleBtnMenu() throws IOException {
         logger.info("Description button clicked");
         music.musicStop();
+        music.soundPlay();
         Stage stage = (Stage) btnCreators.getScene().getWindow();
         MainApp mainApp = new MainApp();
         FXMLLoader loader = mainApp.loadFXML("/fxml/IntroScene.fxml", new FXMLMainAppController());
