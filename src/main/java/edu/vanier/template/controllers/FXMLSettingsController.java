@@ -150,7 +150,8 @@ public class FXMLSettingsController{
         String a = "Original Tetris theme (Tetris Soundtrack).mp3";
         Media media = new Media(Paths.get(a).toUri().toString());
         mediaPlayer = new MediaPlayer(media);
-        mediaPlayer.setVolume(0);
+        mediaPlayer.setAutoPlay(true);
+        mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
    /* mediaPlayer.setOnEndOfMedia(new Runnable() {
        public void run() {
          a.seek(Duration.ZERO);

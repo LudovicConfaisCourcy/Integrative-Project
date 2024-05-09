@@ -29,12 +29,9 @@ public class FXMLPlayController {
 
     private final static Logger logger = LoggerFactory.getLogger(FXMLMainAppController.class);
     Physics physics;
-<<<<<<< HEAD
 
     FXMLSettingsController music = new FXMLSettingsController();
-=======
-    
->>>>>>> Shyam
+
     @FXML
     Button btnPlay;
     @FXML
@@ -56,7 +53,7 @@ public class FXMLPlayController {
     @FXML
     public void initialize() {
         physics = new Physics(pnBoard);
-        /*
+
         BlockState groundState = new BlockState((int) 0,0,0,0,0,0);
         TetrisBlock ground = new TetrisBlock(groundState,Color.GREEN);
         
@@ -71,7 +68,6 @@ public class FXMLPlayController {
         });
         
         pnBoard.getChildren().add(ground);
-        */
         /*
         TetrisGround ground = new TetrisGround(0,0, 200, 100);
         System.out.println(pnBoard.getMaxHeight());
@@ -85,12 +81,11 @@ public class FXMLPlayController {
         pnBoard.heightProperty().addListener((obs, oldHeight, newHeight) -> {
             ground.setHeight(newHeight.doubleValue() * 0.3);
             ground.setTranslateY(newHeight.doubleValue() * 0.9);
-        });
-<<<<<<< HEAD
+        });*/
+
         music.musicPlay();
-=======
-        */
->>>>>>> Shyam
+
+
     }
 
 
@@ -156,13 +151,11 @@ public class FXMLPlayController {
     @FXML
     private void handleBtnRestart() {
         logger.info("Restart button clicked");
-<<<<<<< HEAD
         music.soundPlay();
         physics.removeAllBlocks();
 
-=======
         pnBoard.getChildren().clear();
->>>>>>> Shyam
+
     }
 
     @FXML
@@ -286,9 +279,7 @@ public class FXMLPlayController {
     });
     }
 
-<<<<<<< HEAD
 
-=======
     /*
      Alert alert = new Alert(AlertType.INFORMATION);
             alert.setTitle("Block Information");
@@ -298,7 +289,7 @@ public class FXMLPlayController {
                     + "Acceleration: (" + accelerationX + ", " + accelerationY + ")");
             alert.showAndWait();
     */
->>>>>>> Shyam
+
     @FXML
     private void CursorChange(){
         BorderPane.setCursor(Cursor.HAND);
