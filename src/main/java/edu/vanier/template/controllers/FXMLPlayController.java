@@ -7,6 +7,7 @@ import edu.vanier.template.tetrisPieces.BlockState;
 import edu.vanier.template.tetrisPieces.TetrisBlock;
 import edu.vanier.template.tetrisPieces.TetrisGround;
 import java.io.IOException;
+import javafx.event.EventHandler; //Added
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Cursor;
@@ -15,6 +16,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.input.KeyCode; //Added
+import javafx.scene.input.KeyEvent; //Added
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -22,15 +25,16 @@ import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/**
- * @author Anton Lisunov
- */
 public class FXMLPlayController {
 
     private final static Logger logger = LoggerFactory.getLogger(FXMLMainAppController.class);
     Physics physics;
+<<<<<<< HEAD
 
     FXMLSettingsController music = new FXMLSettingsController();
+=======
+    
+>>>>>>> Shyam
     @FXML
     Button btnPlay;
     @FXML
@@ -52,6 +56,23 @@ public class FXMLPlayController {
     @FXML
     public void initialize() {
         physics = new Physics(pnBoard);
+        /*
+        BlockState groundState = new BlockState((int) 0,0,0,0,0,0);
+        TetrisBlock ground = new TetrisBlock(groundState,Color.GREEN);
+        
+        pnBoard.widthProperty().addListener((obs, oldWidth, newWidth) -> {
+            ground.setWidth(newWidth.doubleValue() * 0.5);
+            ground.setTranslateX(newWidth.doubleValue() * 0.25);
+        });
+
+        pnBoard.heightProperty().addListener((obs, oldHeight, newHeight) -> {
+            ground.setHeight(newHeight.doubleValue() * 0.3);
+            ground.setTranslateY(newHeight.doubleValue() * 0.9);
+        });
+        
+        pnBoard.getChildren().add(ground);
+        */
+        /*
         TetrisGround ground = new TetrisGround(0,0, 200, 100);
         System.out.println(pnBoard.getMaxHeight());
         pnBoard.getChildren().add(ground);
@@ -65,13 +86,17 @@ public class FXMLPlayController {
             ground.setHeight(newHeight.doubleValue() * 0.3);
             ground.setTranslateY(newHeight.doubleValue() * 0.9);
         });
+<<<<<<< HEAD
         music.musicPlay();
+=======
+        */
+>>>>>>> Shyam
     }
 
 
     @FXML
     private void handleBtnPlay() {
-
+    
         logger.info("Start button clicked");
         music.soundPlay();
         physics.startPhysics();
@@ -80,7 +105,45 @@ public class FXMLPlayController {
         pnBoard.getChildren().add(block);
         CursorChangeBlock(block);
         MoveBlock(block);
-
+        
+        Stage gameStage = (Stage) btnPlay.getScene().getWindow();
+        
+        EventHandler start_movement = (EventHandler<KeyEvent>) (KeyEvent event) -> {
+            //block rotation
+            if(KeyCode.F == event.getCode()){
+               physics.stopPhysics();
+               RotateBlock45(block);
+            }
+            if(KeyCode.G == event.getCode()){
+               physics.stopPhysics();
+               RotateBlock90(block);
+            }
+            //block movement
+            if(KeyCode.A == event.getCode()){
+               block.getCurrentState().setPosX(block.getCurrentState().getPosX() - 10);
+            }
+            if(KeyCode.S == event.getCode()){
+               block.getCurrentState().setPosY(block.getCurrentState().getPosY() + 10);
+            }
+            if(KeyCode.D == event.getCode()){
+               block.getCurrentState().setPosX(block.getCurrentState().getPosX() + 10);
+            }
+        };
+        gameStage.getScene().setOnKeyPressed(start_movement);
+        
+        EventHandler stop_movement = (EventHandler<KeyEvent>) (KeyEvent event) -> {
+            //block rotation
+            if(KeyCode.F == event.getCode()){
+               physics.startPhysics();
+               StopRotateBlock(block);
+            }
+            if(KeyCode.G == event.getCode()){
+               physics.startPhysics();
+               StopRotateBlock(block);
+            }
+        };
+        gameStage.getScene().setOnKeyReleased(stop_movement);
+        
     }
 
     @FXML
@@ -93,9 +156,13 @@ public class FXMLPlayController {
     @FXML
     private void handleBtnRestart() {
         logger.info("Restart button clicked");
+<<<<<<< HEAD
         music.soundPlay();
         physics.removeAllBlocks();
 
+=======
+        pnBoard.getChildren().clear();
+>>>>>>> Shyam
     }
 
     @FXML
@@ -183,8 +250,55 @@ public class FXMLPlayController {
             // Start physics simulation
         });
     }
+    
+    public void RotateBlock45(TetrisBlock block) {
+    
+    block.setOnMousePressed(event -> {
+        block.setRotate(block.getRotate() + 45);
+    });
+    
+    block.setOnScroll(event -> {
+        block.setRotate(block.getRotate() + 45);
+    });
+    
+    }
+    
+    public void RotateBlock90(TetrisBlock block) {
+    
+    block.setOnMousePressed(event -> {
+        block.setRotate(block.getRotate() + 90);
+    });
+    
+    block.setOnScroll(event -> {
+        block.setRotate(block.getRotate() + 90);
+    });
+    
+    }
+       
+    public void StopRotateBlock (TetrisBlock block) {
+    
+    block.setOnMousePressed(event -> {
+        block.setRotate(block.getRotate());
+    });
+   
+    block.setOnScroll(event -> {
+        block.setRotate(block.getRotate());
+    });
+    }
 
+<<<<<<< HEAD
 
+=======
+    /*
+     Alert alert = new Alert(AlertType.INFORMATION);
+            alert.setTitle("Block Information");
+            alert.setHeaderText(null);
+            alert.setContentText("Position: (" + posX + ", " + posY + ")\n"
+                    + "Speed: (" + speedX + ", " + speedY + ")\n"
+                    + "Acceleration: (" + accelerationX + ", " + accelerationY + ")");
+            alert.showAndWait();
+    */
+>>>>>>> Shyam
     @FXML
     private void CursorChange(){
         BorderPane.setCursor(Cursor.HAND);

@@ -3,15 +3,11 @@ package edu.vanier.template.controllers;
 
 
 import edu.vanier.template.MainApp;
-import java.io.IOException;
-import java.util.logging.Level;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import java.io.IOException;
 import javafx.scene.control.Button;
-import javafx.event.ActionEvent;
 import javafx.scene.Cursor;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -42,6 +38,7 @@ public class FXMLCreditsController {
 
     @FXML
     private void handleBtnCreators() throws IOException {
+<<<<<<< HEAD
         logger.info("Creators button clicked");
         music.musicStop();
         music.soundPlay();
@@ -51,10 +48,20 @@ public class FXMLCreditsController {
         Scene scene = new Scene(loader.load());
         stage.setScene(scene);
 
+=======
+    logger.info("Creators button clicked");  
+    
+    Stage stage = (Stage) btnCreators.getScene().getWindow();
+    MainApp mainApp = new MainApp();
+    FXMLLoader loader = mainApp.loadFXML("/fxml/CreatorsScene.fxml", new FXMLCreatorsController());
+    Scene scene = new Scene(loader.load());
+    stage.setScene(scene);
+>>>>>>> Shyam
     }
 
     @FXML
     private void handleBtnInspirations() throws IOException {
+<<<<<<< HEAD
         logger.info("Inspirations button clicked");
         music.musicStop();
         music.soundPlay();
@@ -63,10 +70,20 @@ public class FXMLCreditsController {
         FXMLLoader loader = mainApp.loadFXML("/fxml/InspirationsScene.fxml", new FXMLMainAppController());
         Scene scene = new Scene(loader.load());
         stage.setScene(scene);
+=======
+    logger.info("Inspirations button clicked"); 
+    
+    Stage stage = (Stage) btnCreators.getScene().getWindow();
+    MainApp mainApp = new MainApp();
+    FXMLLoader loader = mainApp.loadFXML("/fxml/InspirationsScene.fxml", new FXMLInspirationsController());
+    Scene scene = new Scene(loader.load());
+    stage.setScene(scene);
+>>>>>>> Shyam
     }
 
     @FXML
     private void handleBtnScience() throws IOException {
+<<<<<<< HEAD
         logger.info("Science button clicked");
         music.musicStop();
         music.soundPlay();
@@ -75,6 +92,15 @@ public class FXMLCreditsController {
         FXMLLoader loader = mainApp.loadFXML("/fxml/ScienceScene.fxml", new FXMLMainAppController());
         Scene scene = new Scene(loader.load());
         stage.setScene(scene);
+=======
+    logger.info("Science button clicked"); 
+    
+    Stage stage = (Stage) btnCreators.getScene().getWindow();
+    MainApp mainApp = new MainApp();
+    FXMLLoader loader = mainApp.loadFXML("/fxml/ScienceScene.fxml", new FXMLScienceController());
+    Scene scene = new Scene(loader.load());
+    stage.setScene(scene);
+>>>>>>> Shyam
     }
 
     @FXML
