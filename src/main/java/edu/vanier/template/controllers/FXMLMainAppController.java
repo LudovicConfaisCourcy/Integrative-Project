@@ -20,7 +20,7 @@ import org.slf4j.LoggerFactory;
 /*
  * @authors Ludovic Confais Courcy Anton Lisunov Shyam Patel
  */
-public class FXMLMainAppController {
+public class FXMLMainAppController{
 
     FXMLSettingsController music = new FXMLSettingsController();
     private final static Logger logger = LoggerFactory.getLogger(FXMLMainAppController.class);
@@ -37,29 +37,35 @@ public class FXMLMainAppController {
     @FXML
     Pane introPane;
 
+
     @FXML
     public void initialize() {
         music.musicPlay();
-        music.checkMute();
+
     }
+
 
     @FXML
     public void switchScenes(ActionEvent event) throws IOException {
         Object clickButton = event.getSource();
         if (clickButton == btnPlay) {
+            music.soundPlay();
             logger.info("Clicked Play Button");
             switchScene("/fxml/TetrisScene.fxml", new FXMLPlayController());
             music.musicStop();
         } else if (clickButton == btnSettings) {
             logger.info("Clicked Setting Button");
+            music.soundPlay();
             switchScene("/fxml/SettingsScene.fxml", new FXMLSettingsController());
             music.musicStop();
         } else if (clickButton == btnCredits) {
             logger.info("Clicked Credit Button");
+            music.soundPlay();
             switchScene("/fxml/CreditScene.fxml", new FXMLCreditsController());
             music.musicStop();
         } else if (clickButton == btnQuit) {
             logger.info("Clicked Quit Button");
+            music.soundPlay();
             Stage currentStage = (Stage) btnPlay.getScene().getWindow();
             currentStage.close();
             Platform.exit();

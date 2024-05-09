@@ -66,7 +66,6 @@ public class FXMLPlayController {
             ground.setTranslateY(newHeight.doubleValue() * 0.9);
         });
         music.musicPlay();
-        music.checkMute();
     }
 
 
@@ -74,6 +73,7 @@ public class FXMLPlayController {
     private void handleBtnPlay() {
 
         logger.info("Start button clicked");
+        music.soundPlay();
         physics.startPhysics();
         BlockState initialState = new BlockState((int) pnBoard.getWidth() / 2 - 15, 0, 0, 0, 0, 0);
         TetrisBlock block = new TetrisBlock(initialState, Color.RED);
@@ -86,19 +86,22 @@ public class FXMLPlayController {
     @FXML
     private void handleBtnStop() {
         logger.info("Stop button clicked");
+        music.soundPlay();
         physics.stopPhysics();
     }
 
     @FXML
     private void handleBtnRestart() {
         logger.info("Restart button clicked");
-        pnBoard.getChildren().clear();
+        music.soundPlay();
+        physics.removeAllBlocks();
 
     }
 
     @FXML
     private void handleBtnGraphics() {
         logger.info("Graphs button clicked");
+        music.soundPlay();
         BlockState initialState = new BlockState((int) pnBoard.getWidth() / 2 - 15, 0, 0, 0, 0, 0);
         TetrisBlock block = new TetrisBlock(initialState, Color.RED);
         Graph1 testGraph = new Graph1 (block, initialState);
@@ -108,7 +111,7 @@ public class FXMLPlayController {
     @FXML
     private void handleBtnMenu() throws IOException {
         logger.info("Menu button clicked");
-
+        music.soundPlay();
         physics.removeAllBlocks();
 
         Stage currentStage = (Stage) btnPlay.getScene().getWindow();
@@ -121,8 +124,24 @@ public class FXMLPlayController {
     }
 
     @FXML
+    private void handleBtnSettings() throws IOException {
+        logger.info("Settings button clicked");
+        music.soundPlay();
+        physics.removeAllBlocks();
+
+        Stage currentStage = (Stage) btnPlay.getScene().getWindow();
+        MainApp mainApp = new MainApp();
+        FXMLLoader loader = mainApp.loadFXML("/fxml/SettingsScene.fxml", new FXMLSettingsController());
+        Scene scene = new Scene(loader.load());
+        currentStage.setScene(scene);
+        music.musicStop();
+
+    }
+
+    @FXML
     private void handleBtnHelp() {
         logger.info("Help button clicked");
+        music.soundPlay();
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/HelpScene.fxml"));
             Stage helpStage = new Stage();
@@ -165,15 +184,7 @@ public class FXMLPlayController {
         });
     }
 
-    /*
-     Alert alert = new Alert(AlertType.INFORMATION);
-            alert.setTitle("Block Information");
-            alert.setHeaderText(null);
-            alert.setContentText("Position: (" + posX + ", " + posY + ")\n"
-                    + "Speed: (" + speedX + ", " + speedY + ")\n"
-                    + "Acceleration: (" + accelerationX + ", " + accelerationY + ")");
-            alert.showAndWait();
-     */
+
     @FXML
     private void CursorChange(){
         BorderPane.setCursor(Cursor.HAND);

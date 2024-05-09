@@ -37,13 +37,14 @@ public class FXMLCreditsController {
 
     public void initialize() {
         music.musicPlay();
-        music.checkMute();
+
     }
 
     @FXML
     private void handleBtnCreators() throws IOException {
         logger.info("Creators button clicked");
         music.musicStop();
+        music.soundPlay();
         Stage stage = (Stage) btnCreators.getScene().getWindow();
         MainApp mainApp = new MainApp();
         FXMLLoader loader = mainApp.loadFXML("/fxml/CreatorsScene.fxml", new FXMLMainAppController());
@@ -56,6 +57,7 @@ public class FXMLCreditsController {
     private void handleBtnInspirations() throws IOException {
         logger.info("Inspirations button clicked");
         music.musicStop();
+        music.soundPlay();
         Stage stage = (Stage) btnCreators.getScene().getWindow();
         MainApp mainApp = new MainApp();
         FXMLLoader loader = mainApp.loadFXML("/fxml/InspirationsScene.fxml", new FXMLMainAppController());
@@ -67,6 +69,7 @@ public class FXMLCreditsController {
     private void handleBtnScience() throws IOException {
         logger.info("Science button clicked");
         music.musicStop();
+        music.soundPlay();
         Stage stage = (Stage) btnCreators.getScene().getWindow();
         MainApp mainApp = new MainApp();
         FXMLLoader loader = mainApp.loadFXML("/fxml/ScienceScene.fxml", new FXMLMainAppController());
@@ -78,6 +81,7 @@ public class FXMLCreditsController {
     private void handleBtnMenu() throws IOException {
         logger.info("Description button clicked");
         music.musicStop();
+        music.soundPlay();
         Stage stage = (Stage) btnCreators.getScene().getWindow();
         MainApp mainApp = new MainApp();
         FXMLLoader loader = mainApp.loadFXML("/fxml/IntroScene.fxml", new FXMLMainAppController());

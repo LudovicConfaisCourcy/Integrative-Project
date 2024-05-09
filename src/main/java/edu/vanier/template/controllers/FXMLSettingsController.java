@@ -6,6 +6,7 @@ import edu.vanier.template.MainApp;
 import javafx.scene.control.CheckBox;
 import java.io.IOException;
 import java.nio.file.Paths;
+import java.time.Duration;
 import java.util.logging.Level;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -66,82 +67,52 @@ public class FXMLSettingsController{
     double volume;
 
 
+
     @FXML
     public void initialize() {
-        musicPlay();
 
+        setVolume1(0.5);
         musicSlider.setShowTickMarks(true);
         musicSlider.setMajorTickUnit(25);
         musicSlider.setMinorTickCount(25);
         musicSlider.setShowTickLabels(true);
         musicSlider.setSnapToTicks(true);
-        musicSlider.setValue(50);
+        musicSlider.setValue(volume * 100);
         musicSlider.setMax(100);
+        MusicCheckBox.setSelected(true);
 
         musicTextField.setText(String.valueOf(musicSlider.getValue()));
+
         musicSlider.valueProperty().addListener((observable, oldvalue, newvalue)->{
             musicTextField.setText(String.format("%.2f", newvalue.doubleValue()));
-            volume = (musicSlider.getValue() / 50) - 1;
-            mediaPlayer.setVolume(volume + 1);
+            volume = (musicSlider.getValue() / 100) ;
+            mediaPlayer.setVolume(volume);
+            setVolume1(volume);
+            System.out.println(getVolume());
+            if(musicSlider.getValue() == 0){
+                MusicCheckBox.setSelected(false);
+            }
+            else{
+                MusicCheckBox.setSelected(true);
+            }
         });
 
-
         MusicCheckBox.selectedProperty().addListener(event -> {
-            if (MusicCheckBox.isSelected()) {
+            if (MusicCheckBox.isSelected() == false) {
                 musicSlider.setValue(0);
             }
         });
 
-
-        soundSlider.setShowTickMarks(true);
-        soundSlider.setMajorTickUnit(5);
-        soundSlider.setMinorTickCount(5);
-        soundSlider.setShowTickLabels(true);
-        soundSlider.setSnapToTicks(true);
-        soundSlider.setValue(10);
-        soundSlider.setMax(20);
-
-        soundTextField.setText(String.valueOf(soundSlider.getValue()));
-        soundSlider.valueProperty().addListener((observable, oldvalue, newvalue)->{
-            soundTextField.setText(String.format("%.2f", newvalue.doubleValue()));
-        });
-
-        SoundCheckBox.selectedProperty().addListener(event -> {
-            if (SoundCheckBox.isSelected()) {
-                soundSlider.setValue(0);
-            }
-        });
-
-
-        gravitySlider.setShowTickMarks(true);
-        gravitySlider.setMajorTickUnit(5);
-        gravitySlider.setMinorTickCount(5);
-        gravitySlider.setShowTickLabels(true);
-        gravitySlider.setSnapToTicks(true);
-        gravitySlider.setValue(10);
-        gravitySlider.setMax(20);
-
-        gravityTextField.setText(String.valueOf(gravitySlider.getValue()));
-        gravitySlider.valueProperty().addListener((observable, oldValue, newValue) ->
-                gravityTextField.setText(String.format("%.2f", newValue.doubleValue())));
-
-        frictionSlider.setShowTickMarks(true);
-        frictionSlider.setMajorTickUnit(5);
-        frictionSlider.setMinorTickCount(5);
-        frictionSlider.setShowTickLabels(true);
-        frictionSlider.setSnapToTicks(true);
-        frictionSlider.setValue(10);
-        frictionSlider.setMax(20);
-
-        frictionTextField.setText(String.valueOf(gravitySlider.getValue()));
-        frictionSlider.valueProperty().addListener((observable, oldvalue, newvalue)->{
-            frictionTextField.setText(String.format("%.2f", newvalue.doubleValue()));
-        });
+        slider(soundSlider,soundTextField,25,25,50,100,SoundCheckBox);
+        slider(gravitySlider,gravityTextField,5,5,10,20);
+        slider(frictionSlider,frictionTextField,5,5,10,20);
+        musicPlay();
     }
 
     @FXML
     private void handleBtnPlay() throws IOException {
         logger.info("Stage is changed");
+        soundPlay();
         Stage currentStage = (Stage) btnPlay.getScene().getWindow();
         MainApp mainApp = new MainApp();
         FXMLLoader loader = mainApp.loadFXML("/fxml/TetrisScene.fxml", new FXMLPlayController());
@@ -152,6 +123,7 @@ public class FXMLSettingsController{
     @FXML
     private void handleBtnMenu() throws IOException {
         logger.info("Menu button clicked");
+        soundPlay();
         Stage currentStage = (Stage) btnPlay.getScene().getWindow();
         MainApp mainApp = new MainApp();
         FXMLLoader loader = mainApp.loadFXML("/fxml/IntroScene.fxml", new FXMLMainAppController());
@@ -163,6 +135,7 @@ public class FXMLSettingsController{
     @FXML
     private void handleBtnExit() throws IOException {
         logger.info("Quit Button Clicked");
+        soundPlay();
         Stage currentStage = (Stage) btnPlay.getScene().getWindow();
         currentStage.close();
     }
@@ -177,27 +150,78 @@ public class FXMLSettingsController{
         String a = "Original Tetris theme (Tetris Soundtrack).mp3";
         Media media = new Media(Paths.get(a).toUri().toString());
         mediaPlayer = new MediaPlayer(media);
+        mediaPlayer.setVolume(0);
+   /* mediaPlayer.setOnEndOfMedia(new Runnable() {
+       public void run() {
+         a.seek(Duration.ZERO);
+       }*/
+        //});
+        // mediaPlayer.setVolume(musicSlider.getValue()/100);
         mediaPlayer.play();
 
     }
 
-    public void checkMute(){
-        if(volume == -1){
-            mediaPlayer.setMute(true);
-        }
-        else{
-            mediaPlayer.setMute(false);
-        }
+    MediaPlayer mediaPlayer2;
+
+    public void soundPlay(){
+        String a = "mixkit-interface-click-1126.mp3";
+        Media media = new Media(Paths.get(a).toUri().toString());
+        mediaPlayer2 = new MediaPlayer(media);
+        mediaPlayer2.play();
     }
 
-    public void setVolume(double volume){
-        volume = this.volume;
+
+
+    public void setVolume1(double volume){
+        this.volume = volume;
     }
 
     public double getVolume(){
-        return volume;
+        return musicSlider.getValue() /100;
     }
 
+    private void slider(Slider frictionSlider, TextField frictionTextField, int MajorTick, int MinorTick, int initialValue, int MaxValue){
+        frictionSlider.setShowTickMarks(true);
+        frictionSlider.setMajorTickUnit(MajorTick);
+        frictionSlider.setMinorTickCount(MinorTick);
+        frictionSlider.setShowTickLabels(true);
+        frictionSlider.setSnapToTicks(true);
+        frictionSlider.setValue(initialValue);
+        frictionSlider.setMax(MaxValue);
+
+        frictionTextField.setText(String.valueOf(frictionSlider.getValue()));
+        frictionSlider.valueProperty().addListener((observable, oldvalue, newvalue)->{
+            frictionTextField.setText(String.format("%.2f", newvalue.doubleValue()));
+        });
+    }
+
+    private void slider(Slider frictionSlider, TextField frictionTextField, int MajorTick, int MinorTick, int initialValue, int MaxValue, CheckBox SoundCheckBox){
+        frictionSlider.setShowTickMarks(true);
+        frictionSlider.setMajorTickUnit(MajorTick);
+        frictionSlider.setMinorTickCount(MinorTick);
+        frictionSlider.setShowTickLabels(true);
+        frictionSlider.setSnapToTicks(true);
+        frictionSlider.setValue(initialValue);
+        frictionSlider.setMax(MaxValue);
+        SoundCheckBox.setSelected(true);
+
+        frictionTextField.setText(String.valueOf(frictionSlider.getValue()));
+        frictionSlider.valueProperty().addListener((observable, oldvalue, newvalue)->{
+            frictionTextField.setText(String.format("%.2f", newvalue.doubleValue()));
+            if(frictionSlider.getValue() == 0){
+                SoundCheckBox.setSelected(false);
+            }
+            else{
+                SoundCheckBox.setSelected(true);
+            }
+        });
+
+        SoundCheckBox.selectedProperty().addListener(event -> {
+            if (SoundCheckBox.isSelected() == false) {
+                frictionSlider.setValue(0);
+            }
+        });
+    }
 
     @FXML
     private void CursorChange(){
@@ -208,3 +232,5 @@ public class FXMLSettingsController{
         SettingsAnchorPane.setCursor(Cursor.DEFAULT);
     }
 }
+
+
