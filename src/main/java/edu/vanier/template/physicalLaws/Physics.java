@@ -13,6 +13,10 @@ import java.util.Arrays;
 import library.dynamics.Settings;
 import library.geometry.Polygon;
 
+/**
+ * @author Anton Lisunov
+ */
+
 public class Physics {
     private final Pane simulationPane;
     private AnimationTimer physicsTimer;
@@ -24,14 +28,7 @@ public class Physics {
     public Physics(Pane simulationPane) {
         this.simulationPane = simulationPane;
         
-        Rectangle rect2 = new Rectangle(20, 20);
-        Rectangle rect4 = new Rectangle(40, 40);
-        Polygon boxShape2 = new Polygon(rect2);
-        Body cubeBody2 = new Body(boxShape2, -20, 40);
-        cubeBody2.setStatic();
-
-        simulationPane.getChildren().add(rect4);
-        addBody(cubeBody2);
+       
         this.gravity = new Vectors2D(0, -9.81);
 
         start();
@@ -69,8 +66,11 @@ public class Physics {
         addBody(cubeBody1);
     }
 
-    public void removeAllBlocks() {
+    public void removeAll() {
         simulationPane.getChildren().removeIf(node -> node instanceof Rectangle);
+        bodies.clear();
+        contacts.clear();
+        joints.clear();
     }
 
     private void updatePhysics() {
@@ -99,13 +99,9 @@ public class Physics {
         this.gravity = gravity;
     }
 
-    public Body addBody(Body b) {
+    public void addBody(Body b) {
+        simulationPane.getChildren();
         bodies.add(b);
-        return b;
-    }
-
-    public void addBodies(Body... bodiesToAdd) {
-        bodies.addAll(Arrays.asList(bodiesToAdd));
     }
 
     public void removeBody(Body b) {
@@ -211,12 +207,6 @@ public class Physics {
         if (contactQuery.contactCount > 0) {
             contacts.add(contactQuery);
         }
-    }
-
-    public void clearWorld() {
-        bodies.clear();
-        contacts.clear();
-        joints.clear();
     }
 
     public void gravityBetweenObj() {

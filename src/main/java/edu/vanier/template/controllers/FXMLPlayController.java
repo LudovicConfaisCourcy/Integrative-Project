@@ -16,7 +16,10 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+import library.dynamics.Body;
+import library.geometry.Polygon;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -53,6 +56,16 @@ public class FXMLPlayController {
         physics = new Physics(pnBoard);
         TetrisGround ground = new TetrisGround(0, 0, 200, 100);
         //pnBoard.getChildren().add(ground);
+        
+        
+        Rectangle rect2 = new Rectangle(20, 20);
+        Rectangle rect4 = new Rectangle(40, 40);
+        Polygon boxShape2 = new Polygon(rect2);
+        Body cubeBody2 = new Body(boxShape2, -20, 40);
+        cubeBody2.setStatic();
+
+        pnBoard.getChildren().add(rect4);
+        physics.addBody(cubeBody2);
 
         pnBoard.widthProperty().addListener((obs, oldWidth, newWidth) -> {
             ground.setWidth(newWidth.doubleValue() * 0.5);
@@ -102,7 +115,7 @@ public class FXMLPlayController {
     private void handleBtnMenu() throws IOException {
         logger.info("Menu button clicked");
 
-        physics.removeAllBlocks();
+        physics.removeAll();
 
         Stage currentStage = (Stage) btnPlay.getScene().getWindow();
         MainApp mainApp = new MainApp();
