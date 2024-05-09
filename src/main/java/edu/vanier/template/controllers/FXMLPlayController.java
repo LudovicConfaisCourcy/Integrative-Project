@@ -54,7 +54,7 @@ public class FXMLPlayController {
     @FXML
     public void initialize() {
         physics = new Physics(pnBoard);
-        for (int i = 0; i < 1; i++) {
+        for (int i = 0; i < 4; i++) {
             physics.addGround(new TetrisGround(60, 40, Color.GREEN), 0, -150);
 
         }
