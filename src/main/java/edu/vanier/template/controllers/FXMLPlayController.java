@@ -85,7 +85,8 @@ public class FXMLPlayController {
     @FXML
     private void handleBtnStop() {
         logger.info("Stop button clicked");
-        physics.stopPhysics();
+        physics.addTetrisPeace();
+        //physics.stopPhysics();
     }
 
     @FXML

@@ -12,25 +12,28 @@ public class Physics {
 
     private final Pane simulationPane;
     private AnimationTimer physicsTimer;
-    private final World world = new World(new Vectors2D(0, -9.81));
+    private World world = new World(new Vectors2D(0, -9.81));
 
     public Physics(Pane simulationPane) {
         this.simulationPane = simulationPane;
 
-        Rectangle rect1 = new Rectangle(20, 20);
         Rectangle rect2 = new Rectangle(20, 20);
-        Rectangle rect3 = new Rectangle(40, 40);
         Rectangle rect4 = new Rectangle(40, 40);
-
-        Polygon boxShape1 = new Polygon(rect1);
         Polygon boxShape2 = new Polygon(rect2);
-
-        Body cubeBody1 = new Body(boxShape1, 0, 120);
         Body cubeBody2 = new Body(boxShape2, 0, 40);
         cubeBody2.setStatic();
 
-        simulationPane.getChildren().addAll(rect3, rect4);
-        world.addBodies(cubeBody1, cubeBody2);
+        simulationPane.getChildren().add(rect4);
+        world.addBody(cubeBody2);
+
+        /*Rectangle rect1 = new Rectangle(20, 20);
+        Rectangle rect3 = new Rectangle(40, 40);
+
+        Polygon boxShape1 = new Polygon(rect1);
+
+        Body cubeBody1 = new Body(boxShape1, 0, 120);*/
+
+        
 
         start();
     }
@@ -71,6 +74,22 @@ public class Physics {
         if (physicsTimer != null) {
             physicsTimer.stop();
         }
+    }
+
+    public void addTetrisPeace() {
+        System.out.println("Adding figure");
+        
+       
+
+        Rectangle rect1 = new Rectangle(20, 20);
+        Rectangle rect3 = new Rectangle(40, 40);
+
+        Polygon boxShape1 = new Polygon(rect1);
+
+        Body cubeBody1 = new Body(boxShape1, 0, 120);
+        
+         simulationPane.getChildren().add(rect3);
+        world.addBody(cubeBody1);
     }
 
     public void removeAllBlocks() {
