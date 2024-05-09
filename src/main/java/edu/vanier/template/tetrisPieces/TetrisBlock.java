@@ -1,31 +1,27 @@
 package edu.vanier.template.tetrisPieces;
 
-import java.util.ArrayList;
-import java.util.List;
+
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 /**
  * @author Anton Lisunov
  */
-
 public class TetrisBlock extends Rectangle {
-
-    private static final int BLOCK_SIZE = 30;
-    private List<BlockState> blockStates = new ArrayList<>();
-    private int weight;
-    private boolean active = true;
-
-    public TetrisBlock(BlockState state, Color color) {
-        super(BLOCK_SIZE, BLOCK_SIZE);
-        setTranslateX(state.getPosX());
-        setTranslateY(state.getPosY());
-        this.weight = 1;
-        addBlockState(state);
-        setFill(color);
+    
+    public TetrisBlock(double width, double height) {
+        super(width, height);
+        setFill(Color.BLACK);
     }
 
-    public final void addBlockState(BlockState state) {
+
+    public TetrisBlock(double width, double height,Color color) {
+        super(width, height);
+        setFill(color);
+    }
+    
+
+    /* public final void addBlockState(BlockState state) {
         if (blockStates.size() >= 2) {
             blockStates.remove(0);
         }
@@ -34,10 +30,17 @@ public class TetrisBlock extends Rectangle {
         this.setTranslateY(state.getPosY());
     }
 
+    public BlockState getBlockState() {
+        if (this.blockStates.size() > 1) {
+            return this.blockStates.get(1);
+        }
+        return this.blockStates.get(0);
+    }
+
     public BlockState getCurrentState() {
         return blockStates.get(blockStates.size() - 1);
     }
-    
+
     public BlockState getPreviousState() {
         if (blockStates.size() >= 2) {
             return blockStates.get(blockStates.size() - 2);
@@ -50,16 +53,16 @@ public class TetrisBlock extends Rectangle {
         this.getCurrentState().setSpeedX(this.getCurrentState().getSpeedX() + speedX);
         this.getCurrentState().setSpeedY(this.getCurrentState().getSpeedY() + speedY);
     }
-    
-
+     */
     //***************
-    public void setActive() {
+    /*public void setActive() {
         this.active = true;
     }
 
     public void setDisActive() {
         this.active = false;
     }
+    /*
 
     public int getWeight() {
         return weight;
@@ -68,5 +71,5 @@ public class TetrisBlock extends Rectangle {
     public void setWeight(int weight) {
         this.weight = weight;
     }
-
+     */
 }
