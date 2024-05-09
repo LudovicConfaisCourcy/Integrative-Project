@@ -53,18 +53,165 @@ public class TetrisShapes {
         bodyList[0] = new Body(new Polygon(cubeWidth, cubeHeight), X - cubeWidth * 2, Y);
         bodyList[1] = new Body(new Polygon(cubeWidth, cubeHeight), X, Y);
         bodyList[2] = new Body(new Polygon(cubeWidth, cubeHeight), X + cubeWidth * 2, Y);
-        bodyList[3] = new Body(new Polygon(cubeWidth, cubeHeight), X , Y- cubeWidth*2);
+        bodyList[3] = new Body(new Polygon(cubeWidth, cubeHeight), X, Y - cubeWidth * 2);
 
         jointList[0] = new JointToBody(bodyList[0], bodyList[1], 10, 1, 100, true, new Vectors2D(0, cubeHeight), new Vectors2D(0, cubeHeight));
         jointList[1] = new JointToBody(bodyList[0], bodyList[1], 10, 1, 100, true, new Vectors2D(0, -cubeHeight), new Vectors2D(0, -cubeHeight));
 
         jointList[2] = new JointToBody(bodyList[1], bodyList[2], 10, 1, 100, true, new Vectors2D(0, cubeHeight), new Vectors2D(0, cubeHeight));
         jointList[3] = new JointToBody(bodyList[1], bodyList[2], 10, 1, 100, true, new Vectors2D(0, -cubeHeight), new Vectors2D(0, -cubeHeight));
-        
+
         jointList[4] = new JointToBody(bodyList[1], bodyList[3], 10, 1, 100, true, new Vectors2D(cubeWidth, 0), new Vectors2D(cubeWidth, 0));
         jointList[5] = new JointToBody(bodyList[1], bodyList[3], 10, 1, 100, true, new Vectors2D(-cubeWidth, 0), new Vectors2D(-cubeWidth, 0));
 
         return new TetrisShapes(bodyList, jointList, COLOR_T);
+    }
+
+    public static TetrisShapes Shape_I(Polygon cube, double X, double Y) {
+        Body[] bodyList = new Body[4];
+        JointToBody[] jointList = new JointToBody[6];
+
+        double cubeWidth = cube.vertices[2].x;
+        double cubeHeight = cube.vertices[2].y;
+
+        bodyList[0] = new Body(new Polygon(cubeWidth, cubeHeight), X - cubeWidth * 3, Y);
+        bodyList[1] = new Body(new Polygon(cubeWidth, cubeHeight), X - cubeWidth, Y);
+        bodyList[2] = new Body(new Polygon(cubeWidth, cubeHeight), X + cubeWidth, Y);
+        bodyList[3] = new Body(new Polygon(cubeWidth, cubeHeight), X + cubeWidth * 3, Y);
+
+        jointList[0] = new JointToBody(bodyList[0], bodyList[1], 10, 1, 100, true, new Vectors2D(0, cubeHeight), new Vectors2D(0, cubeHeight));
+        jointList[1] = new JointToBody(bodyList[0], bodyList[1], 10, 1, 100, true, new Vectors2D(0, -cubeHeight), new Vectors2D(0, -cubeHeight));
+
+        jointList[2] = new JointToBody(bodyList[1], bodyList[2], 10, 1, 100, true, new Vectors2D(0, cubeHeight), new Vectors2D(0, cubeHeight));
+        jointList[3] = new JointToBody(bodyList[1], bodyList[2], 10, 1, 100, true, new Vectors2D(0, -cubeHeight), new Vectors2D(0, -cubeHeight));
+
+        jointList[4] = new JointToBody(bodyList[2], bodyList[3], 10, 1, 100, true, new Vectors2D(0, cubeHeight), new Vectors2D(0, cubeHeight));
+        jointList[5] = new JointToBody(bodyList[2], bodyList[3], 10, 1, 100, true, new Vectors2D(0, -cubeHeight), new Vectors2D(0, -cubeHeight));
+
+        return new TetrisShapes(bodyList, jointList, COLOR_I);
+    }
+
+    public static TetrisShapes Shape_L(Polygon cube, double X, double Y) {
+        Body[] bodyList = new Body[4];
+        JointToBody[] jointList = new JointToBody[6];
+
+        double cubeWidth = cube.vertices[2].x;
+        double cubeHeight = cube.vertices[2].y;
+
+        bodyList[0] = new Body(new Polygon(cubeWidth, cubeHeight), X - cubeWidth * 2, Y);
+        bodyList[1] = new Body(new Polygon(cubeWidth, cubeHeight), X, Y);
+        bodyList[2] = new Body(new Polygon(cubeWidth, cubeHeight), X + cubeWidth * 2, Y);
+        bodyList[3] = new Body(new Polygon(cubeWidth, cubeHeight), X + cubeWidth * 2, Y + cubeHeight * 2);
+
+        jointList[0] = new JointToBody(bodyList[0], bodyList[1], 10, 1, 100, true, new Vectors2D(0, cubeHeight), new Vectors2D(0, cubeHeight));
+        jointList[1] = new JointToBody(bodyList[0], bodyList[1], 10, 1, 100, true, new Vectors2D(0, -cubeHeight), new Vectors2D(0, -cubeHeight));
+
+        jointList[2] = new JointToBody(bodyList[1], bodyList[2], 10, 1, 100, true, new Vectors2D(0, cubeHeight), new Vectors2D(0, cubeHeight));
+        jointList[3] = new JointToBody(bodyList[1], bodyList[2], 10, 1, 100, true, new Vectors2D(0, -cubeHeight), new Vectors2D(0, -cubeHeight));
+
+        jointList[4] = new JointToBody(bodyList[2], bodyList[3], 10, 1, 100, true, new Vectors2D(cubeWidth, 0), new Vectors2D(cubeWidth, 0));
+        jointList[5] = new JointToBody(bodyList[2], bodyList[3], 10, 1, 100, true, new Vectors2D(-cubeWidth, -0), new Vectors2D(-cubeWidth, -0));
+
+        return new TetrisShapes(bodyList, jointList, COLOR_L);
+    }
+
+    public static TetrisShapes Shape_J(Polygon cube, double X, double Y) {
+        Body[] bodyList = new Body[4];
+        JointToBody[] jointList = new JointToBody[6];
+
+        double cubeWidth = cube.vertices[2].x;
+        double cubeHeight = cube.vertices[2].y;
+
+        bodyList[0] = new Body(new Polygon(cubeWidth, cubeHeight), X - cubeWidth * 2, Y);
+        bodyList[1] = new Body(new Polygon(cubeWidth, cubeHeight), X, Y);
+        bodyList[2] = new Body(new Polygon(cubeWidth, cubeHeight), X + cubeWidth * 2, Y);
+        bodyList[3] = new Body(new Polygon(cubeWidth, cubeHeight), X - cubeWidth * 2, Y + cubeHeight * 2);
+
+        jointList[0] = new JointToBody(bodyList[0], bodyList[1], 10, 1, 100, true, new Vectors2D(0, cubeHeight), new Vectors2D(0, cubeHeight));
+        jointList[1] = new JointToBody(bodyList[0], bodyList[1], 10, 1, 100, true, new Vectors2D(0, -cubeHeight), new Vectors2D(0, -cubeHeight));
+
+        jointList[2] = new JointToBody(bodyList[1], bodyList[2], 10, 1, 100, true, new Vectors2D(0, cubeHeight), new Vectors2D(0, cubeHeight));
+        jointList[3] = new JointToBody(bodyList[1], bodyList[2], 10, 1, 100, true, new Vectors2D(0, -cubeHeight), new Vectors2D(0, -cubeHeight));
+
+        jointList[4] = new JointToBody(bodyList[0], bodyList[3], 10, 1, 100, true, new Vectors2D(cubeWidth, 0), new Vectors2D(cubeWidth, 0));
+        jointList[5] = new JointToBody(bodyList[0], bodyList[3], 10, 1, 100, true, new Vectors2D(-cubeWidth, -0), new Vectors2D(-cubeWidth, -0));
+
+        return new TetrisShapes(bodyList, jointList, COLOR_J);
+    }
+
+    public static TetrisShapes Shape_O(Polygon cube, double X, double Y) {
+        Body[] bodyList = new Body[4];
+        JointToBody[] jointList = new JointToBody[8];
+
+        double cubeWidth = cube.vertices[2].x;
+        double cubeHeight = cube.vertices[2].y;
+
+        bodyList[0] = new Body(new Polygon(cubeWidth, cubeHeight), X - cubeWidth, Y);
+        bodyList[1] = new Body(new Polygon(cubeWidth, cubeHeight), X + cubeWidth, Y);
+        bodyList[2] = new Body(new Polygon(cubeWidth, cubeHeight), X - cubeWidth, Y + cubeHeight * 2);
+        bodyList[3] = new Body(new Polygon(cubeWidth, cubeHeight), X + cubeWidth, Y + cubeHeight * 2);
+
+        jointList[0] = new JointToBody(bodyList[0], bodyList[1], 10, 1, 100, true, new Vectors2D(0, cubeHeight), new Vectors2D(0, cubeHeight));
+        jointList[1] = new JointToBody(bodyList[0], bodyList[1], 10, 1, 100, true, new Vectors2D(0, -cubeHeight), new Vectors2D(0, -cubeHeight));
+
+        jointList[2] = new JointToBody(bodyList[0], bodyList[2], 10, 1, 100, true, new Vectors2D(cubeWidth, 0), new Vectors2D(cubeWidth, 0));
+        jointList[3] = new JointToBody(bodyList[0], bodyList[2], 10, 1, 100, true, new Vectors2D(-cubeWidth, 0), new Vectors2D(-cubeWidth, 0));
+
+        jointList[4] = new JointToBody(bodyList[1], bodyList[3], 10, 1, 100, true, new Vectors2D(cubeWidth, 0), new Vectors2D(cubeWidth, 0));
+        jointList[5] = new JointToBody(bodyList[1], bodyList[3], 10, 1, 100, true, new Vectors2D(-cubeWidth, 0), new Vectors2D(-cubeWidth, 0));
+
+        jointList[6] = new JointToBody(bodyList[2], bodyList[2], 10, 1, 100, true, new Vectors2D(0, cubeHeight), new Vectors2D(0, cubeHeight));
+        jointList[7] = new JointToBody(bodyList[2], bodyList[2], 10, 1, 100, true, new Vectors2D(0, -cubeHeight), new Vectors2D(0, -cubeHeight));
+
+        return new TetrisShapes(bodyList, jointList, COLOR_O);
+    }
+
+    public static TetrisShapes Shape_S(Polygon cube, double X, double Y) {
+        Body[] bodyList = new Body[4];
+        JointToBody[] jointList = new JointToBody[6];
+
+        double cubeWidth = cube.vertices[2].x;
+        double cubeHeight = cube.vertices[2].y;
+
+        bodyList[0] = new Body(new Polygon(cubeWidth, cubeHeight), X - cubeWidth * 3, Y);
+        bodyList[1] = new Body(new Polygon(cubeWidth, cubeHeight), X - cubeWidth, Y);
+        bodyList[2] = new Body(new Polygon(cubeWidth, cubeHeight), X + cubeWidth, Y);
+        bodyList[3] = new Body(new Polygon(cubeWidth, cubeHeight), X + cubeWidth * 3, Y);
+
+        jointList[0] = new JointToBody(bodyList[0], bodyList[1], 10, 1, 100, true, new Vectors2D(0, cubeHeight), new Vectors2D(0, cubeHeight));
+        jointList[1] = new JointToBody(bodyList[0], bodyList[1], 10, 1, 100, true, new Vectors2D(0, -cubeHeight), new Vectors2D(0, -cubeHeight));
+
+        jointList[2] = new JointToBody(bodyList[1], bodyList[2], 10, 1, 100, true, new Vectors2D(0, cubeHeight), new Vectors2D(0, cubeHeight));
+        jointList[3] = new JointToBody(bodyList[1], bodyList[2], 10, 1, 100, true, new Vectors2D(0, -cubeHeight), new Vectors2D(0, -cubeHeight));
+
+        jointList[4] = new JointToBody(bodyList[2], bodyList[3], 10, 1, 100, true, new Vectors2D(0, cubeHeight), new Vectors2D(0, cubeHeight));
+        jointList[5] = new JointToBody(bodyList[2], bodyList[3], 10, 1, 100, true, new Vectors2D(0, -cubeHeight), new Vectors2D(0, -cubeHeight));
+
+        return new TetrisShapes(bodyList, jointList, COLOR_I);
+    }
+
+    public static TetrisShapes Shape_Z(Polygon cube, double X, double Y) {
+        Body[] bodyList = new Body[4];
+        JointToBody[] jointList = new JointToBody[6];
+
+        double cubeWidth = cube.vertices[2].x;
+        double cubeHeight = cube.vertices[2].y;
+
+        bodyList[0] = new Body(new Polygon(cubeWidth, cubeHeight), X - cubeWidth * 3, Y);
+        bodyList[1] = new Body(new Polygon(cubeWidth, cubeHeight), X - cubeWidth, Y);
+        bodyList[2] = new Body(new Polygon(cubeWidth, cubeHeight), X + cubeWidth, Y);
+        bodyList[3] = new Body(new Polygon(cubeWidth, cubeHeight), X + cubeWidth * 3, Y);
+
+        jointList[0] = new JointToBody(bodyList[0], bodyList[1], 10, 1, 100, true, new Vectors2D(0, cubeHeight), new Vectors2D(0, cubeHeight));
+        jointList[1] = new JointToBody(bodyList[0], bodyList[1], 10, 1, 100, true, new Vectors2D(0, -cubeHeight), new Vectors2D(0, -cubeHeight));
+
+        jointList[2] = new JointToBody(bodyList[1], bodyList[2], 10, 1, 100, true, new Vectors2D(0, cubeHeight), new Vectors2D(0, cubeHeight));
+        jointList[3] = new JointToBody(bodyList[1], bodyList[2], 10, 1, 100, true, new Vectors2D(0, -cubeHeight), new Vectors2D(0, -cubeHeight));
+
+        jointList[4] = new JointToBody(bodyList[2], bodyList[3], 10, 1, 100, true, new Vectors2D(0, cubeHeight), new Vectors2D(0, cubeHeight));
+        jointList[5] = new JointToBody(bodyList[2], bodyList[3], 10, 1, 100, true, new Vectors2D(0, -cubeHeight), new Vectors2D(0, -cubeHeight));
+
+        return new TetrisShapes(bodyList, jointList, COLOR_I);
     }
 
 }

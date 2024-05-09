@@ -82,30 +82,14 @@ public class Physics {
     public void addTetrisShape(char type, TetrisBlock block, double x, double y) {
         TetrisShapes shape = null;
         switch (type) {
-            case 'I':
-                shape = TetrisShapes.Shape_T(new Polygon(block), x, y);
-                break;
-            case 'J':
-                shape = TetrisShapes.Shape_T(new Polygon(block), x, y);
-                break;
-            case 'L':
-                shape = TetrisShapes.Shape_T(new Polygon(block), x, y);
-                break;
-            case 'O':
-                shape = TetrisShapes.Shape_T(new Polygon(block), x, y);
-                break;
-            case 'S':
-                shape = TetrisShapes.Shape_T(new Polygon(block), x, y);
-                break;
-            case 'T':
-                shape = TetrisShapes.Shape_T(new Polygon(block), x, y);
-                break;
-            case 'Z':
-                shape = TetrisShapes.Shape_T(new Polygon(block), x, y);
-                break;
-            default:
-                System.out.println("Invalid shape type: " + type);
-                break;
+            case 'I' -> shape = TetrisShapes.Shape_I(new Polygon(block), x, y);
+            case 'J' -> shape = TetrisShapes.Shape_J(new Polygon(block), x, y);
+            case 'L' -> shape = TetrisShapes.Shape_L(new Polygon(block), x, y);
+            case 'O' -> shape = TetrisShapes.Shape_O(new Polygon(block), x, y);
+            case 'S' -> shape = TetrisShapes.Shape_S(new Polygon(block), x, y);
+            case 'T' -> shape = TetrisShapes.Shape_T(new Polygon(block), x, y);
+            case 'Z' -> shape = TetrisShapes.Shape_Z(new Polygon(block), x, y);
+            default -> System.out.println("Invalid shape type: " + type);
         }
 
         Joint[] jointArray;

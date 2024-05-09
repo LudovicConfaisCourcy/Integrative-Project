@@ -78,7 +78,7 @@ public class FXMLPlayController {
 
         logger.info("Start button clicked");
         physics.startPhysics();
-        physics.addTetrisShape('T',new TetrisBlock(10, 10, Color.RED), 0, 150);
+        physics.addTetrisShape('I',new TetrisBlock(10, 10, Color.RED), 0, 150);
         
 
     }
