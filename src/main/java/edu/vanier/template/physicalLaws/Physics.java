@@ -2,6 +2,7 @@ package edu.vanier.template.physicalLaws;
 
 import edu.vanier.template.tetrisPieces.TetrisBlock;
 import edu.vanier.template.tetrisPieces.TetrisGround;
+import edu.vanier.template.tetrisPieces.TetrisShapes;
 import javafx.animation.AnimationTimer;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
@@ -11,6 +12,7 @@ import library.dynamics.Body;
 import library.joints.Joint;
 import library.math.Vectors2D;
 import java.util.ArrayList;
+import java.util.Arrays;
 import javafx.scene.paint.Color;
 import library.dynamics.Settings;
 import library.geometry.Polygon;
@@ -65,16 +67,57 @@ public class Physics {
     }
 
     public void addGround(TetrisGround block, double x, double y) {
-        
+
         double randomX = Settings.generateRandomNoInRange(x - 50, x + 50);
         double randomY = Settings.generateRandomNoInRange(y - 20, y + 20);
-        double randomO = Settings.generateRandomNoInRange(-Math.PI/9,Math.PI/9);
+        double randomO = Settings.generateRandomNoInRange(-Math.PI / 9, Math.PI / 9);
 
-        Body body = new Body(new Polygon(block), randomX,randomY);
+        Body body = new Body(new Polygon(block), randomX, randomY);
         body.setOrientation(randomO);
         body.setStatic();
         bodies.add(body);
         simulationPane.getChildren().add(new TetrisGround(block.getWidth() * 2, block.getHeight() * 2, (Color) block.getFill()));
+    }
+
+    public void addTetrisShape(char type, TetrisBlock block, double x, double y) {
+        TetrisShapes shape = null;
+        switch (type) {
+            case 'I':
+                shape = TetrisShapes.Shape_T(new Polygon(block), x, y);
+                break;
+            case 'J':
+                shape = TetrisShapes.Shape_T(new Polygon(block), x, y);
+                break;
+            case 'L':
+                shape = TetrisShapes.Shape_T(new Polygon(block), x, y);
+                break;
+            case 'O':
+                shape = TetrisShapes.Shape_T(new Polygon(block), x, y);
+                break;
+            case 'S':
+                shape = TetrisShapes.Shape_T(new Polygon(block), x, y);
+                break;
+            case 'T':
+                shape = TetrisShapes.Shape_T(new Polygon(block), x, y);
+                break;
+            case 'Z':
+                shape = TetrisShapes.Shape_T(new Polygon(block), x, y);
+                break;
+            default:
+                System.out.println("Invalid shape type: " + type);
+                break;
+        }
+
+        Joint[] jointArray;
+        jointArray = shape.getJointList();
+        joints.addAll(Arrays.asList(jointArray));
+
+        Body[] bodyArray = shape.getBodyList();
+        for (Body body : bodyArray) {
+            bodies.add(body);
+            simulationPane.getChildren().add(new TetrisBlock(block.getWidth() * 2, block.getHeight() * 2, shape.getColor()));
+        }
+
     }
 
     public void removeAll() {
@@ -102,11 +145,11 @@ public class Physics {
             rect.setTranslateX(translatedX);
             rect.setTranslateY(translatedY);
             rect.setRotate(-Math.toDegrees(body.orientation));
-            
-            if(translatedY>simulationPane.getHeight()+150){
-            
-            bodies.remove(i);
-            simulationPane.getChildren().remove(i);
+
+            if (translatedY > simulationPane.getHeight() + 150) {
+
+                bodies.remove(i);
+                simulationPane.getChildren().remove(i);
                 System.out.println("delete");
             }
         }
