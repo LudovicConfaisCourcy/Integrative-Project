@@ -8,10 +8,9 @@ import javafx.scene.shape.Rectangle;
  */
 public class TetrisGround extends Rectangle {
 
-    public TetrisGround(int x, int y, int widht, int height) {
-        super(x, y, widht, height);
-        setFill(Color.GREEN);
-
+    public TetrisGround(double width, double height,Color color) {
+        super(width, height);
+        setFill(color);
     }
 
 }

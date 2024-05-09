@@ -1,7 +1,6 @@
 package edu.vanier.template.tetrisPieces;
 
-import java.util.ArrayList;
-import java.util.List;
+
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
@@ -10,21 +9,14 @@ import javafx.scene.shape.Rectangle;
  */
 public class TetrisBlock extends Rectangle {
 
-    private static final int BLOCK_SIZE = 30;
-    private List<BlockState> blockStates = new ArrayList<>();
-    private int weight;
-    private boolean active = true;
 
-    public TetrisBlock(BlockState state, Color color) {
-        super(BLOCK_SIZE, BLOCK_SIZE);
-        setTranslateX(state.getPosX());
-        setTranslateY(state.getPosY());
-        this.weight = 1;
-        addBlockState(state);
+    public TetrisBlock(double width, double height,Color color) {
+        super(width, height);
         setFill(color);
     }
+    
 
-    public final void addBlockState(BlockState state) {
+    /* public final void addBlockState(BlockState state) {
         if (blockStates.size() >= 2) {
             blockStates.remove(0);
         }
@@ -56,15 +48,16 @@ public class TetrisBlock extends Rectangle {
         this.getCurrentState().setSpeedX(this.getCurrentState().getSpeedX() + speedX);
         this.getCurrentState().setSpeedY(this.getCurrentState().getSpeedY() + speedY);
     }
-
+     */
     //***************
-    public void setActive() {
+    /*public void setActive() {
         this.active = true;
     }
 
     public void setDisActive() {
         this.active = false;
     }
+    /*
 
     public int getWeight() {
         return weight;
@@ -73,5 +66,5 @@ public class TetrisBlock extends Rectangle {
     public void setWeight(int weight) {
         this.weight = weight;
     }
-
+     */
 }

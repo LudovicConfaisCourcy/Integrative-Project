@@ -1,5 +1,7 @@
 package edu.vanier.template.physicalLaws;
 
+import edu.vanier.template.tetrisPieces.TetrisBlock;
+import edu.vanier.template.tetrisPieces.TetrisGround;
 import javafx.animation.AnimationTimer;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
@@ -9,16 +11,16 @@ import library.dynamics.Body;
 import library.joints.Joint;
 import library.math.Vectors2D;
 import java.util.ArrayList;
-import java.util.Arrays;
+import javafx.scene.paint.Color;
 import library.dynamics.Settings;
 import library.geometry.Polygon;
 
 /**
  * @author Anton Lisunov
  */
-
 public class Physics {
-    private final Pane simulationPane;
+
+    private Pane simulationPane;
     private AnimationTimer physicsTimer;
     private Vectors2D gravity;
     private ArrayList<Body> bodies = new ArrayList<>();
@@ -27,15 +29,14 @@ public class Physics {
 
     public Physics(Pane simulationPane) {
         this.simulationPane = simulationPane;
-        
-       
+        simulationPane.setVisible(false);
         this.gravity = new Vectors2D(0, -9.81);
-
         start();
     }
 
     private void start() {
         physicsTimer = new AnimationTimer() {
+
             @Override
             public void handle(long now) {
                 updatePhysics();
@@ -45,6 +46,7 @@ public class Physics {
 
     public void startPhysics() {
         if (physicsTimer != null) {
+            simulationPane.setVisible(true);
             physicsTimer.start();
         }
     }
@@ -55,15 +57,24 @@ public class Physics {
         }
     }
 
-    public void addTetrisPiece() {
-        Rectangle rect1 = new Rectangle(20, 20);
-        Rectangle rect3 = new Rectangle(40, 40);
+    public void addTetrisPiece(TetrisBlock block, double x, double y) {
+        Body body = new Body(new Polygon(block), x, y);
+        body.setDensity(400);
+        bodies.add(body);
+        simulationPane.getChildren().add(new TetrisBlock(block.getWidth() * 2, block.getHeight() * 2, (Color) block.getFill()));
+    }
 
-        Polygon boxShape1 = new Polygon(rect1);
-        Body cubeBody1 = new Body(boxShape1, 0, 120);
+    public void addGround(TetrisGround block, double x, double y) {
+        
+        double randomX = Settings.generateRandomNoInRange(x - 50, x + 50);
+        double randomY = Settings.generateRandomNoInRange(y - 20, y + 20);
+        double randomO = Settings.generateRandomNoInRange(-Math.PI/9,Math.PI/9);
 
-        simulationPane.getChildren().add(rect3);
-        addBody(cubeBody1);
+        Body body = new Body(new Polygon(block), randomX,randomY);
+        body.setOrientation(randomO);
+        body.setStatic();
+        bodies.add(body);
+        simulationPane.getChildren().add(new TetrisGround(block.getWidth() * 2, block.getHeight() * 2, (Color) block.getFill()));
     }
 
     public void removeAll() {
@@ -74,8 +85,9 @@ public class Physics {
     }
 
     private void updatePhysics() {
-        double paneWidth = simulationPane.getWidth();
-        double paneHeight = simulationPane.getHeight();
+
+        double paneWidth = 400;
+        double paneHeight = 380;
 
         for (int i = 0; i < simulationPane.getChildren().size(); i++) {
             Body body = bodies.get(i);
@@ -85,11 +97,18 @@ public class Physics {
             double rectHeight = rect.getHeight();
 
             double translatedX = (body.position.x - rectWidth / 2) + paneWidth / 2;
-            double translatedY = paneHeight / 2 - (body.position.y - rectHeight / 2);
+            double translatedY = paneHeight / 2 - (body.position.y + rectHeight / 2);
 
             rect.setTranslateX(translatedX);
             rect.setTranslateY(translatedY);
             rect.setRotate(-Math.toDegrees(body.orientation));
+            
+            if(translatedY>simulationPane.getHeight()+150){
+            
+            bodies.remove(i);
+            simulationPane.getChildren().remove(i);
+                System.out.println("delete");
+            }
         }
 
         step(1.0 / 60.0);
@@ -100,8 +119,8 @@ public class Physics {
     }
 
     public void addBody(Body b) {
-        simulationPane.getChildren();
         bodies.add(b);
+
     }
 
     public void removeBody(Body b) {
@@ -224,4 +243,5 @@ public class Physics {
             }
         }
     }
+
 }

@@ -49,10 +49,10 @@ public class Body{
         angularVelocity = 0;
         torque = 0;
 
-        restitution = 0.8;
+        restitution = 0.02;
 
-        staticFriction = 0.5;
-        dynamicFriction = 0.2;
+        staticFriction = 0.8;
+        dynamicFriction = 0.5;
 
         linearDampening = 0;
         angularDampening = 0;
