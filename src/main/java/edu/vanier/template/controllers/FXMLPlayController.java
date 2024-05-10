@@ -17,31 +17,22 @@ import java.beans.XMLEncoder; //Added
 import java.io.BufferedInputStream; //Added
 import java.io.BufferedOutputStream; //Added
 import java.io.IOException;
-<<<<<<< HEAD
 import java.util.Random;
-=======
 import java.nio.file.Files; //Added
 import java.nio.file.Paths; //Added
-import javafx.event.EventHandler; 
->>>>>>> Shyam
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import java.util.ArrayList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Cursor;
-<<<<<<< HEAD
 import javafx.scene.Group;
-=======
 import javafx.scene.Node; //Added
->>>>>>> Shyam
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-<<<<<<< HEAD
 import javafx.scene.layout.Border;
-=======
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
->>>>>>> Shyam
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -136,16 +127,13 @@ public class FXMLPlayController {
     }
 
     @FXML
-<<<<<<< HEAD
-    private void handleBtnPlay() {
-=======
     private void handleBtnPlay() throws IOException {
     
->>>>>>> Shyam
+
         logger.info("Start button clicked");
         PlayScreenLabel.setText("Click Stop to Pause the Game");
         physics.startPhysics();
-<<<<<<< HEAD
+
         if(physics.GameLostVerifier() == true){
             PlayScreenLabel.setText("!!You Lost!! Click Play to ReStart a Game");
         }
@@ -192,8 +180,8 @@ public class FXMLPlayController {
 
             moveBlock(blocks, bodies);
         }
-=======
-        BlockState initialState = new BlockState((int) pnBoard.getWidth() / 2 - 15, 0, 0, 0, 0, 0);
+
+        /*BlockState initialState = new BlockState((int) pnBoard.getWidth() / 2 - 15, 0, 0, 0, 0, 0);
         TetrisBlock block = new TetrisBlock(initialState, Color.RED);
         pnBoard.getChildren().add(block);
         CursorChangeBlock(block);
@@ -212,7 +200,7 @@ public class FXMLPlayController {
                RotateBlock90(block);
             }
             //block movement
-            if(KeyCode.A == event.getCode()){
+            /*if(KeyCode.A == event.getCode()){
                block.getCurrentState().setPosX(block.getCurrentState().getPosX() - 10);
             }
             if(KeyCode.S == event.getCode()){
@@ -222,9 +210,9 @@ public class FXMLPlayController {
                block.getCurrentState().setPosX(block.getCurrentState().getPosX() + 10);
             }
         };
-        gameStage.getScene().setOnKeyPressed(start_movement);
+        gameStage.getScene().setOnKeyPressed(start_movement);*/
         
-        EventHandler stop_movement = (EventHandler<KeyEvent>) (KeyEvent event) -> {
+       /* EventHandler stop_movement = (EventHandler<KeyEvent>) (KeyEvent event) -> {
             //block rotation
             if(KeyCode.F == event.getCode()){
                physics.startPhysics();
@@ -235,11 +223,11 @@ public class FXMLPlayController {
                StopRotateBlock(block);
             }
         };
-        gameStage.getScene().setOnKeyReleased(stop_movement);
+        gameStage.getScene().setOnKeyReleased(stop_movement);*/
         
         //Load
         //load();  
->>>>>>> Shyam
+
     }
 
     @FXML
@@ -270,46 +258,7 @@ public class FXMLPlayController {
     private void handleBtnGraphics() {
         logger.info("Graphs button clicked");
         music.soundPlay();
-        /* BlockState initialState = new BlockState((int) pnBoard.getWidth() / 2 - 15, 0, 0, 0, 0, 0);
-        TetrisBlock block = new TetrisBlock(initialState, Color.RED);
-<<<<<<< HEAD
-        Graph1 testGraph = new Graph1(block, initialState);*/
-
-=======
-        Graph1 testGraph = new Graph1 (block, initialState);
-
-    }
-
-    @FXML
-    private void handleBtnMenu() throws IOException {
-        logger.info("Menu button clicked");
-        music.soundPlay();
-        physics.removeAllBlocks();
-
-        Stage currentStage = (Stage) btnPlay.getScene().getWindow();
-        MainApp mainApp = new MainApp();
-        FXMLLoader loader = mainApp.loadFXML("/fxml/IntroScene.fxml", new FXMLMainAppController());
-        Scene scene = new Scene(loader.load());
-        currentStage.setScene(scene);
-        music.musicStop();
-        
-        //Save
-        save();
->>>>>>> Shyam
-    }
-
-    @FXML
-    private void handleBtnSettings() throws IOException {
-        logger.info("Settings button clicked");
-        music.soundPlay();
-        pnBoard.getChildren().clear();
-
-        Stage currentStage = (Stage) btnPlay.getScene().getWindow();
-        MainApp mainApp = new MainApp();
-        FXMLLoader loader = mainApp.loadFXML("/fxml/SettingsScene.fxml", new FXMLSettingsController());
-        Scene scene = new Scene(loader.load());
-        currentStage.setScene(scene);
-        music.musicStop();
+        Graph1 testGraph = new Graph1();
 
     }
 
@@ -322,6 +271,24 @@ public class FXMLPlayController {
         Stage currentStage = (Stage) btnPlay.getScene().getWindow();
         MainApp mainApp = new MainApp();
         FXMLLoader loader = mainApp.loadFXML("/fxml/IntroScene.fxml", new FXMLMainAppController());
+        Scene scene = new Scene(loader.load());
+        currentStage.setScene(scene);
+        music.musicStop();
+        
+        //Save
+        save();
+
+    }
+
+    @FXML
+    private void handleBtnSettings() throws IOException {
+        logger.info("Settings button clicked");
+        music.soundPlay();
+        pnBoard.getChildren().clear();
+
+        Stage currentStage = (Stage) btnPlay.getScene().getWindow();
+        MainApp mainApp = new MainApp();
+        FXMLLoader loader = mainApp.loadFXML("/fxml/SettingsScene.fxml", new FXMLSettingsController());
         Scene scene = new Scene(loader.load());
         currentStage.setScene(scene);
         music.musicStop();
@@ -412,8 +379,7 @@ public class FXMLPlayController {
         });
          */
     }
-<<<<<<< HEAD
-=======
+
     
     public void RotateBlock45(TetrisBlock block) {
     
@@ -482,7 +448,7 @@ public class FXMLPlayController {
                     + "Acceleration: (" + accelerationX + ", " + accelerationY + ")");
             alert.showAndWait();
     */
->>>>>>> Shyam
+
 
     @FXML
     private void CursorChange() {

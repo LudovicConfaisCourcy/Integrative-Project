@@ -26,7 +26,7 @@ import javafx.scene.paint.Color;
 public class Graph1{
     
   
-    public Graph1 (TetrisBlock block, BlockState State){
+    public Graph1 (){
         
         
         ComboBox SwitchGraphCB = new ComboBox();
