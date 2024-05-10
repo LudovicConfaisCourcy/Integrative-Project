@@ -82,14 +82,22 @@ public class Physics {
     public void addTetrisShape(char type, TetrisBlock block, double x, double y) {
         TetrisShapes shape = null;
         switch (type) {
-            case 'I' -> shape = TetrisShapes.Shape_I(new Polygon(block), x, y);
-            case 'J' -> shape = TetrisShapes.Shape_J(new Polygon(block), x, y);
-            case 'L' -> shape = TetrisShapes.Shape_L(new Polygon(block), x, y);
-            case 'O' -> shape = TetrisShapes.Shape_O(new Polygon(block), x, y);
-            case 'S' -> shape = TetrisShapes.Shape_S(new Polygon(block), x, y);
-            case 'T' -> shape = TetrisShapes.Shape_T(new Polygon(block), x, y);
-            case 'Z' -> shape = TetrisShapes.Shape_Z(new Polygon(block), x, y);
-            default -> System.out.println("Invalid shape type: " + type);
+            case 'I' ->
+                shape = TetrisShapes.Shape_I(new Polygon(block), x, y);
+            case 'J' ->
+                shape = TetrisShapes.Shape_J(new Polygon(block), x, y);
+            case 'L' ->
+                shape = TetrisShapes.Shape_L(new Polygon(block), x, y);
+            case 'O' ->
+                shape = TetrisShapes.Shape_O(new Polygon(block), x, y);
+            case 'S' ->
+                shape = TetrisShapes.Shape_S(new Polygon(block), x, y);
+            case 'T' ->
+                shape = TetrisShapes.Shape_T(new Polygon(block), x, y);
+            case 'Z' ->
+                shape = TetrisShapes.Shape_Z(new Polygon(block), x, y);
+            default ->
+                System.out.println("Invalid shape type: " + type);
         }
 
         Joint[] jointArray;
@@ -104,6 +112,16 @@ public class Physics {
 
     }
 
+    public ArrayList<Body> getBodies() {
+        return bodies;
+    }
+    public ArrayList<Rectangle> getBlocks() {
+         ArrayList<Rectangle> blocks = new ArrayList();
+         for(int i = 0; i<simulationPane.getChildren().size(); i++)
+         blocks.add((Rectangle) simulationPane.getChildren().get(i));
+        return blocks;
+    }
+
     public void removeAll() {
         simulationPane.getChildren().removeIf(node -> node instanceof Rectangle);
         bodies.clear();
@@ -112,42 +130,42 @@ public class Physics {
     }
 
     private void updatePhysics() {
-    double paneWidth = 400;
-    double paneHeight = 380;
+        double paneWidth = 400;
+        double paneHeight = 380;
 
-    for (int i = 0; i < simulationPane.getChildren().size(); i++) {
-        Body body = bodies.get(i);
-        Rectangle rect = (Rectangle) simulationPane.getChildren().get(i);
+        for (int i = 0; i < simulationPane.getChildren().size(); i++) {
+            Body body = bodies.get(i);
+            Rectangle rect = (Rectangle) simulationPane.getChildren().get(i);
 
-        double rectWidth = rect.getWidth();
-        double rectHeight = rect.getHeight();
+            double rectWidth = rect.getWidth();
+            double rectHeight = rect.getHeight();
 
-        double translatedX = (body.position.x - rectWidth / 2) + paneWidth / 2;
-        double translatedY = paneHeight / 2 - (body.position.y + rectHeight / 2);
+            double translatedX = (body.position.x - rectWidth / 2) + paneWidth / 2;
+            double translatedY = paneHeight / 2 - (body.position.y + rectHeight / 2);
+            
+            rect.setTranslateX(translatedX);
+            rect.setTranslateY(translatedY);
+            rect.setRotate(-Math.toDegrees(body.orientation));
 
-        rect.setTranslateX(translatedX);
-        rect.setTranslateY(translatedY);
-        rect.setRotate(-Math.toDegrees(body.orientation));
-
-        if (!body.isStatic()) {
-            for (Body staticBody : bodies) {
-                if (staticBody != body && staticBody.isStatic() ) {
-                    if (AABB.AABBOverLap(body, staticBody)) {
-                        System.out.println("Dynamic body collided with static body!");
+            if (!body.isStatic()) {
+                for (Body staticBody : bodies) {
+                    if (staticBody != body && staticBody.isStatic()) {
+                        if (AABB.AABBOverLap(body, staticBody)) {
+                            System.out.println("Dynamic body collided with static body!");
+                        }
                     }
                 }
             }
+
+            if (translatedY > simulationPane.getHeight() + 150) {
+                bodies.remove(i);
+                simulationPane.getChildren().remove(i);
+                System.out.println("delete");
+            }
         }
 
-        if (translatedY > simulationPane.getHeight() + 150) {
-            bodies.remove(i);
-            simulationPane.getChildren().remove(i);
-            System.out.println("delete");
-        }
+        step(1.0 / 60.0);
     }
-
-    step(1.0 / 60.0);
-}
 
     public void setGravity(Vectors2D gravity) {
         this.gravity = gravity;
@@ -254,7 +272,7 @@ public class Physics {
             }
         }
     }
-    
+
     private void narrowPhaseCheck(Body a, Body b) {
         Arbiter contactQuery = new Arbiter(a, b);
         contactQuery.narrowPhase();

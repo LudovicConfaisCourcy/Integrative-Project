@@ -7,6 +7,7 @@ import edu.vanier.template.tetrisPieces.BlockState;
 import edu.vanier.template.tetrisPieces.TetrisBlock;
 import edu.vanier.template.tetrisPieces.TetrisGround;
 import java.io.IOException;
+import java.util.ArrayList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Cursor;
@@ -16,6 +17,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import library.dynamics.Body;
 import library.math.Vectors2D;
@@ -53,7 +55,7 @@ public class FXMLPlayController {
     @FXML
     public void initialize() {
         physics = new Physics(pnBoard);
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 5; i++) {
             physics.addGround(new TetrisGround(60, 40, Color.GREEN), 0, -150);
 
         }
@@ -79,13 +81,21 @@ public class FXMLPlayController {
         music.soundPlay();
         physics.startPhysics();
         physics.addTetrisShape('I', new TetrisBlock(10, 10, Color.RED), 0, 150);
-        physics.addTetrisShape('L', new TetrisBlock(10, 10, Color.RED), 0, 250);
+        /* physics.addTetrisShape('L', new TetrisBlock(10, 10, Color.RED), 0, 250);
         physics.addTetrisShape('J', new TetrisBlock(10, 10, Color.RED), 0, 350);
         physics.addTetrisShape('T', new TetrisBlock(10, 10, Color.RED), 0, 450);
         physics.addTetrisShape('O', new TetrisBlock(10, 10, Color.RED), 0, 550);
         physics.addTetrisShape('S', new TetrisBlock(10, 10, Color.RED), 0, 650);
-        physics.addTetrisShape('Z', new TetrisBlock(10, 10, Color.RED), 0, 750);
+        physics.addTetrisShape('Z', new TetrisBlock(10, 10, Color.RED), 0, 750);*/
 
+        System.out.println(physics.getBlocks().size());
+
+        for (int i = 5; i < physics.getBodies().size(); i += 4) {
+            ArrayList<Rectangle> blocks = new ArrayList<>(physics.getBlocks().subList(i, i + 4));
+            ArrayList<Body> bodies = new ArrayList<>(physics.getBodies().subList(i, i + 4));
+
+            moveBlock(blocks, bodies);
+        }
     }
 
     @FXML
@@ -158,38 +168,44 @@ public class FXMLPlayController {
         }
     }
 
-    public void moveBlock(TetrisBlock block, Body body) {
-        block.setOnMousePressed(event -> {
-            // Set cursor to closed hand while dragging
-            BorderPane.setCursor(Cursor.CLOSED_HAND);
-            // Store initial position of the mouse
-            block.setUserData(new Vectors2D(event.getSceneX(), event.getSceneY()));
-            // Stop physics simulation while dragging
-            physics.stopPhysics();
-        });
+    public void moveBlock(ArrayList<Rectangle> blocks, ArrayList<Body> bodies) {
+        double paneWidth = 400;
+        double paneHeight = 380;
 
-        block.setOnMouseDragged(event -> {
-            // Get the stored initial position of the mouse
-            Vectors2D initialPosition = (Vectors2D) block.getUserData();
-            // Calculate the delta movement
-            double deltaX = event.getSceneX() - initialPosition.x;
-            double deltaY = event.getSceneY() - initialPosition.y;
-            // Calculate the new position of the body
-            Vectors2D newPosition = new Vectors2D(body.position.x + deltaX, body.position.y + deltaY);
-            // Set the new position of the body
-            body.position  = newPosition;
-            // Update the stored initial position of the mouse for the next movement
-            block.setUserData(new Vectors2D(event.getSceneX(), event.getSceneY()));
-            // Consume the event
-            event.consume();
-        });
+        for (int i = 0; i < blocks.size(); i++) {
+            Rectangle block = blocks.get(i);
+            Body body1 = bodies.get(i);
+            Body body2 = bodies.get(Math.abs(i + 1 - 4));
+            Body body3 = bodies.get(Math.abs(i + 2 - 4));
+            Body body4 = bodies.get(Math.abs(i + 3 - 4));
 
-        block.setOnMouseReleased(event -> {
-            // Set cursor to open hand after release
-            BorderPane.setCursor(Cursor.OPEN_HAND);
-            // Restart physics simulation after release
-            physics.startPhysics();
-        });
+            Vectors2D difference2 = body2.position.subtract(body1.position);
+            Vectors2D difference3 = body3.position.subtract(body1.position);
+            Vectors2D difference4 = body4.position.subtract(body1.position);
+
+            if (!body1.isStatic()) {
+                block.setOnMousePressed(event -> {
+                    BorderPane.setCursor(Cursor.CLOSED_HAND);
+                });
+            }
+
+            block.setOnMouseDragged(event -> {
+                body1.position = new Vectors2D(event.getSceneX() - paneWidth / 2 - block.getWidth() * 4,
+                        -event.getSceneY() + paneHeight / 2 + block.getHeight() * 2);
+
+                body2.position = new Vectors2D(body1.position.x+difference2.x, body1.position.y+difference2.y);
+                body3.position = new Vectors2D(body1.position.x+difference3.x, body1.position.y+difference3.y);
+                body4.position = new Vectors2D(body1.position.x+difference4.x, body1.position.y+difference4.y);
+
+                event.consume();
+
+            });
+
+            block.setOnMouseReleased(event -> {
+                BorderPane.setCursor(Cursor.OPEN_HAND);
+            });
+        }
+
     }
 
     @FXML
