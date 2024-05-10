@@ -12,17 +12,36 @@ import edu.vanier.template.physicalLaws.Physics;
 import edu.vanier.template.tetrisPieces.BlockState;
 import edu.vanier.template.tetrisPieces.TetrisBlock;
 import edu.vanier.template.tetrisPieces.TetrisGround;
+import java.beans.XMLDecoder; //Added
+import java.beans.XMLEncoder; //Added
+import java.io.BufferedInputStream; //Added
+import java.io.BufferedOutputStream; //Added
 import java.io.IOException;
+<<<<<<< HEAD
 import java.util.Random;
+=======
+import java.nio.file.Files; //Added
+import java.nio.file.Paths; //Added
+import javafx.event.EventHandler; 
+>>>>>>> Shyam
 import javafx.fxml.FXML;
 import java.util.ArrayList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Cursor;
+<<<<<<< HEAD
 import javafx.scene.Group;
+=======
+import javafx.scene.Node; //Added
+>>>>>>> Shyam
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+<<<<<<< HEAD
 import javafx.scene.layout.Border;
+=======
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+>>>>>>> Shyam
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -117,10 +136,16 @@ public class FXMLPlayController {
     }
 
     @FXML
+<<<<<<< HEAD
     private void handleBtnPlay() {
+=======
+    private void handleBtnPlay() throws IOException {
+    
+>>>>>>> Shyam
         logger.info("Start button clicked");
         PlayScreenLabel.setText("Click Stop to Pause the Game");
         physics.startPhysics();
+<<<<<<< HEAD
         if(physics.GameLostVerifier() == true){
             PlayScreenLabel.setText("!!You Lost!! Click Play to ReStart a Game");
         }
@@ -167,6 +192,54 @@ public class FXMLPlayController {
 
             moveBlock(blocks, bodies);
         }
+=======
+        BlockState initialState = new BlockState((int) pnBoard.getWidth() / 2 - 15, 0, 0, 0, 0, 0);
+        TetrisBlock block = new TetrisBlock(initialState, Color.RED);
+        pnBoard.getChildren().add(block);
+        CursorChangeBlock(block);
+        MoveBlock(block);
+        
+        Stage gameStage = (Stage) btnPlay.getScene().getWindow();
+        
+        EventHandler start_movement = (EventHandler<KeyEvent>) (KeyEvent event) -> {
+            //block rotation
+            if(KeyCode.F == event.getCode()){
+               physics.stopPhysics();
+               RotateBlock45(block);
+            }
+            if(KeyCode.G == event.getCode()){
+               physics.stopPhysics();
+               RotateBlock90(block);
+            }
+            //block movement
+            if(KeyCode.A == event.getCode()){
+               block.getCurrentState().setPosX(block.getCurrentState().getPosX() - 10);
+            }
+            if(KeyCode.S == event.getCode()){
+               block.getCurrentState().setPosY(block.getCurrentState().getPosY() + 10);
+            }
+            if(KeyCode.D == event.getCode()){
+               block.getCurrentState().setPosX(block.getCurrentState().getPosX() + 10);
+            }
+        };
+        gameStage.getScene().setOnKeyPressed(start_movement);
+        
+        EventHandler stop_movement = (EventHandler<KeyEvent>) (KeyEvent event) -> {
+            //block rotation
+            if(KeyCode.F == event.getCode()){
+               physics.startPhysics();
+               StopRotateBlock(block);
+            }
+            if(KeyCode.G == event.getCode()){
+               physics.startPhysics();
+               StopRotateBlock(block);
+            }
+        };
+        gameStage.getScene().setOnKeyReleased(stop_movement);
+        
+        //Load
+        //load();  
+>>>>>>> Shyam
     }
 
     @FXML
@@ -199,8 +272,30 @@ public class FXMLPlayController {
         music.soundPlay();
         /* BlockState initialState = new BlockState((int) pnBoard.getWidth() / 2 - 15, 0, 0, 0, 0, 0);
         TetrisBlock block = new TetrisBlock(initialState, Color.RED);
+<<<<<<< HEAD
         Graph1 testGraph = new Graph1(block, initialState);*/
 
+=======
+        Graph1 testGraph = new Graph1 (block, initialState);
+
+    }
+
+    @FXML
+    private void handleBtnMenu() throws IOException {
+        logger.info("Menu button clicked");
+        music.soundPlay();
+        physics.removeAllBlocks();
+
+        Stage currentStage = (Stage) btnPlay.getScene().getWindow();
+        MainApp mainApp = new MainApp();
+        FXMLLoader loader = mainApp.loadFXML("/fxml/IntroScene.fxml", new FXMLMainAppController());
+        Scene scene = new Scene(loader.load());
+        currentStage.setScene(scene);
+        music.musicStop();
+        
+        //Save
+        save();
+>>>>>>> Shyam
     }
 
     @FXML
@@ -317,6 +412,77 @@ public class FXMLPlayController {
         });
          */
     }
+<<<<<<< HEAD
+=======
+    
+    public void RotateBlock45(TetrisBlock block) {
+    
+    block.setOnMousePressed(event -> {
+        block.setRotate(block.getRotate() + 45);
+    });
+    
+    block.setOnScroll(event -> {
+        block.setRotate(block.getRotate() + 45);
+    });
+    
+    }
+    
+    public void RotateBlock90(TetrisBlock block) {
+    
+    block.setOnMousePressed(event -> {
+        block.setRotate(block.getRotate() + 90);
+    });
+    
+    block.setOnScroll(event -> {
+        block.setRotate(block.getRotate() + 90);
+    });
+    
+    }
+       
+    public void StopRotateBlock (TetrisBlock block) {
+    
+    block.setOnMousePressed(event -> {
+        block.setRotate(block.getRotate());
+    });
+   
+    block.setOnScroll(event -> {
+        block.setRotate(block.getRotate());
+    });
+    }
+    
+    //Help using "https://stackoverflow.com/questions/64824378/save-load-a-pane-drawing-on-javafx"
+    private static final java.nio.file.Path SAVE_FILE_LOCATION = Paths.get(System.getProperty("user.home"), "pnBoard.xml");
+    
+    public void save() throws IOException {
+        try (XMLEncoder encoder = new XMLEncoder( new BufferedOutputStream(Files.newOutputStream(SAVE_FILE_LOCATION)))) {
+
+            encoder.setExceptionListener(e -> {
+                throw new RuntimeException(e);
+            });
+
+            encoder.writeObject(pnBoard.getChildren().toArray(new Node[0]));
+        }
+    }
+    public void load() throws IOException {
+        try (XMLDecoder decoder = new XMLDecoder( new BufferedInputStream(Files.newInputStream(SAVE_FILE_LOCATION)))) {
+
+        decoder.setExceptionListener(e -> {
+            throw new RuntimeException(e);
+        });
+
+        pnBoard.getChildren().setAll((Node[]) decoder.readObject());
+    }
+    }
+    /*
+     Alert alert = new Alert(AlertType.INFORMATION);
+            alert.setTitle("Block Information");
+            alert.setHeaderText(null);
+            alert.setContentText("Position: (" + posX + ", " + posY + ")\n"
+                    + "Speed: (" + speedX + ", " + speedY + ")\n"
+                    + "Acceleration: (" + accelerationX + ", " + accelerationY + ")");
+            alert.showAndWait();
+    */
+>>>>>>> Shyam
 
     @FXML
     private void CursorChange() {
