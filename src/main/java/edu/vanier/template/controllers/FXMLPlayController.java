@@ -24,10 +24,9 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import library.dynamics.Body;
-import library.geometry.Polygon;
+import library.math.Vectors2D;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -82,7 +81,7 @@ public class FXMLPlayController {
     public void initialize() {
 
         physics = new Physics(pnBoard);
-        for (int i = 0; i < 1; i++) {
+        for (int i = 0; i < 4; i++) {
             physics.addGround(new TetrisGround(60, 40, Color.GREEN), 0, -150);
         }
 
@@ -238,36 +237,38 @@ public class FXMLPlayController {
         }
     }
 
-    public void MoveBlock(TetrisBlock block) {
-
-        /* block.setOnMousePressed(event -> {
-
-            BlockState state = new BlockState(block.getCurrentState().getPosX(), block.getCurrentState().getPosY(), block.getCurrentState().getSpeedX(), block.getCurrentState().getSpeedY(), 0, 0);
-            block.addBlockState(state);
+    public void moveBlock(TetrisBlock block, Body body) {
+        block.setOnMousePressed(event -> {
+            // Set cursor to closed hand while dragging
             BorderPane.setCursor(Cursor.CLOSED_HAND);
-        });
-
-        block.setOnMouseDragged(event -> {
-
-            block.setManaged(false);
-            BlockState state = new BlockState(event.getX() + block.getCurrentState().getPosX() - block.getWidth() / 2, event.getY() + block.getCurrentState().getPosY() - block.getHeight() / 2, block.getCurrentState().getSpeedX(), block.getCurrentState().getSpeedY(), 0, 0);
-            block.addBlockState(state);
-            event.consume();
+            // Store initial position of the mouse
+            block.setUserData(new Vectors2D(event.getSceneX(), event.getSceneY()));
+            // Stop physics simulation while dragging
             physics.stopPhysics();
         });
 
-        block.setOnMouseReleased(event -> {
-
-            // Calculate velocity based on the change in position
-            double speedX = (block.getCurrentState().getPosX() - block.getPreviousState().getPosX()) / 0.16;
-            double speedY = (block.getCurrentState().getPosY() - block.getPreviousState().getPosY()) / 0.16;
-            BlockState state = new BlockState(block.getCurrentState().getPosX(), block.getCurrentState().getPosY(), speedX, speedY, 0, 0);
-            block.addBlockState(state);
-            physics.startPhysics();
-            BorderPane.setCursor(Cursor.OPEN_HAND);
-            // Start physics simulation
+        block.setOnMouseDragged(event -> {
+            // Get the stored initial position of the mouse
+            Vectors2D initialPosition = (Vectors2D) block.getUserData();
+            // Calculate the delta movement
+            double deltaX = event.getSceneX() - initialPosition.x;
+            double deltaY = event.getSceneY() - initialPosition.y;
+            // Calculate the new position of the body
+            Vectors2D newPosition = new Vectors2D(body.position.x + deltaX, body.position.y + deltaY);
+            // Set the new position of the body
+            body.position  = newPosition;
+            // Update the stored initial position of the mouse for the next movement
+            block.setUserData(new Vectors2D(event.getSceneX(), event.getSceneY()));
+            // Consume the event
+            event.consume();
         });
-         */
+
+        block.setOnMouseReleased(event -> {
+            // Set cursor to open hand after release
+            BorderPane.setCursor(Cursor.OPEN_HAND);
+            // Restart physics simulation after release
+            physics.startPhysics();
+        });
     }
 
     @FXML
