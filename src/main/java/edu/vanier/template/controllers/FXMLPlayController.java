@@ -6,18 +6,25 @@ import edu.vanier.template.physicalLaws.Physics;
 import edu.vanier.template.tetrisPieces.BlockState;
 import edu.vanier.template.tetrisPieces.TetrisBlock;
 import edu.vanier.template.tetrisPieces.TetrisGround;
+import java.beans.XMLDecoder; //Added
+import java.beans.XMLEncoder; //Added
+import java.io.BufferedInputStream; //Added
+import java.io.BufferedOutputStream; //Added
 import java.io.IOException;
-import javafx.event.EventHandler; //Added
+import java.nio.file.Files; //Added
+import java.nio.file.Paths; //Added
+import javafx.event.EventHandler; 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Cursor;
+import javafx.scene.Node; //Added
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.input.KeyCode; //Added
-import javafx.scene.input.KeyEvent; //Added
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -90,7 +97,7 @@ public class FXMLPlayController {
 
 
     @FXML
-    private void handleBtnPlay() {
+    private void handleBtnPlay() throws IOException {
     
         logger.info("Start button clicked");
         music.soundPlay();
@@ -139,6 +146,8 @@ public class FXMLPlayController {
         };
         gameStage.getScene().setOnKeyReleased(stop_movement);
         
+        //Load
+        //load();  
     }
 
     @FXML
@@ -180,7 +189,9 @@ public class FXMLPlayController {
         Scene scene = new Scene(loader.load());
         currentStage.setScene(scene);
         music.musicStop();
-
+        
+        //Save
+        save();
     }
 
     @FXML
@@ -278,8 +289,30 @@ public class FXMLPlayController {
         block.setRotate(block.getRotate());
     });
     }
+    
+    //Help using "https://stackoverflow.com/questions/64824378/save-load-a-pane-drawing-on-javafx"
+    private static final java.nio.file.Path SAVE_FILE_LOCATION = Paths.get(System.getProperty("user.home"), "pnBoard.xml");
+    
+    public void save() throws IOException {
+        try (XMLEncoder encoder = new XMLEncoder( new BufferedOutputStream(Files.newOutputStream(SAVE_FILE_LOCATION)))) {
 
+            encoder.setExceptionListener(e -> {
+                throw new RuntimeException(e);
+            });
 
+            encoder.writeObject(pnBoard.getChildren().toArray(new Node[0]));
+        }
+    }
+    public void load() throws IOException {
+        try (XMLDecoder decoder = new XMLDecoder( new BufferedInputStream(Files.newInputStream(SAVE_FILE_LOCATION)))) {
+
+        decoder.setExceptionListener(e -> {
+            throw new RuntimeException(e);
+        });
+
+        pnBoard.getChildren().setAll((Node[]) decoder.readObject());
+    }
+    }
     /*
      Alert alert = new Alert(AlertType.INFORMATION);
             alert.setTitle("Block Information");
