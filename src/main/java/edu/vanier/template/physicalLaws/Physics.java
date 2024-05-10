@@ -13,6 +13,8 @@ import library.joints.Joint;
 import library.math.Vectors2D;
 import java.util.ArrayList;
 import java.util.Arrays;
+import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
 import library.dynamics.Settings;
 import library.geometry.Polygon;
@@ -21,7 +23,7 @@ import library.geometry.Polygon;
  * @author Anton Lisunov
  */
 public class Physics {
-
+    boolean lostVerifier = false;
     private Pane simulationPane;
     private AnimationTimer physicsTimer;
     private Vectors2D gravity;
@@ -60,6 +62,7 @@ public class Physics {
     }
 
     public void addTetrisPiece(TetrisBlock block, double x, double y) {
+
         Body body = new Body(new Polygon(block), x, y);
         body.setDensity(400);
         bodies.add(body);
@@ -79,7 +82,10 @@ public class Physics {
         simulationPane.getChildren().add(new TetrisGround(block.getWidth() * 2, block.getHeight() * 2, (Color) block.getFill()));
     }
 
-    public void addTetrisShape(char type, TetrisBlock block, double x, double y) {
+    public void addTetrisShape(char type, TetrisBlock block, double x, double y, Label label) {
+        int value = Integer.valueOf(label.getText());
+        value += 10;
+        label.setText(String.valueOf(value));
         TetrisShapes shape = null;
         switch (type) {
             case 'I' -> shape = TetrisShapes.Shape_I(new Polygon(block), x, y);
@@ -112,42 +118,52 @@ public class Physics {
     }
 
     private void updatePhysics() {
-    double paneWidth = 400;
-    double paneHeight = 380;
+        double paneWidth = 400;
+        double paneHeight = 380;
 
-    for (int i = 0; i < simulationPane.getChildren().size(); i++) {
-        Body body = bodies.get(i);
-        Rectangle rect = (Rectangle) simulationPane.getChildren().get(i);
+        for (int i = 0; i < simulationPane.getChildren().size(); i++) {
+            Body body = bodies.get(i);
+            Rectangle rect = (Rectangle) simulationPane.getChildren().get(i);
 
-        double rectWidth = rect.getWidth();
-        double rectHeight = rect.getHeight();
+            double rectWidth = rect.getWidth();
+            double rectHeight = rect.getHeight();
 
-        double translatedX = (body.position.x - rectWidth / 2) + paneWidth / 2;
-        double translatedY = paneHeight / 2 - (body.position.y + rectHeight / 2);
+            double translatedX = (body.position.x - rectWidth / 2) + paneWidth / 2;
+            double translatedY = paneHeight / 2 - (body.position.y + rectHeight / 2);
 
-        rect.setTranslateX(translatedX);
-        rect.setTranslateY(translatedY);
-        rect.setRotate(-Math.toDegrees(body.orientation));
+            rect.setTranslateX(translatedX);
+            rect.setTranslateY(translatedY);
+            rect.setRotate(-Math.toDegrees(body.orientation));
 
-        if (!body.isStatic()) {
-            for (Body staticBody : bodies) {
-                if (staticBody != body && staticBody.isStatic() ) {
-                    if (AABB.AABBOverLap(body, staticBody)) {
-                        System.out.println("Dynamic body collided with static body!");
+            if (!body.isStatic()) {
+                for (Body staticBody : bodies) {
+                    if (staticBody != body && staticBody.isStatic() ) {
+                        if (AABB.AABBOverLap(body, staticBody)) {
+                            System.out.println("Dynamic body collided with static body!");
+                        }
                     }
                 }
             }
+
+            if (translatedY > simulationPane.getHeight() + 150) {
+                bodies.remove(i);
+                stopPhysics();
+                lostVerifier = true;
+                simulationPane.getChildren().remove(i);
+                System.out.println("delete");
+            }
         }
 
-        if (translatedY > simulationPane.getHeight() + 150) {
-            bodies.remove(i);
-            simulationPane.getChildren().remove(i);
-            System.out.println("delete");
-        }
+        step(1.0 / 60.0);
     }
 
-    step(1.0 / 60.0);
-}
+    public boolean GameLostVerifier(){
+        if(lostVerifier == true){
+            lostVerifier = false;
+            return true;
+        }
+        return false;
+    }
 
     public void setGravity(Vectors2D gravity) {
         this.gravity = gravity;
@@ -254,7 +270,7 @@ public class Physics {
             }
         }
     }
-    
+
     private void narrowPhaseCheck(Body a, Body b) {
         Arbiter contactQuery = new Arbiter(a, b);
         contactQuery.narrowPhase();

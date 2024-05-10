@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.geometry.Point3D?>
+<?import javafx.scene.Group?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ToolBar?>
@@ -8,6 +10,8 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
 <BorderPane fx:id="BorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-border-color: black;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
@@ -40,7 +44,7 @@
                         <Font name="System Bold" size="18.0" />
                      </font>
                   </Label>
-                  <Label fx:id="lbScore" prefHeight="30.0" prefWidth="80.0" style="-fx-background-color: black;" text="     0000" textFill="WHITE">
+                  <Label fx:id="lbScore" alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="80.0" style="-fx-background-color: black;" text="0000" textFill="WHITE">
                      <VBox.margin>
                         <Insets />
                      </VBox.margin>
@@ -69,7 +73,117 @@
                         <Font name="System Bold" size="18.0" />
                      </font>
                   </Label>
-                  <Pane fx:id="pnNext" blendMode="DARKEN" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: black;" />
+                  <Pane fx:id="pnNext" blendMode="DARKEN" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: black;">
+                     <children>
+                        <Group fx:id="GroupSquareBlock" layoutX="20.0" layoutY="15.0">
+                           <children>
+                              <Line endX="40.0" endY="20.0" fill="WHITE" startY="20.0" stroke="WHITE" />
+                              <Line endX="20.0" endY="40.0" startX="20.0" stroke="WHITE" />
+                              <Line endY="40.0" stroke="WHITE" />
+                              <Line endX="40.0" endY="40.0" startX="40.0" stroke="WHITE" />
+                              <Line endX="40.0" endY="40.0" startY="40.0" stroke="WHITE" />
+                              <Line endX="40.0" stroke="WHITE" />
+                              <Rectangle fx:id="Square" fill="YELLOW" height="20.0" stroke="BLACK" strokeType="INSIDE" width="20.0" />
+                              <Rectangle fill="#fbff1f" height="20.0" layoutY="20.0" stroke="BLACK" strokeType="INSIDE" width="20.0" />
+                              <Rectangle fill="#fbff1f" height="20.0" layoutX="20.0" stroke="BLACK" strokeType="INSIDE" width="20.0" />
+                              <Rectangle fill="#fbff1f" height="20.0" layoutX="20.0" layoutY="20.0" stroke="BLACK" strokeMiterLimit="0.0" strokeType="INSIDE" width="20.0" />
+                           </children>
+                        </Group>
+                        <Group fx:id="GroupLBlock1" layoutX="20.0" layoutY="5.0">
+                           <children>
+                              <Line endY="60.0" stroke="#fffdfd">
+                                 <rotationAxis>
+                                    <Point3D />
+                                 </rotationAxis>
+                              </Line>
+                              <Rectangle fill="#ff7700" height="20.0" layoutX="20.0" layoutY="40.0" stroke="BLACK" strokeType="INSIDE" width="20.0" />
+                              <Rectangle fill="#ff7700" height="20.0" stroke="BLACK" strokeType="INSIDE" width="20.0" />
+                              <Rectangle fill="#ff7700" height="20.0" layoutY="40.0" stroke="BLACK" strokeType="INSIDE" width="20.0" />
+                              <Rectangle fx:id="LBlock" fill="#ff7700" height="20.0" layoutY="20.0" stroke="BLACK" strokeType="INSIDE" width="20.0" />
+                              <Line endX="20.0" endY="60.0" startX="20.0" stroke="WHITE" />
+                              <Line endX="40.0" endY="60.0" startX="40.0" startY="40.0" stroke="WHITE" />
+                              <Line endX="40.0" endY="60.0" startY="60.0" stroke="WHITE" />
+                              <Line endX="40.0" endY="40.0" startY="40.0" stroke="WHITE" />
+                              <Line endX="20.0" endY="20.0" startY="20.0" stroke="WHITE" />
+                              <Line endX="20.0" stroke="WHITE" />
+                           </children>
+                        </Group>
+                        <Group fx:id="GroupLineBlock1" layoutX="30.0" layoutY="-5.0">
+                           <children>
+                              <Line endY="80.0" stroke="WHITE" />
+                              <Line endX="20.0" endY="80.0" startX="20.0" stroke="WHITE" />
+                              <Rectangle fx:id="GRoupLineBlock1" fill="#1f93ff" height="20.0" stroke="BLACK" strokeType="INSIDE" width="20.0" y="20.0" />
+                              <Rectangle fill="#1f93ff" height="20.0" stroke="BLACK" strokeType="INSIDE" width="20.0" y="60.0" />
+                              <Rectangle fill="#1f93ff" height="20.0" stroke="BLACK" strokeType="INSIDE" width="20.0" />
+                              <Rectangle fill="#1f93ff" height="20.0" stroke="BLACK" strokeType="INSIDE" width="20.0" y="40.0" />
+                              <Line endX="20.0" stroke="WHITE" />
+                              <Line endX="20.0" endY="60.0" startY="60.0" stroke="WHITE" />
+                              <Line endX="20.0" endY="40.0" startY="40.0" stroke="WHITE" />
+                              <Line endX="20.0" endY="20.0" startY="20.0" stroke="WHITE" />
+                              <Line endX="20.0" endY="80.0" startY="80.0" stroke="WHITE" />
+                           </children>
+                        </Group>
+                        <Group fx:id="GroupSBlock1" layoutX="30.0" layoutY="15.0">
+                           <children>
+                              <Line endX="-20.0" endY="40.0" startX="-20.0" startY="20.0" stroke="WHITE" />
+                              <Line endX="40.0" stroke="WHITE" />
+                              <Rectangle fill="#237201" height="20.0" stroke="BLACK" strokeType="INSIDE" width="20.0" />
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#237201" height="20.0" stroke="BLACK" strokeType="INSIDE" width="20.0" x="20.0" />
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#237201" height="20.0" stroke="BLACK" strokeType="INSIDE" width="20.0" x="-20.0" y="20.0" />
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#237201" height="20.0" stroke="BLACK" strokeType="INSIDE" width="20.0" y="20.0" />
+                              <Line endX="40.0" endY="20.0" startX="-20.0" startY="20.0" stroke="WHITE" />
+                              <Line endX="20.0" endY="40.0" startX="-20.0" startY="40.0" stroke="WHITE" />
+                              <Line endX="40.0" endY="20.0" startX="40.0" stroke="WHITE" />
+                              <Line endX="20.0" endY="40.0" startX="20.0" stroke="WHITE" />
+                              <Line endY="40.0" stroke="WHITE" />
+                           </children>
+                        </Group>
+                        <Group fx:id="GroupJBlock" layoutX="20.0" layoutY="5.0">
+                           <children>
+                              <Line endY="60.0" stroke="WHITE" />
+                              <Rectangle fill="#003cff" height="20.0" layoutX="20.0" stroke="BLACK" strokeType="INSIDE" width="20.0" />
+                              <Rectangle fill="#003cff" height="20.0" stroke="BLACK" strokeType="INSIDE" width="20.0" />
+                              <Rectangle fill="#003cff" height="20.0" layoutY="40.0" stroke="BLACK" strokeType="INSIDE" width="20.0" />
+                              <Rectangle fill="#003cff" height="20.0" layoutY="20.0" stroke="BLACK" strokeType="INSIDE" width="20.0" />
+                              <Line endX="20.0" endY="60.0" startX="20.0" stroke="WHITE" />
+                              <Line endX="40.0" endY="20.0" startX="40.0" stroke="WHITE" />
+                              <Line endX="20.0" endY="60.0" startY="60.0" stroke="WHITE" />
+                              <Line endX="20.0" endY="40.0" startY="40.0" stroke="WHITE" />
+                              <Line endX="40.0" endY="20.0" startY="20.0" stroke="WHITE" />
+                              <Line endX="40.0" stroke="WHITE" />
+                           </children>
+                        </Group>
+                        <Group fx:id="GroupZBlock" layoutX="30.0" layoutY="15.0">
+                           <children>
+                              <Line endX="-20.0" endY="20.0" startX="-20.0" stroke="WHITE" />
+                              <Line endX="20.0" startX="-20.0" stroke="WHITE" />
+                              <Rectangle fill="#f50000" height="20.0" stroke="BLACK" strokeType="INSIDE" width="20.0" />
+                              <Rectangle fill="#f50000" height="20.0" stroke="BLACK" strokeType="INSIDE" width="20.0" x="20.0" y="20.0" />
+                              <Rectangle fill="#f50000" height="20.0" stroke="BLACK" strokeType="INSIDE" width="20.0" y="20.0" />
+                              <Rectangle fill="#f50000" height="20.0" stroke="BLACK" strokeType="INSIDE" width="20.0" x="-20.0" />
+                              <Line endX="40.0" endY="40.0" startY="40.0" stroke="WHITE" />
+                              <Line endX="40.0" endY="20.0" startX="-20.0" startY="20.0" stroke="WHITE" />
+                              <Line endX="40.0" endY="40.0" startX="40.0" startY="20.0" stroke="WHITE" />
+                              <Line endX="20.0" endY="40.0" startX="20.0" stroke="WHITE" />
+                              <Line endY="40.0" stroke="WHITE" />
+                           </children>
+                        </Group>
+                        <Group fx:id="GroupTBlock" layoutX="30.0" layoutY="15.0" rotate="90.0">
+                           <children>
+                              <Rectangle fill="#6700f5" height="20.0" stroke="BLACK" strokeType="INSIDE" width="20.0" />
+                              <Line endX="40.0" startX="-20.0" stroke="WHITE" />
+                              <Rectangle fill="#6700f5" height="20.0" stroke="BLACK" strokeType="INSIDE" width="20.0" x="-20.0" />
+                              <Rectangle fill="#6700f5" height="20.0" stroke="BLACK" strokeType="INSIDE" width="20.0" y="20.0" />
+                              <Rectangle fill="#6700f5" height="20.0" stroke="BLACK" strokeType="INSIDE" width="20.0" x="20.0" />
+                              <Line endX="40.0" endY="20.0" startX="-20.0" startY="20.0" stroke="WHITE" />
+                              <Line endX="20.0" endY="40.0" startY="40.0" stroke="WHITE" />
+                              <Line endX="-20.0" endY="20.0" startX="-20.0" stroke="WHITE" />
+                              <Line endY="40.0" stroke="WHITE" />
+                              <Line endX="40.0" endY="20.0" startX="40.0" stroke="WHITE" />
+                              <Line endX="20.0" endY="40.0" startX="20.0" stroke="WHITE" />
+                           </children>
+                        </Group>
+                     </children></Pane>
                </children>
                <padding>
                   <Insets left="20.0" right="20.0" />
@@ -78,4 +192,15 @@
          </children>
       </VBox>
    </right>
+   <bottom>
+      <Group BorderPane.alignment="CENTER">
+         <children>
+            <Label fx:id="PlayScreenLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="24.0" prefWidth="602.0" style="-fx-background-color: gray; -fx-border-color: black;" text="Click Play to Start the Game  " textFill="#000000c1">
+               <font>
+                  <Font name="Britannic Bold" size="24.0" />
+               </font>
+            </Label>
+         </children>
+      </Group>
+   </bottom>
 </BorderPane>
