@@ -110,6 +110,15 @@ public class Physics {
 
     }
 
+    public ArrayList<Body> getBodies() {
+        return bodies;
+    }
+    public ArrayList<Rectangle> getBlocks() {
+        ArrayList<Rectangle> blocks = new ArrayList();
+        for(int i = 0; i<simulationPane.getChildren().size(); i++)
+            blocks.add((Rectangle) simulationPane.getChildren().get(i));
+        return blocks;
+    }
     public void removeAll() {
         simulationPane.getChildren().removeIf(node -> node instanceof Rectangle);
         bodies.clear();

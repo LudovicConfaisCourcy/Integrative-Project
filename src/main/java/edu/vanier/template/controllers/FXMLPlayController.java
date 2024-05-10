@@ -15,6 +15,7 @@ import edu.vanier.template.tetrisPieces.TetrisGround;
 import java.io.IOException;
 import java.util.Random;
 import javafx.fxml.FXML;
+import java.util.ArrayList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Cursor;
 import javafx.scene.Group;
@@ -83,7 +84,7 @@ public class FXMLPlayController {
     public void initialize() {
 
         physics = new Physics(pnBoard);
-        for (int i = 0; i < 1; i++) {
+        for (int i = 0; i < 5; i++) {
             physics.addGround(new TetrisGround(60, 40, Color.GREEN), 0, -150);
         }
 
@@ -160,6 +161,12 @@ public class FXMLPlayController {
             default : System.out.println("error");
         }
 
+        for (int i = 5; i < physics.getBodies().size(); i += 4) {
+            ArrayList<Rectangle> blocks = new ArrayList<>(physics.getBlocks().subList(i, i + 4));
+            ArrayList<Body> bodies = new ArrayList<>(physics.getBodies().subList(i, i + 4));
+
+            moveBlock(blocks, bodies);
+        }
     }
 
     @FXML
@@ -179,7 +186,7 @@ public class FXMLPlayController {
         lbScore.setText("0000");
         music.soundPlay();
         physics.removeAll();
-        for (int i = 0; i < 1; i++) {
+        for (int i = 0; i < 5; i++) {
             physics.addGround(new TetrisGround(60, 40, Color.GREEN), 0, -150);
 
         }
@@ -240,7 +247,45 @@ public class FXMLPlayController {
             logger.error(ex.getMessage());
         }
     }
+    public void moveBlock(ArrayList<Rectangle> blocks, ArrayList<Body> bodies) {
+        double paneWidth = 400;
+        double paneHeight = 380;
 
+        for (int i = 0; i < blocks.size(); i++) {
+            Rectangle block = blocks.get(i);
+            Body body1 = bodies.get(i);
+            Body body2 = bodies.get(Math.abs(i + 1 - 4));
+            Body body3 = bodies.get(Math.abs(i + 2 - 4));
+            Body body4 = bodies.get(Math.abs(i + 3 - 4));
+
+            Vectors2D difference2 = body2.position.subtract(body1.position);
+            Vectors2D difference3 = body3.position.subtract(body1.position);
+            Vectors2D difference4 = body4.position.subtract(body1.position);
+
+            if (!body1.isStatic()) {
+                block.setOnMousePressed(event -> {
+                    BorderPane.setCursor(Cursor.CLOSED_HAND);
+                });
+            }
+
+            block.setOnMouseDragged(event -> {
+                body1.position = new Vectors2D(event.getSceneX() - paneWidth / 2 - block.getWidth() * 4,
+                        -event.getSceneY() + paneHeight / 2 + block.getHeight() * 2);
+
+                body2.position = new Vectors2D(body1.position.x+difference2.x, body1.position.y+difference2.y);
+                body3.position = new Vectors2D(body1.position.x+difference3.x, body1.position.y+difference3.y);
+                body4.position = new Vectors2D(body1.position.x+difference4.x, body1.position.y+difference4.y);
+
+                event.consume();
+
+            });
+
+            block.setOnMouseReleased(event -> {
+                BorderPane.setCursor(Cursor.OPEN_HAND);
+            });
+        }
+
+    }
     public void MoveBlock(TetrisBlock block) {
 
         /* block.setOnMousePressed(event -> {
