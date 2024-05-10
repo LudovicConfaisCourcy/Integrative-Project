@@ -13,43 +13,43 @@ import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 public class FXMLInspirationsController {
-    
-@FXML
-Button btnBack;
 
-@FXML
-private void openLink(ActionEvent event) throws URISyntaxException, IOException {
-Desktop.getDesktop().browse(new URI("https://www.trickytowers.com/"));
-}
+    @FXML
+    Button btnBack;
 
-@FXML
-private void openLink1(ActionEvent event) throws URISyntaxException, IOException {
-Desktop.getDesktop().browse(new URI("https://github.com/Przemekkkth/gravity-tetris"));
-}
+    @FXML
+    private void openLink(ActionEvent event) throws URISyntaxException, IOException {
+        Desktop.getDesktop().browse(new URI("https://www.trickytowers.com/"));
+    }
 
-@FXML
-private void openLink2(ActionEvent event) throws URISyntaxException, IOException {
-Desktop.getDesktop().browse(new URI("https://www.ventrella.com/GravityTetris/"));
-}
+    @FXML
+    private void openLink1(ActionEvent event) throws URISyntaxException, IOException {
+        Desktop.getDesktop().browse(new URI("https://github.com/Przemekkkth/gravity-tetris"));
+    }
 
-@FXML
-private void openLink3(ActionEvent event) throws URISyntaxException, IOException {
-Desktop.getDesktop().browse(new URI("https://mixkit.co/free-sound-effects/click/"));
-}
+    @FXML
+    private void openLink2(ActionEvent event) throws URISyntaxException, IOException {
+        Desktop.getDesktop().browse(new URI("https://www.ventrella.com/GravityTetris/"));
+    }
 
-@FXML
-private void openLink4(ActionEvent event) throws URISyntaxException, IOException {
-Desktop.getDesktop().browse(new URI("https://www.youtube.com/watch?v=NmCCQxVBfyM&t=2s"));
-}
+    @FXML
+    private void openLink3(ActionEvent event) throws URISyntaxException, IOException {
+        Desktop.getDesktop().browse(new URI("https://mixkit.co/free-sound-effects/click/"));
+    }
 
-@FXML
-private void handleBtnBack() throws IOException {
+    @FXML
+    private void openLink4(ActionEvent event) throws URISyntaxException, IOException {
+        Desktop.getDesktop().browse(new URI("https://www.youtube.com/watch?v=NmCCQxVBfyM&t=2s"));
+    }
 
-Stage stage = (Stage) btnBack.getScene().getWindow();
-MainApp mainApp = new MainApp();
-FXMLLoader loader = mainApp.loadFXML("/fxml/CreditScene.fxml", new FXMLCreditsController());
-Scene scene = new Scene(loader.load());
-stage.setScene(scene);
-}
+    @FXML
+    private void handleBtnBack() throws IOException {
+
+        Stage stage = (Stage) btnBack.getScene().getWindow();
+        MainApp mainApp = new MainApp();
+        FXMLLoader loader = mainApp.loadFXML("/fxml/CreditScene.fxml", new FXMLCreditsController());
+        Scene scene = new Scene(loader.load());
+        stage.setScene(scene);
+    }
 
 }
