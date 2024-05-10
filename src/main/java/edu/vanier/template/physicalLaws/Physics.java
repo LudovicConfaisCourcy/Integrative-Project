@@ -13,7 +13,10 @@ import library.joints.Joint;
 import library.math.Vectors2D;
 import java.util.ArrayList;
 import java.util.Arrays;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.scene.paint.Color;
+import javafx.util.Duration;
 import library.dynamics.Settings;
 import library.geometry.Polygon;
 
@@ -29,6 +32,7 @@ public class Physics {
 
     private Pane simulationPane;
     private AnimationTimer physicsTimer;
+    private Timeline spawnTimer;
     private Vectors2D gravity;
     private ArrayList<Body> bodies = new ArrayList<>();
     private ArrayList<Joint> joints = new ArrayList<>();
@@ -44,6 +48,8 @@ public class Physics {
         this.simulationPane = simulationPane;
         simulationPane.setVisible(false);
         this.gravity = new Vectors2D(0, -9.81);
+        spawnTimer = new Timeline(new KeyFrame(Duration.seconds(10), event -> spawnNewTetrisPiece()));
+        spawnTimer.setCycleCount(Timeline.INDEFINITE);
         start();
     }
 
@@ -67,6 +73,8 @@ public class Physics {
         if (physicsTimer != null) {
             simulationPane.setVisible(true);
             physicsTimer.start();
+            spawnTimer.play();
+
         }
     }
 
@@ -76,6 +84,7 @@ public class Physics {
     public void stopPhysics() {
         if (physicsTimer != null) {
             physicsTimer.stop();
+            spawnTimer.stop();
         }
     }
 
@@ -112,6 +121,18 @@ public class Physics {
         body.setStatic();
         bodies.add(body);
         simulationPane.getChildren().add(new TetrisGround(block.getWidth() * 2, block.getHeight() * 2, (Color) block.getFill()));
+    }
+
+    /**
+     * Spawns a new Tetris piece and adds it to the simulation.
+     */
+    private void spawnNewTetrisPiece() {
+
+        char[] tetrisTypes = {'I', 'J', 'L', 'O', 'S', 'T', 'Z'};
+        int randomNum = Settings.generateRandomNoInRange(0, 7);
+        
+        addTetrisShape(tetrisTypes[randomNum], new TetrisBlock(10, 10, Color.RED), 0, 150);
+
     }
 
     /**
@@ -203,7 +224,7 @@ public class Physics {
                 for (Body staticBody : bodies) {
                     if (staticBody != body && staticBody.isStatic()) {
                         if (AABB.AABBOverLap(body, staticBody)) {
-                            System.out.println("Dynamic body collided with static body!");
+                          //TO DO
                         }
                     }
                 }
@@ -212,7 +233,6 @@ public class Physics {
             if (translatedY > simulationPane.getHeight() + 150) {
                 bodies.remove(i);
                 simulationPane.getChildren().remove(i);
-                System.out.println("delete");
             }
         }
 

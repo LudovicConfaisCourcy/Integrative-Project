@@ -64,17 +64,6 @@ public class FXMLPlayController {
             physics.addGround(new TetrisGround(60, 40, Color.GREEN), 0, -150);
 
         }
-
-
-        /*pnBoard.widthProperty().addListener((obs, oldWidth, newWidth) -> {
-            ground.setWidth(newWidth.doubleValue() * 0.5);
-            ground.setTranslateX(newWidth.doubleValue() * 0.25);
-        });
-
-        pnBoard.heightProperty().addListener((obs, oldHeight, newHeight) -> {
-            ground.setHeight(newHeight.doubleValue() * 0.3);
-            ground.setTranslateY(newHeight.doubleValue() * 0.9);
-        });*/
         music.musicPlay();
 
     }
@@ -85,16 +74,8 @@ public class FXMLPlayController {
         logger.info("Start button clicked");
         music.soundPlay();
         physics.startPhysics();
-        physics.addTetrisShape('I', new TetrisBlock(10, 10, Color.RED), 0, 150);
-        /* physics.addTetrisShape('L', new TetrisBlock(10, 10, Color.RED), 0, 250);
-        physics.addTetrisShape('J', new TetrisBlock(10, 10, Color.RED), 0, 350);
-        physics.addTetrisShape('T', new TetrisBlock(10, 10, Color.RED), 0, 450);
-        physics.addTetrisShape('O', new TetrisBlock(10, 10, Color.RED), 0, 550);
-        physics.addTetrisShape('S', new TetrisBlock(10, 10, Color.RED), 0, 650);
-        physics.addTetrisShape('Z', new TetrisBlock(10, 10, Color.RED), 0, 750);*/
-
-        System.out.println(physics.getBlocks().size());
-
+        physics.addTetrisShape('S', new TetrisBlock(10, 10, Color.RED), 0, 150);
+        
         for (int i = 5; i < physics.getBodies().size(); i += 4) {
             ArrayList<Rectangle> blocks = new ArrayList<>(physics.getBlocks().subList(i, i + 4));
             ArrayList<Body> bodies = new ArrayList<>(physics.getBodies().subList(i, i + 4));
