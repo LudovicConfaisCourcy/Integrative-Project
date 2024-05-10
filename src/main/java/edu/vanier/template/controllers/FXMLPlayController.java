@@ -24,7 +24,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * @author Anton Lisunov
+ * 
+ * Controller class for the Play scene in the Tetris game.
+ * Handles user interactions and game logic.
+ * @author Anton Lisunov, Ludovic Confiais-Courcy
  */
 public class FXMLPlayController {
 
@@ -51,6 +54,9 @@ public class FXMLPlayController {
     @FXML
     BorderPane BorderPane;
 
+    /**
+     * Initializes the controller.
+     */
     @FXML
     public void initialize() {
         physics = new Physics(pnBoard);

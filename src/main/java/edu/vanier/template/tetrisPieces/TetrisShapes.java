@@ -3,13 +3,15 @@ package edu.vanier.template.tetrisPieces;
 import javafx.scene.paint.Color;
 import library.dynamics.Body;
 import library.geometry.Polygon;
-import library.joints.Joint;
 import library.joints.JointToBody;
 import library.math.Vectors2D;
 
 /**
  *
  * @author anton
+ * 
+ * This class represents different predefined Tetris shapes and provides necessary methods to create them.
+ * 
  */
 public class TetrisShapes {
 
@@ -29,6 +31,13 @@ public class TetrisShapes {
     private final static int strength = 100;
     private final static boolean slack = false;
 
+    /**
+     * Constructs a TetrisShape object.
+     * 
+     * @param bodyList An array of Body objects representing the shape's physical bodies.
+     * @param jointList An array of JointToBody objects representing the joints between bodies.
+     * @param color The color of the Tetris shape.
+     */
     public TetrisShapes(Body[] bodyList, JointToBody[] jointList, Color color) {
         this.bodyList = bodyList;
         this.jointList = jointList;

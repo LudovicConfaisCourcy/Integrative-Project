@@ -18,6 +18,11 @@ import library.dynamics.Settings;
 import library.geometry.Polygon;
 
 /**
+ * Represents the physics engine for the Tetris game. Handles simulation of
+ * physics interactions such as collisions and forces. Visualize results on pane
+ * Uses JPhysics to calculate position, velocity, acceleration an rotation of
+ * each object https://github.com/HaydenMarshalla/JPhysics.git
+ *
  * @author Anton Lisunov
  */
 public class Physics {
@@ -29,6 +34,12 @@ public class Physics {
     private ArrayList<Joint> joints = new ArrayList<>();
     private ArrayList<Arbiter> contacts = new ArrayList<>();
 
+    /**
+     * Constructs a Physics engine with the given simulation pane. Initializes
+     * gravity and starts the physics engine.
+     *
+     * @param simulationPane The pane to render the physics simulation.
+     */
     public Physics(Pane simulationPane) {
         this.simulationPane = simulationPane;
         simulationPane.setVisible(false);
@@ -36,6 +47,9 @@ public class Physics {
         start();
     }
 
+    /**
+     * Starts the animation timer for the physics engine.
+     */
     private void start() {
         physicsTimer = new AnimationTimer() {
 
@@ -46,6 +60,9 @@ public class Physics {
         };
     }
 
+    /**
+     * Starts the physics simulation.
+     */
     public void startPhysics() {
         if (physicsTimer != null) {
             simulationPane.setVisible(true);
@@ -53,12 +70,22 @@ public class Physics {
         }
     }
 
+    /**
+     * Stops the physics simulation.
+     */
     public void stopPhysics() {
         if (physicsTimer != null) {
             physicsTimer.stop();
         }
     }
 
+    /**
+     * Adds a Tetris piece to the physics simulation.
+     *
+     * @param block The Tetris block representing the piece.
+     * @param x The x-coordinate of the piece's position.
+     * @param y The y-coordinate of the piece's position.
+     */
     public void addTetrisPiece(TetrisBlock block, double x, double y) {
         Body body = new Body(new Polygon(block), x, y);
         body.setDensity(400);
@@ -66,6 +93,14 @@ public class Physics {
         simulationPane.getChildren().add(new TetrisBlock(block.getWidth() * 2, block.getHeight() * 2, (Color) block.getFill()));
     }
 
+    /**
+     * Adds a Tetris Ground to the physics simulation. Ground have random
+     * position and rotation Ground is static object
+     *
+     * @param block The Tetris ground representing the piece.
+     * @param x The x-coordinate of the piece's position.
+     * @param y The y-coordinate of the piece's position.
+     */
     public void addGround(TetrisGround block, double x, double y) {
 
         double randomX = Settings.generateRandomNoInRange(x - 50, x + 50);
@@ -79,6 +114,14 @@ public class Physics {
         simulationPane.getChildren().add(new TetrisGround(block.getWidth() * 2, block.getHeight() * 2, (Color) block.getFill()));
     }
 
+    /**
+     * Adds a Tetris piece to the physics simulation.
+     *
+     * @param type The name of piece
+     * @param block The Tetris block representing the part of Tetris piece.
+     * @param x The x-coordinate of the pieces position.
+     * @param y The y-coordinate of the pieces position.
+     */
     public void addTetrisShape(char type, TetrisBlock block, double x, double y) {
         TetrisShapes shape = null;
         switch (type) {
@@ -112,16 +155,22 @@ public class Physics {
 
     }
 
-    public ArrayList<Body> getBodies() {
-        return bodies;
-    }
+    /**
+     * Gets the list of blocks in the physics simulation.
+     *
+     * @return The list of blocks.
+     */
     public ArrayList<Rectangle> getBlocks() {
-         ArrayList<Rectangle> blocks = new ArrayList();
-         for(int i = 0; i<simulationPane.getChildren().size(); i++)
-         blocks.add((Rectangle) simulationPane.getChildren().get(i));
+        ArrayList<Rectangle> blocks = new ArrayList();
+        for (int i = 0; i < simulationPane.getChildren().size(); i++) {
+            blocks.add((Rectangle) simulationPane.getChildren().get(i));
+        }
         return blocks;
     }
 
+    /**
+     * Removes all bodies and blocks from the physics simulation.
+     */
     public void removeAll() {
         simulationPane.getChildren().removeIf(node -> node instanceof Rectangle);
         bodies.clear();
@@ -129,6 +178,9 @@ public class Physics {
         joints.clear();
     }
 
+    /**
+     * Updates the physics simulation for each frame.
+     */
     private void updatePhysics() {
         double paneWidth = 400;
         double paneHeight = 380;
@@ -142,7 +194,7 @@ public class Physics {
 
             double translatedX = (body.position.x - rectWidth / 2) + paneWidth / 2;
             double translatedY = paneHeight / 2 - (body.position.y + rectHeight / 2);
-            
+
             rect.setTranslateX(translatedX);
             rect.setTranslateY(translatedY);
             rect.setRotate(-Math.toDegrees(body.orientation));
@@ -167,10 +219,6 @@ public class Physics {
         step(1.0 / 60.0);
     }
 
-    public void setGravity(Vectors2D gravity) {
-        this.gravity = gravity;
-    }
-
     public void addBody(Body b) {
         bodies.add(b);
 
@@ -189,6 +237,11 @@ public class Physics {
         joints.remove(j);
     }
 
+    /**
+     * Steps the physics simulation forward by a given time interval.
+     *
+     * @param dt The time interval.
+     */
     public void step(double dt) {
         contacts.clear();
 
@@ -201,6 +254,11 @@ public class Physics {
         }
     }
 
+    /**
+     * Performs the semi-implicit Euler integration for the physics simulation.
+     *
+     * @param dt The time interval.
+     */
     private void semiImplicit(double dt) {
         applyForces(dt);
 
@@ -219,6 +277,11 @@ public class Physics {
         }
     }
 
+    /**
+     * Applies forces to the bodies in the simulation.
+     *
+     * @param dt The time interval.
+     */
     private void applyForces(double dt) {
         for (Body b : bodies) {
             if (b.invMass == 0) {
@@ -236,6 +299,11 @@ public class Physics {
         }
     }
 
+    /**
+     * Solves contacts and constraints in the physics simulation.
+     *
+     * @param dt The time interval.
+     */
     private void solve(double dt) {
         for (Joint j : joints) {
             j.applyTension();
@@ -248,6 +316,11 @@ public class Physics {
         }
     }
 
+    /**
+     * Applies linear drag force to a body.
+     *
+     * @param b The body to apply drag to.
+     */
     private void applyLinearDrag(Body b) {
         double velocityMagnitude = b.velocity.length();
         double dragForceMagnitude = velocityMagnitude * velocityMagnitude * b.linearDampening;
@@ -255,6 +328,9 @@ public class Physics {
         b.applyForceToCentre(dragForceVector);
     }
 
+    /**
+     * Performs broad-phase collision detection.
+     */
     private void broadPhaseCheck() {
         for (int i = 0; i < bodies.size(); i++) {
             Body a = bodies.get(i);
@@ -273,6 +349,12 @@ public class Physics {
         }
     }
 
+    /**
+     * Performs narrow-phase collision detection.
+     *
+     * @param a The first body.
+     * @param b The second body.
+     */
     private void narrowPhaseCheck(Body a, Body b) {
         Arbiter contactQuery = new Arbiter(a, b);
         contactQuery.narrowPhase();
@@ -281,6 +363,9 @@ public class Physics {
         }
     }
 
+    /**
+     * Applies gravitational force between all objects in the simulation.
+     */
     public void gravityBetweenObj() {
         for (int a = 0; a < bodies.size(); a++) {
             Body A = bodies.get(a);
@@ -295,6 +380,14 @@ public class Physics {
                 B.force.addi(oppositeDir);
             }
         }
+    }
+
+    public ArrayList<Body> getBodies() {
+        return bodies;
+    }
+
+    public void setGravity(Vectors2D gravity) {
+        this.gravity = gravity;
     }
 
 }
