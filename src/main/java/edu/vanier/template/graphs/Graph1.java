@@ -4,7 +4,7 @@
  */
 package edu.vanier.template.graphs;
 
-import edu.vanier.template.tetrisPieces.BlockState;
+
 import edu.vanier.template.tetrisPieces.TetrisBlock;
 import java.util.Collections;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -71,7 +71,7 @@ public class Graph1{
         chart2.setAnimated(false);
         chart3.setAnimated(false);
 
-        BlockState initialState = new BlockState(0, 0, 0, 0, 0, 0);
+
         
         chart1.getData().add(series1);
         chart2.getData().add(series2);
