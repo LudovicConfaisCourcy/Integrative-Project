@@ -13,8 +13,6 @@ import library.joints.Joint;
 import library.math.Vectors2D;
 import java.util.ArrayList;
 import java.util.Arrays;
-import javafx.fxml.FXML;
-import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
 import library.dynamics.Settings;
 import library.geometry.Polygon;
@@ -23,7 +21,7 @@ import library.geometry.Polygon;
  * @author Anton Lisunov
  */
 public class Physics {
-    boolean lostVerifier = false;
+
     private Pane simulationPane;
     private AnimationTimer physicsTimer;
     private Vectors2D gravity;
@@ -62,7 +60,6 @@ public class Physics {
     }
 
     public void addTetrisPiece(TetrisBlock block, double x, double y) {
-
         Body body = new Body(new Polygon(block), x, y);
         body.setDensity(400);
         bodies.add(body);
@@ -82,20 +79,25 @@ public class Physics {
         simulationPane.getChildren().add(new TetrisGround(block.getWidth() * 2, block.getHeight() * 2, (Color) block.getFill()));
     }
 
-    public void addTetrisShape(char type, TetrisBlock block, double x, double y, Label label) {
-        int value = Integer.valueOf(label.getText());
-        value += 10;
-        label.setText(String.valueOf(value));
+    public void addTetrisShape(char type, TetrisBlock block, double x, double y) {
         TetrisShapes shape = null;
         switch (type) {
-            case 'I' -> shape = TetrisShapes.Shape_I(new Polygon(block), x, y);
-            case 'J' -> shape = TetrisShapes.Shape_J(new Polygon(block), x, y);
-            case 'L' -> shape = TetrisShapes.Shape_L(new Polygon(block), x, y);
-            case 'O' -> shape = TetrisShapes.Shape_O(new Polygon(block), x, y);
-            case 'S' -> shape = TetrisShapes.Shape_S(new Polygon(block), x, y);
-            case 'T' -> shape = TetrisShapes.Shape_T(new Polygon(block), x, y);
-            case 'Z' -> shape = TetrisShapes.Shape_Z(new Polygon(block), x, y);
-            default -> System.out.println("Invalid shape type: " + type);
+            case 'I' ->
+                shape = TetrisShapes.Shape_I(new Polygon(block), x, y);
+            case 'J' ->
+                shape = TetrisShapes.Shape_J(new Polygon(block), x, y);
+            case 'L' ->
+                shape = TetrisShapes.Shape_L(new Polygon(block), x, y);
+            case 'O' ->
+                shape = TetrisShapes.Shape_O(new Polygon(block), x, y);
+            case 'S' ->
+                shape = TetrisShapes.Shape_S(new Polygon(block), x, y);
+            case 'T' ->
+                shape = TetrisShapes.Shape_T(new Polygon(block), x, y);
+            case 'Z' ->
+                shape = TetrisShapes.Shape_Z(new Polygon(block), x, y);
+            default ->
+                System.out.println("Invalid shape type: " + type);
         }
 
         Joint[] jointArray;
@@ -108,6 +110,16 @@ public class Physics {
             simulationPane.getChildren().add(new TetrisBlock(block.getWidth() * 2, block.getHeight() * 2, shape.getColor()));
         }
 
+    }
+
+    public ArrayList<Body> getBodies() {
+        return bodies;
+    }
+    public ArrayList<Rectangle> getBlocks() {
+         ArrayList<Rectangle> blocks = new ArrayList();
+         for(int i = 0; i<simulationPane.getChildren().size(); i++)
+         blocks.add((Rectangle) simulationPane.getChildren().get(i));
+        return blocks;
     }
 
     public void removeAll() {
@@ -130,14 +142,14 @@ public class Physics {
 
             double translatedX = (body.position.x - rectWidth / 2) + paneWidth / 2;
             double translatedY = paneHeight / 2 - (body.position.y + rectHeight / 2);
-
+            
             rect.setTranslateX(translatedX);
             rect.setTranslateY(translatedY);
             rect.setRotate(-Math.toDegrees(body.orientation));
 
             if (!body.isStatic()) {
                 for (Body staticBody : bodies) {
-                    if (staticBody != body && staticBody.isStatic() ) {
+                    if (staticBody != body && staticBody.isStatic()) {
                         if (AABB.AABBOverLap(body, staticBody)) {
                             System.out.println("Dynamic body collided with static body!");
                         }
@@ -147,22 +159,12 @@ public class Physics {
 
             if (translatedY > simulationPane.getHeight() + 150) {
                 bodies.remove(i);
-                stopPhysics();
-                lostVerifier = true;
                 simulationPane.getChildren().remove(i);
                 System.out.println("delete");
             }
         }
 
         step(1.0 / 60.0);
-    }
-
-    public boolean GameLostVerifier(){
-        if(lostVerifier == true){
-            lostVerifier = false;
-            return true;
-        }
-        return false;
     }
 
     public void setGravity(Vectors2D gravity) {
