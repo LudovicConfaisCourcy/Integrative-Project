@@ -3,7 +3,6 @@ package edu.vanier.template.controllers;
 import edu.vanier.template.MainApp;
 import edu.vanier.template.graphs.Graph1;
 import edu.vanier.template.physicalLaws.Physics;
-import edu.vanier.template.tetrisPieces.BlockState;
 import edu.vanier.template.tetrisPieces.TetrisBlock;
 import edu.vanier.template.tetrisPieces.TetrisGround;
 import java.io.IOException;

@@ -4,7 +4,6 @@
  */
 package edu.vanier.template.graphs;
 
-import edu.vanier.template.tetrisPieces.BlockState;
 import edu.vanier.template.tetrisPieces.TetrisBlock;
 import java.util.Collections;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -26,7 +25,7 @@ import javafx.scene.paint.Color;
 public class Graph1{
     
   
-    public Graph1 (TetrisBlock block, BlockState State){
+    public Graph1 (TetrisBlock block){
         
         
         ComboBox SwitchGraphCB = new ComboBox();
@@ -70,8 +69,6 @@ public class Graph1{
         chart1.setAnimated(false);
         chart2.setAnimated(false);
         chart3.setAnimated(false);
-
-        BlockState initialState = new BlockState(0, 0, 0, 0, 0, 0);
         
         chart1.getData().add(series1);
         chart2.getData().add(series2);
