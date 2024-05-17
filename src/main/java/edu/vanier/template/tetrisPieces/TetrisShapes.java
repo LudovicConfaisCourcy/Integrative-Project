@@ -24,9 +24,9 @@ public class TetrisShapes {
     private final JointToBody[] jointList;
     private final Color color;
 
-    private final static int length = 20;
+    private final static int length = 22;
     private final static int strength = 100;
-    private final static boolean slack = false;
+    private final static boolean slack = true;
 
     public TetrisShapes(Body[] bodyList, JointToBody[] jointList, Color color) {
         this.bodyList = bodyList;

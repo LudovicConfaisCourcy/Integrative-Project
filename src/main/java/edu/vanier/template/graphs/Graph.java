@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package edu.vanier.template.graphs;
 
 
@@ -17,16 +13,15 @@ import javafx.scene.chart.XYChart;
 import javafx.stage.Stage;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 
 /**
  *
  * @author 2163918
  */
-public class Graph1{
+public class Graph{
     
   
-    public Graph1 (){
+    public Graph (){
         
         
         ComboBox SwitchGraphCB = new ComboBox();

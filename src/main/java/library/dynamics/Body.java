@@ -52,13 +52,13 @@ public class Body{
         angularVelocity = 0;
         torque = 0;
 
-        restitution = 0.01;
+        restitution = 0.002;
 
-        staticFriction = 0.7;
-        dynamicFriction = 0.4;
+        staticFriction = 1;
+        dynamicFriction = 1;
 
         linearDampening = 0;
-        angularDampening = 0;
+        angularDampening = 0.2;
 
         orientation = 0;
         shape.orient.set(orientation);

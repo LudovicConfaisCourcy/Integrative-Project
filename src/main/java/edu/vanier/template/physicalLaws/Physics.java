@@ -17,12 +17,17 @@ import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
 import library.dynamics.Settings;
 import library.geometry.Polygon;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author Anton Lisunov
  */
 public class Physics {
+
+    private final static Logger logger = LoggerFactory.getLogger(Physics.class);
     boolean lostVerifier = false;
+    private int lifes = 12;
     private Pane simulationPane;
     private AnimationTimer physicsTimer;
     private Vectors2D gravity;
@@ -87,14 +92,22 @@ public class Physics {
         label.setText(String.valueOf(value));
         TetrisShapes shape = null;
         switch (type) {
-            case 'I' -> shape = TetrisShapes.Shape_I(new Polygon(block), x, y);
-            case 'J' -> shape = TetrisShapes.Shape_J(new Polygon(block), x, y);
-            case 'L' -> shape = TetrisShapes.Shape_L(new Polygon(block), x, y);
-            case 'O' -> shape = TetrisShapes.Shape_O(new Polygon(block), x, y);
-            case 'S' -> shape = TetrisShapes.Shape_S(new Polygon(block), x, y);
-            case 'T' -> shape = TetrisShapes.Shape_T(new Polygon(block), x, y);
-            case 'Z' -> shape = TetrisShapes.Shape_Z(new Polygon(block), x, y);
-            default -> System.out.println("Invalid shape type: " + type);
+            case 'I' ->
+                shape = TetrisShapes.Shape_I(new Polygon(block), x, y);
+            case 'J' ->
+                shape = TetrisShapes.Shape_J(new Polygon(block), x, y);
+            case 'L' ->
+                shape = TetrisShapes.Shape_L(new Polygon(block), x, y);
+            case 'O' ->
+                shape = TetrisShapes.Shape_O(new Polygon(block), x, y);
+            case 'S' ->
+                shape = TetrisShapes.Shape_S(new Polygon(block), x, y);
+            case 'T' ->
+                shape = TetrisShapes.Shape_T(new Polygon(block), x, y);
+            case 'Z' ->
+                shape = TetrisShapes.Shape_Z(new Polygon(block), x, y);
+            default ->
+                logger.info("Invalid shape type: " + type);
         }
 
         Joint[] jointArray;
@@ -112,12 +125,15 @@ public class Physics {
     public ArrayList<Body> getBodies() {
         return bodies;
     }
+
     public ArrayList<Rectangle> getBlocks() {
         ArrayList<Rectangle> blocks = new ArrayList();
-        for(int i = 0; i<simulationPane.getChildren().size(); i++)
+        for (int i = 0; i < simulationPane.getChildren().size(); i++) {
             blocks.add((Rectangle) simulationPane.getChildren().get(i));
+        }
         return blocks;
     }
+
     public void removeAll() {
         simulationPane.getChildren().removeIf(node -> node instanceof Rectangle);
         bodies.clear();
@@ -143,31 +159,35 @@ public class Physics {
             rect.setTranslateY(translatedY);
             rect.setRotate(-Math.toDegrees(body.orientation));
 
+            int pos = i;
             if (!body.isStatic()) {
                 for (Body staticBody : bodies) {
-                    if (staticBody != body && staticBody.isStatic() ) {
-                        if (AABB.AABBOverLap(body, staticBody)) {
-                            //System.out.println("Dynamic body collided with static body!");
-                            //To do
+                    if (staticBody != body && staticBody.isStatic()) {
+                        if (AABB.AABBOverLap(body, staticBody) && Math.abs(body.velocity.x) < 10 && Math.abs(body.velocity.y) < 10) {
+                            //Future Feature
+
                         }
                     }
                 }
             }
 
-            if (translatedY > simulationPane.getHeight() + 150) {
-               // bodies.remove(i);
-               // stopPhysics();
-                //lostVerifier = true;
-                //simulationPane.getChildren().remove(i);
-                //System.out.println("delete");
+            if (translatedY > simulationPane.getHeight() + 250) {
+                bodies.remove(i);
+                simulationPane.getChildren().remove(i);
+                lifes--;
+                if (lifes < 0) {
+                    lostVerifier = true;
+                    stopPhysics();
+                    removeAll();
+                }
             }
         }
 
         step(1.0 / 60.0);
     }
 
-    public boolean GameLostVerifier(){
-        if(lostVerifier == true){
+    public boolean GameLostVerifier() {
+        if (lostVerifier == true) {
             lostVerifier = false;
             return true;
         }
