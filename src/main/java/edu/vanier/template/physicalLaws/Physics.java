@@ -62,6 +62,7 @@ public class Physics {
     public void stopPhysics() {
         if (physicsTimer != null) {
             physicsTimer.stop();
+            
         }
     }
 
@@ -178,7 +179,6 @@ public class Physics {
                 if (lifes < 0) {
                     lostVerifier = true;
                     stopPhysics();
-                    removeAll();
                 }
             }
         }

@@ -128,6 +128,7 @@ public class FXMLPlayController {
         music.soundPlay();
         physics.stopPhysics();
         gameLogic.stopGame();
+        gameLogic.closeGraph();
 
 
     }
@@ -152,7 +153,7 @@ public class FXMLPlayController {
     private void handleBtnGraphics() {
         logger.info("Graphs button clicked");
         music.soundPlay();
-        Graph testGraph = new Graph();
+        gameLogic.summonGraph();
 
     }
 

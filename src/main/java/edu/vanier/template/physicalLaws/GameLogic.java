@@ -2,6 +2,7 @@ package edu.vanier.template.physicalLaws;
 
 import edu.vanier.template.controllers.FXMLMainAppController;
 import edu.vanier.template.controllers.FXMLPlayController;
+import edu.vanier.template.graphs.Graph;
 import edu.vanier.template.tetrisPieces.TetrisBlock;
 import java.util.ArrayList;
 import javafx.animation.AnimationTimer;
@@ -23,6 +24,8 @@ public class GameLogic {
     private final Physics physics;
     private final FXMLPlayController controller;
     private int rand;
+    private Body trackedBody;
+    private Graph graph;
 
     private AnimationTimer timer;
     private long lastSpawnTime;
@@ -97,7 +100,7 @@ public class GameLogic {
                 logger.info("Wrong Tetris Shape Number");
         }
 
-        for (int i = physics.getBodies().size()-4; i < physics.getBodies().size(); i += 4) {
+        for (int i = physics.getBodies().size() - 4; i < physics.getBodies().size(); i += 4) {
             ArrayList blocks = new ArrayList<>(physics.getBlocks().subList(i, i + 4));
             ArrayList<Body> bodies = new ArrayList<>(physics.getBodies().subList(i, i + 4));
 
@@ -135,6 +138,7 @@ public class GameLogic {
 
             block.setOnMouseReleased(event -> {
                 block.getScene().setCursor(Cursor.OPEN_HAND);
+
             });
         }
     }
@@ -142,12 +146,23 @@ public class GameLogic {
     private void handleMouseDragged(MouseEvent event, TetrisBlock block, Body[] bodies, Vectors2D[] differences, double paneWidthHalf, double paneHeightHalf) {
         bodies[0].position = new Vectors2D(event.getSceneX() - paneWidthHalf - block.getWidth() * 4, -event.getSceneY() + paneHeightHalf + block.getHeight() * 2);
         bodies[0].orientation = 0;
+        trackedBody = bodies[0];
         for (int j = 1; j <= 3; j++) {
             bodies[j].position = new Vectors2D(bodies[0].position.x + differences[j - 1].x, bodies[0].position.y + differences[j - 1].y);
             bodies[j].orientation = 0;
         }
 
         event.consume();
+    }
+
+    public void summonGraph() {
+        if (trackedBody != null) {
+            graph = new Graph(trackedBody);
+        }
+    }
+
+    public void closeGraph() {
+        graph.stopUpdates();
     }
 
 }

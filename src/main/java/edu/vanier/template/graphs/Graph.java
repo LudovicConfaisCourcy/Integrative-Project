@@ -1,8 +1,6 @@
 package edu.vanier.template.graphs;
 
 
-import edu.vanier.template.tetrisPieces.TetrisBlock;
-import java.util.Collections;
 import java.util.concurrent.atomic.AtomicInteger;
 import javafx.application.Platform;
 import javafx.geometry.Pos;
@@ -13,6 +11,8 @@ import javafx.scene.chart.XYChart;
 import javafx.stage.Stage;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.VBox;
+import library.dynamics.Body;
+import library.math.Vectors2D;
 
 /**
  *
@@ -20,8 +20,11 @@ import javafx.scene.layout.VBox;
  */
 public class Graph{
     
+    private Body targetBody;
+    
   
-    public Graph (){
+    public Graph (Body targetBody){
+        this.targetBody = targetBody;
         
         
         ComboBox SwitchGraphCB = new ComboBox();
@@ -125,7 +128,7 @@ public class Graph{
             while (true) {
                 try {
                     Thread.sleep(1000);
-                    Platform.runLater(() -> series.getData().add(new XYChart.Data<>(time.incrementAndGet()- 1, (int) (Math.random() * 100 ))));                   
+                    Platform.runLater(() -> series.getData().add(new XYChart.Data<>(time.incrementAndGet()- 1, (int) targetBody.position.length())));                   
                 }
                 catch (InterruptedException e) {
                     throw new RuntimeException(e);
@@ -144,7 +147,7 @@ public class Graph{
             while (true) {
                 try {
                     Thread.sleep(1000);
-                    Platform.runLater(() -> series.getData().add(new XYChart.Data<>(time.incrementAndGet()- 1, (int) (Math.random() * 100 ))));
+                    Platform.runLater(() -> series.getData().add(new XYChart.Data<>(time.incrementAndGet()- 1, (int) targetBody.velocity.length())));
                 }
                 catch (InterruptedException e) {
                     throw new RuntimeException(e);
@@ -163,7 +166,7 @@ public class Graph{
             while (true) {
                 try {
                     Thread.sleep(1000);
-                    Platform.runLater(() -> series.getData().add(new XYChart.Data<>(time.incrementAndGet()- 1, (int) (Math.random() * 100 ))));
+                    Platform.runLater(() -> series.getData().add(new XYChart.Data<>(time.incrementAndGet()- 1, (int) new Vectors2D(targetBody.force.x,targetBody.force.y).length())));
                 }
                 catch (InterruptedException e) {
                     throw new RuntimeException(e);
@@ -172,6 +175,15 @@ public class Graph{
         });
         updateThreadwithTime.setDaemon(true);
         updateThreadwithTime.start();
+    }
+    
+     public void stopUpdates() {
+        Thread.currentThread().interrupt();
+        Platform.exit();
+    }
+    
+    public void setBody(Body targetBody){
+        this.targetBody = targetBody;
     }
 
 }
