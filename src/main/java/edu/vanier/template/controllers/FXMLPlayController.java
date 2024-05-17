@@ -94,22 +94,10 @@ public class FXMLPlayController {
 
         physics = new Physics(pnBoard);
         for (int i = 0; i < 5; i++) {
-            physics.addGround(new TetrisGround(60, 40, Color.GREEN), 0, -150);
+
+            physics.addGround(new TetrisGround(60, 30, Color.GREEN), 0,  - 150);
         }
 
-
-        /*if(  this.position.x >= pnBoard.getWidth()  || pnBoard.getHeight() >= 100){
-            System.out.println("yes");
-        }*/
-        /*pnBoard.widthProperty().addListener((obs, oldWidth, newWidth) -> {
-            ground.setWidth(newWidth.doubleValue() * 0.5);
-            ground.setTranslateX(newWidth.doubleValue() * 0.25);
-        });
-
-        pnBoard.heightProperty().addListener((obs, oldHeight, newHeight) -> {
-            ground.setHeight(newHeight.doubleValue() * 0.3);
-            ground.setTranslateY(newHeight.doubleValue() * 0.9);
-        });*/
         setInvisible();
         music.musicPlay();
 
@@ -134,7 +122,7 @@ public class FXMLPlayController {
         physics.startPhysics();
 
         if(physics.GameLostVerifier() == true){
-            PlayScreenLabel.setText("!!You Lost!! Click Play to ReStart a Game");
+            PlayScreenLabel.setText("!!You Lost!! Click ReStart");
         }
         music.soundPlay();
         rand += 1;
