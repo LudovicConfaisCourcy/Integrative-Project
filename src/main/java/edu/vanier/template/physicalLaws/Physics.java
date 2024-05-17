@@ -13,7 +13,6 @@ import library.joints.Joint;
 import library.math.Vectors2D;
 import java.util.ArrayList;
 import java.util.Arrays;
-import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
 import library.dynamics.Settings;
@@ -148,18 +147,19 @@ public class Physics {
                 for (Body staticBody : bodies) {
                     if (staticBody != body && staticBody.isStatic() ) {
                         if (AABB.AABBOverLap(body, staticBody)) {
-                            System.out.println("Dynamic body collided with static body!");
+                            //System.out.println("Dynamic body collided with static body!");
+                            //To do
                         }
                     }
                 }
             }
 
             if (translatedY > simulationPane.getHeight() + 150) {
-                bodies.remove(i);
-                stopPhysics();
-                lostVerifier = true;
-                simulationPane.getChildren().remove(i);
-                System.out.println("delete");
+               // bodies.remove(i);
+               // stopPhysics();
+                //lostVerifier = true;
+                //simulationPane.getChildren().remove(i);
+                //System.out.println("delete");
             }
         }
 

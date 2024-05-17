@@ -1,4 +1,5 @@
 package edu.vanier.template.controllers;
+
 import javafx.scene.paint.Color;
 import library.dynamics.Body;
 import library.geometry.Polygon;
@@ -32,6 +33,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.Border;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -89,6 +91,7 @@ public class FXMLPlayController {
     Label PlayScreenLabel;
     double width;
     double height;
+
     @FXML
     public void initialize() {
 
@@ -97,25 +100,12 @@ public class FXMLPlayController {
             physics.addGround(new TetrisGround(60, 40, Color.GREEN), 0, -150);
         }
 
-
-        /*if(  this.position.x >= pnBoard.getWidth()  || pnBoard.getHeight() >= 100){
-            System.out.println("yes");
-        }*/
-        /*pnBoard.widthProperty().addListener((obs, oldWidth, newWidth) -> {
-            ground.setWidth(newWidth.doubleValue() * 0.5);
-            ground.setTranslateX(newWidth.doubleValue() * 0.25);
-        });
-
-        pnBoard.heightProperty().addListener((obs, oldHeight, newHeight) -> {
-            ground.setHeight(newHeight.doubleValue() * 0.3);
-            ground.setTranslateY(newHeight.doubleValue() * 0.9);
-        });*/
         setInvisible();
         music.musicPlay();
 
     }
 
-    public void setInvisible(){
+    public void setInvisible() {
         GroupSquareBlock.setVisible(false);
         GroupLBlock1.setVisible(false);
         GroupSBlock1.setVisible(false);
@@ -127,13 +117,12 @@ public class FXMLPlayController {
 
     @FXML
     private void handleBtnPlay() throws IOException {
-    
 
         logger.info("Start button clicked");
         PlayScreenLabel.setText("Click Stop to Pause the Game");
         physics.startPhysics();
 
-        if(physics.GameLostVerifier() == true){
+        if (physics.GameLostVerifier() == true) {
             PlayScreenLabel.setText("!!You Lost!! Click Play to ReStart a Game");
         }
         music.soundPlay();
@@ -141,36 +130,44 @@ public class FXMLPlayController {
         rand %= 7;
         System.out.println(rand);
 
-        switch(rand){
-            case 0 : physics.addTetrisShape('I', new TetrisBlock(10, 10, Color.RED), 0, 150, lbScore);
+        switch (rand) {
+            case 0:
+                physics.addTetrisShape('I', new TetrisBlock(10, 10, Color.RED), 0, 150, lbScore);
                 setInvisible();
                 GroupLBlock1.setVisible(true);
                 break;
-            case 1 : physics.addTetrisShape('L', new TetrisBlock(10, 10, Color.RED), 0, 150, lbScore);
+            case 1:
+                physics.addTetrisShape('L', new TetrisBlock(10, 10, Color.RED), 0, 150, lbScore);
                 setInvisible();
                 GroupJBlock.setVisible(true);
                 break;
-            case 2 : physics.addTetrisShape('J', new TetrisBlock(10, 10, Color.RED), 0, 150,lbScore);
+            case 2:
+                physics.addTetrisShape('J', new TetrisBlock(10, 10, Color.RED), 0, 150, lbScore);
                 setInvisible();
                 GroupTBlock.setVisible(true);
                 break;
-            case 3 : physics.addTetrisShape('T', new TetrisBlock(10, 10, Color.RED), 0, 150,lbScore);
+            case 3:
+                physics.addTetrisShape('T', new TetrisBlock(10, 10, Color.RED), 0, 150, lbScore);
                 setInvisible();
                 GroupSquareBlock.setVisible(true);
                 break;
-            case 4 : physics.addTetrisShape('O', new TetrisBlock(10, 10, Color.RED), 0, 150,lbScore);
+            case 4:
+                physics.addTetrisShape('O', new TetrisBlock(10, 10, Color.RED), 0, 150, lbScore);
                 setInvisible();
                 GroupSBlock1.setVisible(true);
                 break;
-            case 5 : physics.addTetrisShape('S', new TetrisBlock(10, 10, Color.RED), 0, 150,lbScore);
+            case 5:
+                physics.addTetrisShape('S', new TetrisBlock(10, 10, Color.RED), 0, 150, lbScore);
                 setInvisible();
                 GroupZBlock.setVisible(true);
                 break;
-            case 6 : physics.addTetrisShape('Z', new TetrisBlock(10, 10, Color.RED), 0, 150,lbScore);
+            case 6:
+                physics.addTetrisShape('Z', new TetrisBlock(10, 10, Color.RED), 0, 150, lbScore);
                 setInvisible();
                 GroupLineBlock1.setVisible(true);
                 break;
-            default : System.out.println("error");
+            default:
+                System.out.println("error");
         }
 
         for (int i = 5; i < physics.getBodies().size(); i += 4) {
@@ -179,53 +176,6 @@ public class FXMLPlayController {
 
             moveBlock(blocks, bodies);
         }
-
-        /*BlockState initialState = new BlockState((int) pnBoard.getWidth() / 2 - 15, 0, 0, 0, 0, 0);
-        TetrisBlock block = new TetrisBlock(initialState, Color.RED);
-        pnBoard.getChildren().add(block);
-        CursorChangeBlock(block);
-        MoveBlock(block);
-        
-        Stage gameStage = (Stage) btnPlay.getScene().getWindow();
-        
-        EventHandler start_movement = (EventHandler<KeyEvent>) (KeyEvent event) -> {
-            //block rotation
-            if(KeyCode.F == event.getCode()){
-               physics.stopPhysics();
-               RotateBlock45(block);
-            }
-            if(KeyCode.G == event.getCode()){
-               physics.stopPhysics();
-               RotateBlock90(block);
-            }
-            //block movement
-            /*if(KeyCode.A == event.getCode()){
-               block.getCurrentState().setPosX(block.getCurrentState().getPosX() - 10);
-            }
-            if(KeyCode.S == event.getCode()){
-               block.getCurrentState().setPosY(block.getCurrentState().getPosY() + 10);
-            }
-            if(KeyCode.D == event.getCode()){
-               block.getCurrentState().setPosX(block.getCurrentState().getPosX() + 10);
-            }
-        };
-        gameStage.getScene().setOnKeyPressed(start_movement);*/
-        
-       /* EventHandler stop_movement = (EventHandler<KeyEvent>) (KeyEvent event) -> {
-            //block rotation
-            if(KeyCode.F == event.getCode()){
-               physics.startPhysics();
-               StopRotateBlock(block);
-            }
-            if(KeyCode.G == event.getCode()){
-               physics.startPhysics();
-               StopRotateBlock(block);
-            }
-        };
-        gameStage.getScene().setOnKeyReleased(stop_movement);*/
-        
-        //Load
-        //load();  
 
     }
 
@@ -273,7 +223,7 @@ public class FXMLPlayController {
         Scene scene = new Scene(loader.load());
         currentStage.setScene(scene);
         music.musicStop();
-        
+
         //Save
         save();
 
@@ -308,118 +258,93 @@ public class FXMLPlayController {
             logger.error(ex.getMessage());
         }
     }
+
     public void moveBlock(ArrayList<Rectangle> blocks, ArrayList<Body> bodies) {
+
         double paneWidth = 400;
         double paneHeight = 380;
+        double paneWidthHalf = paneWidth / 2;
+        double paneHeightHalf = paneHeight / 2;
 
         for (int i = 0; i < blocks.size(); i++) {
             Rectangle block = blocks.get(i);
-            Body body1 = bodies.get(i);
-            Body body2 = bodies.get(Math.abs(i + 1 - 4));
-            Body body3 = bodies.get(Math.abs(i + 2 - 4));
-            Body body4 = bodies.get(Math.abs(i + 3 - 4));
+            Body[] relevantBodies = new Body[4];
+            Vectors2D[] differences = new Vectors2D[3];
 
-            Vectors2D difference2 = body2.position.subtract(body1.position);
-            Vectors2D difference3 = body3.position.subtract(body1.position);
-            Vectors2D difference4 = body4.position.subtract(body1.position);
+            relevantBodies[0] = bodies.get(i);
+            for (int j = 1; j <= 3; j++) {
+                int index = (i + j) % bodies.size();
+                relevantBodies[j] = bodies.get(index);
+                differences[j - 1] = relevantBodies[j].position.subtract(relevantBodies[0].position);
+            }
 
-            if (!body1.isStatic()) {
+            if (!relevantBodies[0].isStatic()) {
                 block.setOnMousePressed(event -> {
-                    BorderPane.setCursor(Cursor.CLOSED_HAND);
+                    block.getScene().setCursor(Cursor.CLOSED_HAND);
                 });
             }
 
             block.setOnMouseDragged(event -> {
-                body1.position = new Vectors2D(event.getSceneX() - paneWidth / 2 - block.getWidth() * 4,
-                        -event.getSceneY() + paneHeight / 2 + block.getHeight() * 2);
-
-                body2.position = new Vectors2D(body1.position.x+difference2.x, body1.position.y+difference2.y);
-                body3.position = new Vectors2D(body1.position.x+difference3.x, body1.position.y+difference3.y);
-                body4.position = new Vectors2D(body1.position.x+difference4.x, body1.position.y+difference4.y);
-
-                event.consume();
-
+                handleMouseDragged(event, block, relevantBodies, differences, paneWidthHalf, paneHeightHalf);
             });
 
             block.setOnMouseReleased(event -> {
-                BorderPane.setCursor(Cursor.OPEN_HAND);
+                block.getScene().setCursor(Cursor.OPEN_HAND);
             });
         }
-
-    }
-    public void MoveBlock(TetrisBlock block) {
-
-        /* block.setOnMousePressed(event -> {
-
-            BlockState state = new BlockState(block.getCurrentState().getPosX(), block.getCurrentState().getPosY(), block.getCurrentState().getSpeedX(), block.getCurrentState().getSpeedY(), 0, 0);
-            block.addBlockState(state);
-            BorderPane.setCursor(Cursor.CLOSED_HAND);
-        });
-
-        block.setOnMouseDragged(event -> {
-
-            block.setManaged(false);
-            BlockState state = new BlockState(event.getX() + block.getCurrentState().getPosX() - block.getWidth() / 2, event.getY() + block.getCurrentState().getPosY() - block.getHeight() / 2, block.getCurrentState().getSpeedX(), block.getCurrentState().getSpeedY(), 0, 0);
-            block.addBlockState(state);
-            event.consume();
-            physics.stopPhysics();
-        });
-
-        block.setOnMouseReleased(event -> {
-
-            // Calculate velocity based on the change in position
-            double speedX = (block.getCurrentState().getPosX() - block.getPreviousState().getPosX()) / 0.16;
-            double speedY = (block.getCurrentState().getPosY() - block.getPreviousState().getPosY()) / 0.16;
-            BlockState state = new BlockState(block.getCurrentState().getPosX(), block.getCurrentState().getPosY(), speedX, speedY, 0, 0);
-            block.addBlockState(state);
-            physics.startPhysics();
-            BorderPane.setCursor(Cursor.OPEN_HAND);
-            // Start physics simulation
-        });
-         */
     }
 
-    
+    private void handleMouseDragged(MouseEvent event, Rectangle block, Body[] bodies, Vectors2D[] differences, double paneWidthHalf, double paneHeightHalf) {
+        bodies[0].position = new Vectors2D(event.getSceneX() - paneWidthHalf - block.getWidth() * 4, -event.getSceneY() + paneHeightHalf + block.getHeight() * 2);
+        bodies[0].orientation = 0;
+        for (int j = 1; j <= 3; j++) {
+            bodies[j].position = new Vectors2D(bodies[0].position.x + differences[j - 1].x, bodies[0].position.y + differences[j - 1].y);
+            bodies[j].orientation = 0;
+        }
+
+        event.consume();
+    }
+
     public void RotateBlock45(TetrisBlock block) {
-    
-    block.setOnMousePressed(event -> {
-        block.setRotate(block.getRotate() + 45);
-    });
-    
-    block.setOnScroll(event -> {
-        block.setRotate(block.getRotate() + 45);
-    });
-    
+
+        block.setOnMousePressed(event -> {
+            block.setRotate(block.getRotate() + 45);
+        });
+
+        block.setOnScroll(event -> {
+            block.setRotate(block.getRotate() + 45);
+        });
+
     }
-    
+
     public void RotateBlock90(TetrisBlock block) {
-    
-    block.setOnMousePressed(event -> {
-        block.setRotate(block.getRotate() + 90);
-    });
-    
-    block.setOnScroll(event -> {
-        block.setRotate(block.getRotate() + 90);
-    });
-    
+
+        block.setOnMousePressed(event -> {
+            block.setRotate(block.getRotate() + 90);
+        });
+
+        block.setOnScroll(event -> {
+            block.setRotate(block.getRotate() + 90);
+        });
+
     }
-       
-    public void StopRotateBlock (TetrisBlock block) {
-    
-    block.setOnMousePressed(event -> {
-        block.setRotate(block.getRotate());
-    });
-   
-    block.setOnScroll(event -> {
-        block.setRotate(block.getRotate());
-    });
+
+    public void StopRotateBlock(TetrisBlock block) {
+
+        block.setOnMousePressed(event -> {
+            block.setRotate(block.getRotate());
+        });
+
+        block.setOnScroll(event -> {
+            block.setRotate(block.getRotate());
+        });
     }
-    
+
     //Help using "https://stackoverflow.com/questions/64824378/save-load-a-pane-drawing-on-javafx"
     private static final java.nio.file.Path SAVE_FILE_LOCATION = Paths.get(System.getProperty("user.home"), "pnBoard.xml");
-    
+
     public void save() throws IOException {
-        try (XMLEncoder encoder = new XMLEncoder( new BufferedOutputStream(Files.newOutputStream(SAVE_FILE_LOCATION)))) {
+        try (XMLEncoder encoder = new XMLEncoder(new BufferedOutputStream(Files.newOutputStream(SAVE_FILE_LOCATION)))) {
 
             encoder.setExceptionListener(e -> {
                 throw new RuntimeException(e);
@@ -428,26 +353,17 @@ public class FXMLPlayController {
             encoder.writeObject(pnBoard.getChildren().toArray(new Node[0]));
         }
     }
+
     public void load() throws IOException {
-        try (XMLDecoder decoder = new XMLDecoder( new BufferedInputStream(Files.newInputStream(SAVE_FILE_LOCATION)))) {
+        try (XMLDecoder decoder = new XMLDecoder(new BufferedInputStream(Files.newInputStream(SAVE_FILE_LOCATION)))) {
 
-        decoder.setExceptionListener(e -> {
-            throw new RuntimeException(e);
-        });
+            decoder.setExceptionListener(e -> {
+                throw new RuntimeException(e);
+            });
 
-        pnBoard.getChildren().setAll((Node[]) decoder.readObject());
+            pnBoard.getChildren().setAll((Node[]) decoder.readObject());
+        }
     }
-    }
-    /*
-     Alert alert = new Alert(AlertType.INFORMATION);
-            alert.setTitle("Block Information");
-            alert.setHeaderText(null);
-            alert.setContentText("Position: (" + posX + ", " + posY + ")\n"
-                    + "Speed: (" + speedX + ", " + speedY + ")\n"
-                    + "Acceleration: (" + accelerationX + ", " + accelerationY + ")");
-            alert.showAndWait();
-    */
-
 
     @FXML
     private void CursorChange() {
